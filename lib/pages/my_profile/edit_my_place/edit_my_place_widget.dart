@@ -386,12 +386,44 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onLongPress: () async {
-                                          await editMyPlacePlacesRecord!
-                                              .reference
-                                              .update({
-                                            'photos': FieldValue.arrayRemove(
-                                                [photoItem]),
-                                          });
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'Видалення фотографії'),
+                                                        content: Text(
+                                                            'Ти дійсно хочете видалити цю фотографію твого кабінету'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child: Text('Ні'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child: Text('Так'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            await editMyPlacePlacesRecord!
+                                                .reference
+                                                .update({
+                                              'photos': FieldValue.arrayRemove(
+                                                  [photoItem]),
+                                            });
+                                          }
                                         },
                                         child: ClipRRect(
                                           borderRadius:
