@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/add_client/add_client_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:text_search/text_search.dart';
 import 'add_client_towindow_sheet_model.dart';
 export 'add_client_towindow_sheet_model.dart';
 
@@ -102,372 +105,602 @@ class _AddClientTowindowSheetWidgetState
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (valueOrDefault<bool>(
-                        currentUserDocument?.isMaster, false) ==
-                    true)
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                    child: AuthUserStreamWidget(
-                      builder: (context) => Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        elevation: 4.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20.0),
-                            bottomRight: Radius.circular(20.0),
-                            topLeft: Radius.circular(50.0),
-                            topRight: Radius.circular(50.0),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
+                        topLeft: Radius.circular(50.0),
+                        topRight: Radius.circular(50.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Divider(
+                            thickness: 2.0,
+                            color: FlutterFlowTheme.of(context).gray600,
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              5.0, 5.0, 5.0, 5.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Divider(
-                                thickness: 2.0,
-                                color: FlutterFlowTheme.of(context).gray600,
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 10.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        '${functions.getUkrainianDate(dateTimeFormat(
-                                          'd/M',
-                                          columnAppointmentsRecord.timeStart,
-                                          locale: FFLocalizations.of(context)
-                                              .languageCode,
-                                        ))} ${dateTimeFormat(
-                                          'Hm',
-                                          columnAppointmentsRecord.timeStart,
-                                          locale: FFLocalizations.of(context)
-                                              .languageCode,
-                                        )}',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto',
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 10.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    '${functions.getUkrainianDate(dateTimeFormat(
+                                      'd/M',
+                                      columnAppointmentsRecord.timeStart,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    ))} ${dateTimeFormat(
+                                      'Hm',
+                                      columnAppointmentsRecord.timeStart,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    )}',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            thickness: 2.0,
+                            color: FlutterFlowTheme.of(context).gray600,
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              final _datePickedTime = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.fromDateTime(
+                                    columnAppointmentsRecord.timeStart!),
+                              );
+                              if (_datePickedTime != null) {
+                                setState(() {
+                                  _model.datePicked = DateTime(
+                                    columnAppointmentsRecord.timeStart!.year,
+                                    columnAppointmentsRecord.timeStart!.month,
+                                    columnAppointmentsRecord.timeStart!.day,
+                                    _datePickedTime.hour,
+                                    _datePickedTime.minute,
+                                  );
+                                });
+                              }
+
+                              await widget.appointmentREF!
+                                  .update(createAppointmentsRecordData(
+                                timeStart: _model.datePicked,
+                              ));
+                            },
+                            child: Text(
+                              'змінити час',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context).accent1,
+                                  ),
+                            ),
+                          ),
+                          if (!columnAppointmentsRecord.withTempUser)
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                if (columnAppointmentsRecord.clientREF != null)
+                                  StreamBuilder<UsersRecord>(
+                                    stream: UsersRecord.getDocument(
+                                        columnAppointmentsRecord.clientREF!),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: SpinKitRing(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold,
+                                                      .primary,
+                                              size: 50.0,
                                             ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Divider(
-                                thickness: 2.0,
-                                color: FlutterFlowTheme.of(context).gray600,
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  final _datePickedTime = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.fromDateTime(
-                                        columnAppointmentsRecord.timeStart!),
-                                  );
-                                  if (_datePickedTime != null) {
-                                    setState(() {
-                                      _model.datePicked = DateTime(
-                                        columnAppointmentsRecord
-                                            .timeStart!.year,
-                                        columnAppointmentsRecord
-                                            .timeStart!.month,
-                                        columnAppointmentsRecord.timeStart!.day,
-                                        _datePickedTime.hour,
-                                        _datePickedTime.minute,
-                                      );
-                                    });
-                                  }
-
-                                  await widget.appointmentREF!
-                                      .update(createAppointmentsRecordData(
-                                    timeStart: _model.datePicked,
-                                  ));
-                                },
-                                child: Text(
-                                  'змінити час',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent1,
-                                      ),
-                                ),
-                              ),
-                              if (columnAppointmentsRecord.clientREF != null)
-                                StreamBuilder<UsersRecord>(
-                                  stream: UsersRecord.getDocument(
-                                      columnAppointmentsRecord.clientREF!),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: SpinKitRing(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 50.0,
                                           ),
-                                        ),
-                                      );
-                                    }
-                                    final containerUsersRecord = snapshot.data!;
-                                    return Container(
-                                      height: 50.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        border: Border.all(
+                                        );
+                                      }
+                                      final containerUsersRecord =
+                                          snapshot.data!;
+                                      return Container(
+                                        height: 50.0,
+                                        decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                          ),
                                         ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            child: Image.network(
-                                              containerUsersRecord.photoUrl,
-                                              width: 40.0,
-                                              height: 40.0,
-                                              fit: BoxFit.cover,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              child: Image.network(
+                                                containerUsersRecord.photoUrl,
+                                                width: 40.0,
+                                                height: 40.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Text(
+                                              containerUsersRecord.displayName,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
+                                            Text(
+                                              containerUsersRecord.phoneNumber,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
+                                          ]
+                                              .divide(SizedBox(width: 10.0))
+                                              .addToStart(
+                                                  SizedBox(width: 10.0)),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                if (columnAppointmentsRecord.clientREF == null)
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 5.0, 0.0, 0.0),
+                                        child: TextFormField(
+                                          controller:
+                                              _model.newClientPhoneController,
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            '_model.newClientPhoneController',
+                                            Duration(milliseconds: 500),
+                                            () async {
+                                              // searchUser
+                                              setState(() => _model
+                                                  .algoliaSearchResults = null);
+                                              await UsersRecord.search(
+                                                term: _model
+                                                    .newClientPhoneController
+                                                    .text,
+                                                maxResults: 5,
+                                              )
+                                                  .then((r) => _model
+                                                      .algoliaSearchResults = r)
+                                                  .onError((_, __) => _model
+                                                          .algoliaSearchResults =
+                                                      [])
+                                                  .whenComplete(
+                                                      () => setState(() {}));
+
+                                              await queryTempUsersRecordOnce()
+                                                  .then(
+                                                    (records) => _model
+                                                            .simpleSearchResults =
+                                                        TextSearch(
+                                                      records
+                                                          .map(
+                                                            (record) =>
+                                                                TextSearchItem(
+                                                                    record, [
+                                                              record
+                                                                  .displayName!,
+                                                              record
+                                                                  .phoneNumber!
+                                                            ]),
+                                                          )
+                                                          .toList(),
+                                                    )
+                                                            .search(_model
+                                                                .newClientPhoneController
+                                                                .text)
+                                                            .map(
+                                                                (r) => r.object)
+                                                            .toList(),
+                                                  )
+                                                  .onError((_, __) => _model
+                                                      .simpleSearchResults = [])
+                                                  .whenComplete(
+                                                      () => setState(() {}));
+                                            },
+                                          ),
+                                          autofocus: true,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'Введіть Ім\'я або телефон Клієнта',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .override(
+                                                      fontFamily: 'Roboto',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
+                                                      fontSize: 16.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiary,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            prefixIcon: Icon(
+                                              Icons.phone,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                             ),
                                           ),
-                                          Text(
-                                            containerUsersRecord.displayName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                          Text(
-                                            containerUsersRecord.phoneNumber,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                        ]
-                                            .divide(SizedBox(width: 10.0))
-                                            .addToStart(SizedBox(width: 10.0)),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              if (columnAppointmentsRecord.clientREF == null)
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 5.0, 0.0, 0.0),
-                                      child: TextFormField(
-                                        controller:
-                                            _model.newClientPhoneController,
-                                        onChanged: (_) => EasyDebounce.debounce(
-                                          '_model.newClientPhoneController',
-                                          Duration(milliseconds: 500),
-                                          () async {
-                                            setState(() => _model
-                                                .algoliaSearchResults = null);
-                                            await UsersRecord.search(
-                                              term: _model
-                                                  .newClientPhoneController
-                                                  .text,
-                                              maxResults: 5,
-                                            )
-                                                .then((r) => _model
-                                                    .algoliaSearchResults = r)
-                                                .onError((_, __) => _model
-                                                    .algoliaSearchResults = [])
-                                                .whenComplete(
-                                                    () => setState(() {}));
-                                          },
-                                        ),
-                                        autofocus: true,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          hintText:
-                                              'Введіть Ім\'я або телефон Клієнта',
-                                          hintStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodySmall
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
                                               .override(
                                                 fontFamily: 'Roboto',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .tertiary,
-                                                fontSize: 16.0,
                                               ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          prefixIcon: Icon(
-                                            Icons.phone,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
+                                          validator: _model
+                                              .newClientPhoneControllerValidator
+                                              .asValidator(context),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                            ),
-                                        validator: _model
-                                            .newClientPhoneControllerValidator
-                                            .asValidator(context),
                                       ),
-                                    ),
-                                    Builder(
-                                      builder: (context) {
-                                        if (_model.algoliaSearchResults
-                                                ?.where((e) => e.isClient)
-                                                .toList()
-                                                ?.take(5)
-                                                .toList() ==
-                                            null) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: SpinKitRing(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 50.0,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final name = _model.algoliaSearchResults
-                                                ?.where((e) => e.isClient)
-                                                .toList()
-                                                ?.take(5)
-                                                .toList()
-                                                ?.toList() ??
-                                            [];
-                                        return ListView.separated(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: name.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 10.0),
-                                          itemBuilder: (context, nameIndex) {
-                                            final nameItem = name[nameIndex];
-                                            return Container(
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
+                                      Builder(
+                                        builder: (context) {
+                                          if (_model.algoliaSearchResults
+                                                  ?.where((e) => e.isClient)
+                                                  .toList()
+                                                  ?.take(5)
+                                                  .toList() ==
+                                              null) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child: SpinKitRing(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondaryText,
+                                                      .primary,
+                                                  size: 50.0,
                                                 ),
                                               ),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await widget.appointmentREF!
-                                                      .update(
-                                                          createAppointmentsRecordData(
-                                                    clientREF:
-                                                        nameItem.reference,
-                                                  ));
-                                                  setState(() {
-                                                    _model
-                                                        .newClientPhoneController
-                                                        ?.clear();
-                                                  });
-                                                },
+                                            );
+                                          }
+                                          final name = _model
+                                                  .algoliaSearchResults
+                                                  ?.where((e) => e.isClient)
+                                                  .toList()
+                                                  ?.take(5)
+                                                  .toList()
+                                                  ?.toList() ??
+                                              [];
+                                          return ListView.separated(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: name.length,
+                                            separatorBuilder: (_, __) =>
+                                                SizedBox(height: 10.0),
+                                            itemBuilder: (context, nameIndex) {
+                                              final nameItem = name[nameIndex];
+                                              return Container(
+                                                height: 50.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  border: Border.all(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                  ),
+                                                ),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await widget.appointmentREF!
+                                                        .update(
+                                                            createAppointmentsRecordData(
+                                                      clientREF:
+                                                          nameItem.reference,
+                                                    ));
+                                                    setState(() {
+                                                      _model
+                                                          .newClientPhoneController
+                                                          ?.clear();
+                                                    });
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                        child: Image.network(
+                                                          nameItem.photoUrl,
+                                                          width: 40.0,
+                                                          height: 40.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        nameItem.displayName,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                      Text(
+                                                        nameItem.phoneNumber,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                    ]
+                                                        .divide(SizedBox(
+                                                            width: 10.0))
+                                                        .addToStart(SizedBox(
+                                                            width: 10.0)),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      Builder(
+                                        builder: (context) {
+                                          final tempName = _model
+                                              .simpleSearchResults
+                                              .take(5)
+                                              .toList();
+                                          return ListView.separated(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: tempName.length,
+                                            separatorBuilder: (_, __) =>
+                                                SizedBox(height: 10.0),
+                                            itemBuilder:
+                                                (context, tempNameIndex) {
+                                              final tempNameItem =
+                                                  tempName[tempNameIndex];
+                                              return Container(
+                                                height: 50.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  border: Border.all(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                  ),
+                                                ),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await widget.appointmentREF!
+                                                        .update(
+                                                            createAppointmentsRecordData(
+                                                      withTempUser: true,
+                                                      tempUserREF: tempNameItem
+                                                          .reference,
+                                                    ));
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Container(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .error,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        tempNameItem
+                                                            .displayName,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                      Text(
+                                                        tempNameItem
+                                                            .phoneNumber,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                    ]
+                                                        .divide(SizedBox(
+                                                            width: 10.0))
+                                                        .addToStart(SizedBox(
+                                                            width: 10.0)),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      if (_model.newClientPhoneController
+                                                  .text !=
+                                              null &&
+                                          _model.newClientPhoneController
+                                                  .text !=
+                                              '')
+                                        Builder(
+                                          builder: (context) => Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 10.0, 0.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                await showAlignedDialog(
+                                                  context: context,
+                                                  isGlobal: true,
+                                                  avoidOverflow: false,
+                                                  targetAnchor:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  followerAnchor:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  builder: (dialogContext) {
+                                                    return Material(
+                                                      color: Colors.transparent,
+                                                      child: AddClientWidget(),
+                                                    );
+                                                  },
+                                                ).then(
+                                                    (value) => setState(() {}));
+
+                                                await widget.appointmentREF!.update(
+                                                    createAppointmentsRecordData(
+                                                  withTempUser: true,
+                                                  tempUserREF: FFAppState()
+                                                      .tempClientRef,
+                                                ));
+                                              },
+                                              child: Container(
+                                                height: 50.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  border: Border.all(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                  ),
+                                                ),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image.network(
-                                                        nameItem.photoUrl,
-                                                        width: 40.0,
-                                                        height: 40.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
                                                     Text(
-                                                      nameItem.displayName,
+                                                      '+ ',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .bodyMedium,
                                                     ),
                                                     Text(
-                                                      nameItem.phoneNumber,
+                                                      'Додати нового клієнта',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -480,130 +713,131 @@ class _AddClientTowindowSheetWidgetState
                                                           width: 10.0)),
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    if (_model.newClientPhoneController.text !=
-                                            null &&
-                                        _model.newClientPhoneController.text !=
-                                            '')
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 10.0, 0.0, 0.0),
-                                        child: Container(
-                                          height: 50.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
                                             ),
                                           ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                '+ ',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                              Text(
-                                                'Додати нового клієнта',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                            ]
-                                                .divide(SizedBox(width: 10.0))
-                                                .addToStart(
-                                                    SizedBox(width: 10.0)),
-                                          ),
+                                        ),
+                                    ],
+                                  ),
+                              ],
+                            ),
+                          Divider(
+                            thickness: 2.0,
+                            color: FlutterFlowTheme.of(context).gray600,
+                          ),
+                          if (columnAppointmentsRecord.withTempUser)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: StreamBuilder<TempUsersRecord>(
+                                stream: TempUsersRecord.getDocument(
+                                    columnAppointmentsRecord.tempUserREF!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitRing(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 50.0,
                                         ),
                                       ),
-                                  ],
-                                ),
-                              Divider(
-                                thickness: 2.0,
-                                color: FlutterFlowTheme.of(context).gray600,
-                              ),
-                              Builder(
-                                builder: (context) {
-                                  final category = (currentUserDocument
-                                              ?.favoriteCategories
-                                              ?.toList() ??
-                                          [])
-                                      .map((e) => e)
-                                      .toList();
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: List.generate(category.length,
-                                        (categoryIndex) {
-                                      final categoryItem =
-                                          category[categoryIndex];
-                                      return Theme(
-                                        data: ThemeData(
-                                          unselectedWidgetColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .tertiary,
-                                        ),
-                                        child: CheckboxListTile(
-                                          value: _model
-                                                      .checkboxListTileValueMap[
-                                                  categoryItem] ??=
-                                              (currentUserDocument
-                                                              ?.favoriteCategories
-                                                              ?.toList() ??
-                                                          [])
-                                                      .contains(categoryItem) ==
-                                                  false,
-                                          onChanged: (newValue) async {
-                                            setState(() =>
-                                                _model.checkboxListTileValueMap[
-                                                    categoryItem] = newValue!);
-                                          },
-                                          title: Text(
-                                            categoryItem,
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineSmall
-                                                .override(
-                                                  fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontSize: 16.0,
-                                                ),
-                                          ),
-                                          tileColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          activeColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          checkColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          dense: false,
-                                          controlAffinity:
-                                              ListTileControlAffinity.trailing,
-                                        ),
-                                      );
-                                    }),
+                                    );
+                                  }
+                                  final rowTempUsersRecord = snapshot.data!;
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        rowTempUsersRecord.displayName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                      Text(
+                                        rowTempUsersRecord.phoneNumber,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ]
+                                        .divide(SizedBox(width: 10.0))
+                                        .addToStart(SizedBox(width: 10.0)),
                                   );
                                 },
                               ),
-                            ],
+                            ),
+                          AuthUserStreamWidget(
+                            builder: (context) => Builder(
+                              builder: (context) {
+                                final category = (currentUserDocument
+                                            ?.favoriteCategories
+                                            ?.toList() ??
+                                        [])
+                                    .map((e) => e)
+                                    .toList();
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: List.generate(category.length,
+                                      (categoryIndex) {
+                                    final categoryItem =
+                                        category[categoryIndex];
+                                    return Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor:
+                                            FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                      ),
+                                      child: CheckboxListTile(
+                                        value: _model.checkboxListTileValueMap[
+                                                categoryItem] ??=
+                                            (currentUserDocument
+                                                            ?.favoriteCategories
+                                                            ?.toList() ??
+                                                        [])
+                                                    .contains(categoryItem) ==
+                                                false,
+                                        onChanged: (newValue) async {
+                                          setState(() =>
+                                              _model.checkboxListTileValueMap[
+                                                  categoryItem] = newValue!);
+                                        },
+                                        title: Text(
+                                          categoryItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineSmall
+                                              .override(
+                                                fontFamily: 'Roboto',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 16.0,
+                                              ),
+                                        ),
+                                        tileColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        activeColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                        checkColor: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        dense: false,
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                      ),
+                                    );
+                                  }),
+                                );
+                              },
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ),
+                ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: StreamBuilder<List<TempUsersRecord>>(

@@ -41,9 +41,6 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
       setState(() {
         FFAppState().currentPageIndex = 0;
       });
-      setState(() {
-        FFAppState().user = currentUserReference;
-      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -633,113 +630,15 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                             child: PagedListView<
                                                 DocumentSnapshot<Object?>?,
                                                 NotificationsRecord>.separated(
-                                              pagingController: () {
-                                                final Query<Object?> Function(
-                                                        Query<Object?>)
-                                                    queryBuilder =
-                                                    (notificationsRecord) =>
-                                                        notificationsRecord
-                                                            .where('userRef',
-                                                                isEqualTo:
-                                                                    currentUserReference)
-                                                            .orderBy('time',
-                                                                descending:
-                                                                    true);
-                                                if (_model.pagingController !=
-                                                    null) {
-                                                  final query = queryBuilder(
-                                                      NotificationsRecord
-                                                          .collection);
-                                                  if (query !=
-                                                      _model.pagingQuery) {
-                                                    // The query has changed
-                                                    _model.pagingQuery = query;
-                                                    _model.streamSubscriptions
-                                                        .forEach(
-                                                            (s) => s?.cancel());
-                                                    _model.streamSubscriptions
-                                                        .clear();
-                                                    _model.pagingController!
-                                                        .refresh();
-                                                  }
-                                                  return _model
-                                                      .pagingController!;
-                                                }
-
-                                                _model.pagingController =
-                                                    PagingController(
-                                                        firstPageKey: null);
-                                                _model.pagingQuery =
-                                                    queryBuilder(
-                                                        NotificationsRecord
-                                                            .collection);
-                                                _model.pagingController!
-                                                    .addPageRequestListener(
-                                                        (nextPageMarker) {
-                                                  queryNotificationsRecordPage(
-                                                    queryBuilder:
-                                                        (notificationsRecord) =>
-                                                            notificationsRecord
-                                                                .where(
-                                                                    'userRef',
-                                                                    isEqualTo:
-                                                                        currentUserReference)
-                                                                .orderBy('time',
-                                                                    descending:
-                                                                        true),
-                                                    nextPageMarker:
-                                                        nextPageMarker,
-                                                    pageSize: 10,
-                                                    isStream: true,
-                                                  ).then((page) {
-                                                    _model.pagingController!
-                                                        .appendPage(
-                                                      page.data,
-                                                      page.nextPageMarker,
-                                                    );
-                                                    final streamSubscription =
-                                                        page.dataStream
-                                                            ?.listen((data) {
-                                                      data.forEach((item) {
-                                                        final itemIndexes = _model
-                                                            .pagingController!
-                                                            .itemList!
-                                                            .asMap()
-                                                            .map((k, v) =>
-                                                                MapEntry(
-                                                                    v.reference
-                                                                        .id,
-                                                                    k));
-                                                        final index =
-                                                            itemIndexes[item
-                                                                .reference.id];
-                                                        final items = _model
-                                                            .pagingController!
-                                                            .itemList!;
-                                                        if (index != null) {
-                                                          items.replaceRange(
-                                                              index,
-                                                              index + 1,
-                                                              [item]);
-                                                          _model
-                                                              .pagingController!
-                                                              .itemList = {
-                                                            for (var item
-                                                                in items)
-                                                              item.reference:
-                                                                  item
-                                                          }.values.toList();
-                                                        }
-                                                      });
-                                                      setState(() {});
-                                                    });
-                                                    _model.streamSubscriptions
-                                                        .add(
-                                                            streamSubscription);
-                                                  });
-                                                });
-                                                return _model.pagingController!;
-                                              }(),
+                                              pagingController:
+                                                  _model.setListViewController3(
+                                                NotificationsRecord.collection
+                                                    .where('userRef',
+                                                        isEqualTo:
+                                                            currentUserReference)
+                                                    .orderBy('time',
+                                                        descending: true),
+                                              ),
                                               padding: EdgeInsets.zero,
                                               reverse: false,
                                               scrollDirection: Axis.vertical,
@@ -763,6 +662,21 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                     ),
                                                   ),
                                                 ),
+                                                // Customize what your widget looks like when it's loading another page.
+                                                newPageProgressIndicatorBuilder:
+                                                    (_) => Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child: SpinKitRing(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 50.0,
+                                                    ),
+                                                  ),
+                                                ),
                                                 noItemsFoundIndicatorBuilder:
                                                     (_) => Image.asset(
                                                   'assets/images/Saying-No-1000x675.jpg',
@@ -770,7 +684,7 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                 itemBuilder: (context, _,
                                                     listViewIndex) {
                                                   final listViewNotificationsRecord =
-                                                      _model.pagingController!
+                                                      _model.listViewPagingController3!
                                                               .itemList![
                                                           listViewIndex];
                                                   return InkWell(
@@ -805,7 +719,7 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                     },
                                                     child: NewNotifyWidget(
                                                       key: Key(
-                                                          'Key5fu_${listViewIndex}_of_${_model.pagingController!.itemList!.length}'),
+                                                          'Key5fu_${listViewIndex}_of_${_model.listViewPagingController3!.itemList!.length}'),
                                                       notifyRef:
                                                           listViewNotificationsRecord
                                                               .reference,

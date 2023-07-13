@@ -100,7 +100,7 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
                     ),
                   ),
                   title: Text(
-                    '${widget.chatUser!.displayName} ${widget.chatUser!.phoneNumber}',
+                    '${widget.chatUser?.displayName} ${widget.chatUser?.phoneNumber}',
                     style: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Roboto',
                           color: FlutterFlowTheme.of(context).primaryText,

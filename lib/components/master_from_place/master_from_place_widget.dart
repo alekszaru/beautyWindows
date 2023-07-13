@@ -256,7 +256,7 @@ class _MasterFromPlaceWidgetState extends State<MasterFromPlaceWidget> {
                                         child: Text(
                                           'найближче віконце  ${dateTimeFormat(
                                             'Md',
-                                            rowAppointmentsRecord!.timeStart,
+                                            rowAppointmentsRecord?.timeStart,
                                             locale: FFLocalizations.of(context)
                                                 .languageCode,
                                           )}',
@@ -287,7 +287,7 @@ class _MasterFromPlaceWidgetState extends State<MasterFromPlaceWidget> {
                                       'masterPage',
                                       queryParameters: {
                                         'masterRefParam': serializeParam(
-                                          widget.place!.ownerREF,
+                                          widget.place?.ownerREF,
                                           ParamType.DocumentReference,
                                         ),
                                       }.withoutNulls,

@@ -24,9 +24,6 @@ class FFAppState extends ChangeNotifier {
       _currentPageIndex =
           prefs.getInt('ff_currentPageIndex') ?? _currentPageIndex;
     });
-    _safeInit(() {
-      _user = prefs.getString('ff_user')?.ref ?? _user;
-    });
   }
 
   void update(VoidCallback callback) {
@@ -94,15 +91,6 @@ class FFAppState extends ChangeNotifier {
   set currentPageIndex(int _value) {
     _currentPageIndex = _value;
     prefs.setInt('ff_currentPageIndex', _value);
-  }
-
-  DocumentReference? _user;
-  DocumentReference? get user => _user;
-  set user(DocumentReference? _value) {
-    _user = _value;
-    _value != null
-        ? prefs.setString('ff_user', _value.path)
-        : prefs.remove('ff_user');
   }
 
   final _clientsManager = StreamRequestManager<List<FavoriteClientsRecord>>();

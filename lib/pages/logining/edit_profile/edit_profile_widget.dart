@@ -176,12 +176,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         ));
                       },
                       child: Hero(
-                        tag: currentUserPhoto,
+                        tag: currentUserPhoto != null && currentUserPhoto != ''
+                            ? currentUserPhoto
+                            : FFAppState().defaultImageGirl,
                         transitionOnUserGestures: true,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: CachedNetworkImage(
-                            imageUrl: currentUserPhoto,
+                            fadeInDuration: Duration(milliseconds: 500),
+                            fadeOutDuration: Duration(milliseconds: 500),
+                            imageUrl: currentUserPhoto != null &&
+                                    currentUserPhoto != ''
+                                ? currentUserPhoto
+                                : FFAppState().defaultImageGirl,
                             width: 200.0,
                             height: 200.0,
                             fit: BoxFit.fitWidth,
@@ -313,7 +320,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         displayName: _model.displayNameController.text,
                         bio: _model.bioController.text,
                         phoneAndName:
-                            '${_model.displayNameController.text} ${currentPhoneNumber}',
+                            '${_model.displayNameController.text} ${currentPhoneNumber.substring(3)}',
                       ));
                       context.pop();
                     },

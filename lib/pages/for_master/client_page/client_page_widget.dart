@@ -449,91 +449,62 @@ class _ClientPageWidgetState extends State<ClientPageWidget> {
                         ),
                       ),
                       Expanded(
-                        child: FutureBuilder<List<PortfolioRecord>>(
-                          future: queryPortfolioRecordOnce(
-                            queryBuilder: (portfolioRecord) =>
-                                portfolioRecord.where('clientRef',
-                                    isEqualTo: clientPageUsersRecord.reference),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitRing(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 50.0,
+                          child: DefaultTabController(
+                            length: 2,
+                            initialIndex: 0,
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment(0.0, 0),
+                                  child: TabBar(
+                                    labelColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    labelStyle:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    indicatorColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    tabs: [
+                                      Tab(
+                                        text: 'Про клієнта',
+                                      ),
+                                      Tab(
+                                        text: 'Портфоліо',
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            }
-                            List<PortfolioRecord> containerPortfolioRecordList =
-                                snapshot.data!;
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                              ),
-                              child: Visibility(
-                                visible:
-                                    containerPortfolioRecordList.length > 0,
-                                child: DefaultTabController(
-                                  length: 2,
-                                  initialIndex: 0,
-                                  child: Column(
+                                Expanded(
+                                  child: TabBarView(
                                     children: [
-                                      Align(
-                                        alignment: Alignment(0.0, 0),
-                                        child: TabBar(
-                                          labelColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium,
-                                          indicatorColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          tabs: [
-                                            Tab(
-                                              text: 'Про клієнта',
-                                            ),
-                                            Tab(
-                                              text: 'Портфоліо',
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: TabBarView(
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                if (clientPageUsersRecord.bio !=
-                                                        null &&
-                                                    clientPageUsersRecord.bio !=
-                                                        '')
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    10.0,
-                                                                    10.0,
-                                                                    10.0,
-                                                                    10.0),
-                                                        child: Text(
-                                                          clientPageUsersRecord
-                                                              .bio,
-                                                          maxLines: 6,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
+                                            if (clientPageUsersRecord.bio !=
+                                                    null &&
+                                                clientPageUsersRecord.bio != '')
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                10.0,
+                                                                10.0,
+                                                                10.0,
+                                                                10.0),
+                                                    child: Text(
+                                                      clientPageUsersRecord.bio,
+                                                      maxLines: 6,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
@@ -543,54 +514,42 @@ class _ClientPageWidgetState extends State<ClientPageWidget> {
                                                                     .primaryText,
                                                                 fontSize: 20.0,
                                                               ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  10.0,
-                                                                  10.0,
-                                                                  10.0),
-                                                      child: Text(
-                                                        'Записи клієнта до тебе',
-                                                        maxLines: 6,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                      ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: StreamBuilder<
-                                                          List<
-                                                              AppointmentsRecord>>(
-                                                        stream:
-                                                            queryAppointmentsRecord(
-                                                          queryBuilder: (appointmentsRecord) => appointmentsRecord
+                                                  ),
+                                                ],
+                                              ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10.0, 10.0,
+                                                          10.0, 10.0),
+                                                  child: Text(
+                                                    'Записи клієнта до тебе',
+                                                    maxLines: 6,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Roboto',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 20.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 10.0, 0.0),
+                                                  child: StreamBuilder<
+                                                      List<AppointmentsRecord>>(
+                                                    stream:
+                                                        queryAppointmentsRecord(
+                                                      queryBuilder: (appointmentsRecord) =>
+                                                          appointmentsRecord
                                                               .where(
                                                                   'clientREF',
                                                                   isEqualTo:
@@ -604,255 +563,241 @@ class _ClientPageWidgetState extends State<ClientPageWidget> {
                                                                   'time_start',
                                                                   descending:
                                                                       true),
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    SpinKitRing(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  size: 50.0,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          List<AppointmentsRecord>
-                                                              listAppClientAppointmentsRecordList =
-                                                              snapshot.data!;
-                                                          return ListView
-                                                              .separated(
-                                                            padding: EdgeInsets
-                                                                .fromLTRB(
-                                                              0,
-                                                              10.0,
-                                                              0,
-                                                              0,
-                                                            ),
-                                                            shrinkWrap: true,
-                                                            scrollDirection:
-                                                                Axis.vertical,
-                                                            itemCount:
-                                                                listAppClientAppointmentsRecordList
-                                                                    .length,
-                                                            separatorBuilder: (_,
-                                                                    __) =>
-                                                                SizedBox(
-                                                                    height:
-                                                                        10.0),
-                                                            itemBuilder: (context,
-                                                                listAppClientIndex) {
-                                                              final listAppClientAppointmentsRecord =
-                                                                  listAppClientAppointmentsRecordList[
-                                                                      listAppClientIndex];
-                                                              return AppCardWidget(
-                                                                key: Key(
-                                                                    'Keyr3d_${listAppClientIndex}_of_${listAppClientAppointmentsRecordList.length}'),
-                                                                appREF:
-                                                                    listAppClientAppointmentsRecord
-                                                                        .reference,
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                      ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            FutureBuilder<
-                                                List<PortfolioRecord>>(
-                                              future: queryPortfolioRecordOnce(
-                                                queryBuilder: (portfolioRecord) =>
-                                                    portfolioRecord.where(
-                                                        'clientRef',
-                                                        isEqualTo:
-                                                            clientPageUsersRecord
-                                                                .reference),
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child: SpinKitRing(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 50.0,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<PortfolioRecord>
-                                                    gridViewPortfolioRecordList =
-                                                    snapshot.data!;
-                                                return GridView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 5.0,
-                                                    mainAxisSpacing: 10.0,
-                                                    childAspectRatio: 1.0,
-                                                  ),
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount:
-                                                      gridViewPortfolioRecordList
-                                                          .length,
-                                                  itemBuilder:
-                                                      (context, gridViewIndex) {
-                                                    final gridViewPortfolioRecord =
-                                                        gridViewPortfolioRecordList[
-                                                            gridViewIndex];
-                                                    return Stack(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.8500000000000001,
-                                                              0.8999999999999999),
-                                                      children: [
-                                                        InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            await Navigator
-                                                                .push(
-                                                              context,
-                                                              PageTransition(
-                                                                type:
-                                                                    PageTransitionType
-                                                                        .fade,
-                                                                child:
-                                                                    FlutterFlowExpandedImageView(
-                                                                  image: Image
-                                                                      .network(
-                                                                    gridViewPortfolioRecord
-                                                                        .photoUrl,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                  allowRotation:
-                                                                      false,
-                                                                  tag: gridViewPortfolioRecord
-                                                                      .photoUrl,
-                                                                  useHeroAnimation:
-                                                                      true,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Hero(
-                                                            tag:
-                                                                gridViewPortfolioRecord
-                                                                    .photoUrl,
-                                                            transitionOnUserGestures:
-                                                                true,
-                                                            child:
-                                                                Image.network(
-                                                              gridViewPortfolioRecord
-                                                                  .photoUrl,
-                                                              fit: BoxFit.cover,
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child: SpinKitRing(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              size: 50.0,
                                                             ),
                                                           ),
+                                                        );
+                                                      }
+                                                      List<AppointmentsRecord>
+                                                          listAppClientAppointmentsRecordList =
+                                                          snapshot.data!;
+                                                      return ListView.separated(
+                                                        padding:
+                                                            EdgeInsets.fromLTRB(
+                                                          0,
+                                                          10.0,
+                                                          0,
+                                                          0,
                                                         ),
-                                                        StreamBuilder<
-                                                            UsersRecord>(
-                                                          stream: UsersRecord
-                                                              .getDocument(
-                                                                  gridViewPortfolioRecord
-                                                                      .masterRef!),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 50.0,
-                                                                  height: 50.0,
-                                                                  child:
-                                                                      SpinKitRing(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    size: 50.0,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            final columnUsersRecord =
-                                                                snapshot.data!;
-                                                            return Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                Text(
-                                                                  gridViewPortfolioRecord
-                                                                      .categoryName,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .black600,
-                                                                      ),
-                                                                ),
-                                                                Text(
-                                                                  'Майстер ${columnUsersRecord.displayName}',
-                                                                  maxLines: 2,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .customColor4,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            listAppClientAppointmentsRecordList
+                                                                .length,
+                                                        separatorBuilder:
+                                                            (_, __) => SizedBox(
+                                                                height: 10.0),
+                                                        itemBuilder: (context,
+                                                            listAppClientIndex) {
+                                                          final listAppClientAppointmentsRecord =
+                                                              listAppClientAppointmentsRecordList[
+                                                                  listAppClientIndex];
+                                                          return AppCardWidget(
+                                                            key: Key(
+                                                                'Keyr3d_${listAppClientIndex}_of_${listAppClientAppointmentsRecordList.length}'),
+                                                            appREF:
+                                                                listAppClientAppointmentsRecord
+                                                                    .reference,
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                       ),
+                                      FutureBuilder<List<PortfolioRecord>>(
+                                        future: queryPortfolioRecordOnce(
+                                          queryBuilder: (portfolioRecord) =>
+                                              portfolioRecord.where('clientRef',
+                                                  isEqualTo:
+                                                      clientPageUsersRecord
+                                                          .reference),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child: SpinKitRing(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 50.0,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<PortfolioRecord>
+                                              gridViewPortfolioRecordList =
+                                              snapshot.data!;
+                                          return GridView.builder(
+                                            padding: EdgeInsets.zero,
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              crossAxisSpacing: 5.0,
+                                              mainAxisSpacing: 10.0,
+                                              childAspectRatio: 1.0,
+                                            ),
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount:
+                                                gridViewPortfolioRecordList
+                                                    .length,
+                                            itemBuilder:
+                                                (context, gridViewIndex) {
+                                              final gridViewPortfolioRecord =
+                                                  gridViewPortfolioRecordList[
+                                                      gridViewIndex];
+                                              return Stack(
+                                                alignment: AlignmentDirectional(
+                                                    0.8500000000000001,
+                                                    0.8999999999999999),
+                                                children: [
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        PageTransition(
+                                                          type:
+                                                              PageTransitionType
+                                                                  .fade,
+                                                          child:
+                                                              FlutterFlowExpandedImageView(
+                                                            image:
+                                                                Image.network(
+                                                              gridViewPortfolioRecord
+                                                                  .photoUrl,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                            allowRotation:
+                                                                false,
+                                                            tag:
+                                                                gridViewPortfolioRecord
+                                                                    .photoUrl,
+                                                            useHeroAnimation:
+                                                                true,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Hero(
+                                                      tag:
+                                                          gridViewPortfolioRecord
+                                                              .photoUrl,
+                                                      transitionOnUserGestures:
+                                                          true,
+                                                      child: Image.network(
+                                                        gridViewPortfolioRecord
+                                                            .photoUrl,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  StreamBuilder<UsersRecord>(
+                                                    stream:
+                                                        UsersRecord.getDocument(
+                                                            gridViewPortfolioRecord
+                                                                .masterRef!),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child: SpinKitRing(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              size: 50.0,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final columnUsersRecord =
+                                                          snapshot.data!;
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Text(
+                                                            gridViewPortfolioRecord
+                                                                .categoryName,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .black600,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            'Майстер ${columnUsersRecord.displayName}',
+                                                            maxLines: 2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .customColor4,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ],

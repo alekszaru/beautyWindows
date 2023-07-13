@@ -17,9 +17,11 @@ class AppointmentsListClientModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   // State field(s) for ListAppClient widget.
-  PagingController<DocumentSnapshot?, AppointmentsRecord>? pagingController;
-  Query? pagingQuery;
-  List<StreamSubscription?> streamSubscriptions = [];
+
+  PagingController<DocumentSnapshot?, AppointmentsRecord>?
+      listAppClientPagingController2;
+  Query? listAppClientPagingQuery2;
+  List<StreamSubscription?> listAppClientStreamSubscriptions2 = [];
 
   // Model for NavBar1 component.
   late NavBar1Model navBar1Model;
@@ -32,11 +34,47 @@ class AppointmentsListClientModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    streamSubscriptions.forEach((s) => s?.cancel());
+    listAppClientStreamSubscriptions2.forEach((s) => s?.cancel());
+    listAppClientPagingController2?.dispose();
+
     navBar1Model.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  PagingController<DocumentSnapshot?, AppointmentsRecord>
+      setListAppClientController2(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listAppClientPagingController2 ??=
+        _createListAppClientController2(query, parent);
+    if (listAppClientPagingQuery2 != query) {
+      listAppClientPagingQuery2 = query;
+      listAppClientPagingController2?.refresh();
+    }
+    return listAppClientPagingController2!;
+  }
+
+  PagingController<DocumentSnapshot?, AppointmentsRecord>
+      _createListAppClientController2(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, AppointmentsRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryAppointmentsRecordPage(
+          queryBuilder: (_) => listAppClientPagingQuery2 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listAppClientStreamSubscriptions2,
+          controller: controller,
+          pageSize: 10,
+          isStream: true,
+        ),
+      );
+  }
 }

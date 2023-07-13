@@ -318,10 +318,13 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                     child: Builder(
                                                       builder: (context) {
                                                         final favoriteClient =
-                                                            clientsListFavoriteClientsRecord!
-                                                                .clientsREFList
-                                                                .map((e) => e)
-                                                                .toList();
+                                                            clientsListFavoriteClientsRecord
+                                                                    ?.clientsREFList
+                                                                    ?.map((e) =>
+                                                                        e)
+                                                                    .toList()
+                                                                    ?.toList() ??
+                                                                [];
                                                         if (favoriteClient
                                                             .isEmpty) {
                                                           return Image.asset(

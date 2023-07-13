@@ -55,10 +55,8 @@ class _StartWidgetState extends State<StartWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 2000));
-      if ((valueOrDefault<bool>(currentUserDocument?.isMaster, false) ==
-              false) &&
-          (valueOrDefault<bool>(currentUserDocument?.isClient, false) ==
-              false)) {
+      if (!valueOrDefault<bool>(currentUserDocument?.isMaster, false) &&
+          !valueOrDefault<bool>(currentUserDocument?.isClient, false)) {
         context.pushNamed('start_temp');
       } else {
         if (valueOrDefault<bool>(currentUserDocument?.isMaster, false) ==

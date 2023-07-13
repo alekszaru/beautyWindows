@@ -223,6 +223,8 @@ class _CompleteProfilePhoneAuthWidgetState
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20.0),
                             child: CachedNetworkImage(
+                              fadeInDuration: Duration(milliseconds: 500),
+                              fadeOutDuration: Duration(milliseconds: 500),
                               imageUrl: currentUserPhoto,
                               width: 200.0,
                               height: 200.0,

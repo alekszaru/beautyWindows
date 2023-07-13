@@ -148,8 +148,8 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                             : FlutterFlowTheme.of(context).info,
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      child: StreamBuilder<UsersRecord>(
-                        stream: UsersRecord.getDocument(
+                      child: FutureBuilder<UsersRecord>(
+                        future: UsersRecord.getDocumentOnce(
                             containerAppointmentsRecord.clientREF!),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -171,8 +171,8 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: StreamBuilder<UsersRecord>(
-                                  stream: UsersRecord.getDocument(
+                                child: FutureBuilder<UsersRecord>(
+                                  future: UsersRecord.getDocumentOnce(
                                       containerAppointmentsRecord.masterREF!),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -193,54 +193,59 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                     return Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 0.0, 0.0),
-                                          child: Stack(
-                                            alignment: AlignmentDirectional(
-                                                0.8999999999999999, 1.0),
-                                            children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 10.0),
-                                                  child: Hero(
-                                                    tag: currentUserReference ==
-                                                            containerAppointmentsRecord
-                                                                .masterREF
-                                                        ? clientRowUsersRecord
-                                                            .photoUrl
-                                                        : masterRowUsersRecord
-                                                            .photoUrl,
-                                                    transitionOnUserGestures:
-                                                        true,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                      child: Image.network(
-                                                        currentUserReference ==
-                                                                containerAppointmentsRecord
-                                                                    .masterREF
-                                                            ? clientRowUsersRecord
-                                                                .photoUrl
-                                                            : masterRowUsersRecord
-                                                                .photoUrl,
-                                                        width: 100.0,
-                                                        height: 100.0,
-                                                        fit: BoxFit.cover,
+                                        if (containerAppointmentsRecord
+                                                .withTempUser ==
+                                            false)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 10.0, 0.0, 0.0),
+                                            child: Stack(
+                                              alignment: AlignmentDirectional(
+                                                  0.8999999999999999, 1.0),
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 10.0),
+                                                    child: Hero(
+                                                      tag: currentUserReference ==
+                                                              containerAppointmentsRecord
+                                                                  .masterREF
+                                                          ? clientRowUsersRecord
+                                                              .photoUrl
+                                                          : masterRowUsersRecord
+                                                              .photoUrl,
+                                                      transitionOnUserGestures:
+                                                          true,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                        child: Image.network(
+                                                          currentUserReference ==
+                                                                  containerAppointmentsRecord
+                                                                      .masterREF
+                                                              ? clientRowUsersRecord
+                                                                  .photoUrl
+                                                              : masterRowUsersRecord
+                                                                  .photoUrl,
+                                                          width: 100.0,
+                                                          height: 100.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
                                         Expanded(
                                           child: Padding(
                                             padding:
@@ -289,61 +294,64 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: Builder(
-                                                        builder: (context) {
-                                                          final serviceInApp =
-                                                              containerAppointmentsRecord
-                                                                  .categoriesNameList
-                                                                  .map((e) => e)
-                                                                  .toList();
-                                                          return Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: List.generate(
-                                                                serviceInApp
-                                                                    .length,
-                                                                (serviceInAppIndex) {
-                                                              final serviceInAppItem =
-                                                                  serviceInApp[
-                                                                      serviceInAppIndex];
-                                                              return Text(
-                                                                '${serviceInAppItem} ',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w800,
-                                                                    ),
-                                                              );
-                                                            }),
-                                                          );
-                                                        },
+                                                    if (containerAppointmentsRecord
+                                                            .servicesREFList
+                                                            .length >
+                                                        0)
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            final serviceInApp =
+                                                                containerAppointmentsRecord
+                                                                    .categoriesNameList
+                                                                    .map((e) =>
+                                                                        e)
+                                                                    .toList();
+                                                            return Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: List.generate(
+                                                                  serviceInApp
+                                                                      .length,
+                                                                  (serviceInAppIndex) {
+                                                                final serviceInAppItem =
+                                                                    serviceInApp[
+                                                                        serviceInAppIndex];
+                                                                return Text(
+                                                                  '${serviceInAppItem} ',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w800,
+                                                                      ),
+                                                                );
+                                                              }),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
                                                     if (containerAppointmentsRecord
                                                             .withTempUser ==
                                                         true)
@@ -447,64 +455,84 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                           },
                                                         ),
                                                       ),
-                                                    Text(
-                                                      valueOrDefault<String>(
-                                                        currentUserReference ==
-                                                                containerAppointmentsRecord
-                                                                    .masterREF
-                                                            ? clientRowUsersRecord
-                                                                .displayName
-                                                            : masterRowUsersRecord
-                                                                .displayName,
-                                                        'user',
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Roboto',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                    if (containerAppointmentsRecord
+                                                            .withTempUser ==
+                                                        false)
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                currentUserReference ==
+                                                                        containerAppointmentsRecord
+                                                                            .masterREF
+                                                                    ? clientRowUsersRecord
+                                                                        .displayName
+                                                                    : masterRowUsersRecord
+                                                                        .displayName,
+                                                                'user',
                                                               ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          currentUserReference ==
-                                                                  containerAppointmentsRecord
-                                                                      .masterREF
-                                                              ? clientRowUsersRecord
-                                                                  .phoneNumber
-                                                              : masterRowUsersRecord
-                                                                  .phoneNumber,
-                                                          'user',
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Roboto',
-                                                              fontSize: 12.0,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                             ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0),
+                                                              child: Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  currentUserReference ==
+                                                                          containerAppointmentsRecord
+                                                                              .masterREF
+                                                                      ? clientRowUsersRecord
+                                                                          .phoneNumber
+                                                                      : masterRowUsersRecord
+                                                                          .phoneNumber,
+                                                                  'user',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      fontSize:
+                                                                          12.0,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
                                                   ],
                                                 ),
                                               ],

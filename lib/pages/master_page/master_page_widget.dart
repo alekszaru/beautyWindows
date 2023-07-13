@@ -620,8 +620,8 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                             ],
                                                           ),
                                                         ),
-                                                        if (cabinetColumnPlacesRecord!
-                                                                .latLng !=
+                                                        if (cabinetColumnPlacesRecord
+                                                                ?.latLng !=
                                                             null)
                                                           Padding(
                                                             padding:
@@ -631,123 +631,71 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                         0.0,
                                                                         10.0,
                                                                         0.0),
-                                                            child: StreamBuilder<
-                                                                List<
-                                                                    PlacesRecord>>(
-                                                              stream:
-                                                                  queryPlacesRecord(
-                                                                queryBuilder: (placesRecord) =>
-                                                                    placesRecord.where(
-                                                                        'ownerREF',
-                                                                        isEqualTo:
-                                                                            currentUserReference),
-                                                                singleRecord:
-                                                                    true,
-                                                              ),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width:
-                                                                          50.0,
-                                                                      height:
-                                                                          50.0,
-                                                                      child:
-                                                                          SpinKitRing(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                        size:
-                                                                            50.0,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                List<PlacesRecord>
-                                                                    containerPlacesRecordList =
-                                                                    snapshot
-                                                                        .data!;
-                                                                // Return an empty Container when the item does not exist.
-                                                                if (snapshot
-                                                                    .data!
-                                                                    .isEmpty) {
-                                                                  return Container();
-                                                                }
-                                                                final containerPlacesRecord =
-                                                                    containerPlacesRecordList
-                                                                            .isNotEmpty
-                                                                        ? containerPlacesRecordList
-                                                                            .first
-                                                                        : null;
-                                                                return Container(
-                                                                  height: 300.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
+                                                            child: Container(
+                                                              height: 300.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
                                                                             20.0),
-                                                                  ),
-                                                                  child: Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                    final _googleMapMarker =
-                                                                        containerPlacesRecord!
-                                                                            .latLng;
-                                                                    return FlutterFlowGoogleMap(
-                                                                      controller:
-                                                                          _model
-                                                                              .googleMapsController,
-                                                                      onCameraIdle:
-                                                                          (latLng) =>
-                                                                              _model.googleMapsCenter = latLng,
-                                                                      initialLocation: _model
-                                                                              .googleMapsCenter ??=
-                                                                          containerPlacesRecord!
-                                                                              .latLng!,
-                                                                      markers: [
-                                                                        if (_googleMapMarker !=
-                                                                            null)
-                                                                          FlutterFlowMarker(
-                                                                            _googleMapMarker.serialize(),
-                                                                            _googleMapMarker,
-                                                                          ),
-                                                                      ],
-                                                                      markerColor:
-                                                                          GoogleMarkerColor
-                                                                              .blue,
-                                                                      mapType:
-                                                                          MapType
-                                                                              .normal,
-                                                                      style: GoogleMapStyle
-                                                                          .standard,
-                                                                      initialZoom:
-                                                                          14.0,
-                                                                      allowInteraction:
-                                                                          true,
-                                                                      allowZoom:
-                                                                          true,
-                                                                      showZoomControls:
-                                                                          true,
-                                                                      showLocation:
-                                                                          true,
-                                                                      showCompass:
-                                                                          false,
-                                                                      showMapToolbar:
-                                                                          false,
-                                                                      showTraffic:
-                                                                          false,
-                                                                      centerMapOnMarkerTap:
-                                                                          true,
-                                                                    );
-                                                                  }),
+                                                              ),
+                                                              child: Builder(
+                                                                  builder:
+                                                                      (context) {
+                                                                final _googleMapMarker =
+                                                                    cabinetColumnPlacesRecord
+                                                                        ?.latLng;
+                                                                return FlutterFlowGoogleMap(
+                                                                  controller: _model
+                                                                      .googleMapsController,
+                                                                  onCameraIdle:
+                                                                      (latLng) =>
+                                                                          _model.googleMapsCenter =
+                                                                              latLng,
+                                                                  initialLocation: _model
+                                                                          .googleMapsCenter ??=
+                                                                      cabinetColumnPlacesRecord!
+                                                                          .latLng!,
+                                                                  markers: [
+                                                                    if (_googleMapMarker !=
+                                                                        null)
+                                                                      FlutterFlowMarker(
+                                                                        _googleMapMarker
+                                                                            .serialize(),
+                                                                        _googleMapMarker,
+                                                                      ),
+                                                                  ],
+                                                                  markerColor:
+                                                                      GoogleMarkerColor
+                                                                          .blue,
+                                                                  mapType: MapType
+                                                                      .normal,
+                                                                  style: GoogleMapStyle
+                                                                      .standard,
+                                                                  initialZoom:
+                                                                      14.0,
+                                                                  allowInteraction:
+                                                                      true,
+                                                                  allowZoom:
+                                                                      true,
+                                                                  showZoomControls:
+                                                                      true,
+                                                                  showLocation:
+                                                                      true,
+                                                                  showCompass:
+                                                                      false,
+                                                                  showMapToolbar:
+                                                                      false,
+                                                                  showTraffic:
+                                                                      false,
+                                                                  centerMapOnMarkerTap:
+                                                                      true,
                                                                 );
-                                                              },
+                                                              }),
                                                             ),
                                                           ),
                                                         if (cabinetColumnPlacesRecord!
@@ -800,12 +748,13 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final image =
-                                                                    cabinetColumnPlacesRecord!
-                                                                        .photos
-                                                                        .map((e) =>
+                                                                final image = cabinetColumnPlacesRecord
+                                                                        ?.photos
+                                                                        ?.map((e) =>
                                                                             e)
-                                                                        .toList();
+                                                                        .toList()
+                                                                        ?.toList() ??
+                                                                    [];
                                                                 return GridView
                                                                     .builder(
                                                                   padding:
@@ -1164,126 +1113,151 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                           context)
                                                       .languageCode,
                                                 ),
-                                                Container(
-                                                  height: 200.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                20.0,
-                                                                20.0,
-                                                                20.0,
-                                                                20.0),
-                                                    child: StreamBuilder<
-                                                        List<
-                                                            AppointmentsRecord>>(
-                                                      stream:
-                                                          queryAppointmentsRecord(
-                                                        queryBuilder: (appointmentsRecord) => appointmentsRecord
-                                                            .where('masterREF',
-                                                                isEqualTo:
-                                                                    columnUsersRecord
-                                                                        .reference)
-                                                            .where('time_start',
-                                                                isGreaterThan:
-                                                                    _model
-                                                                        .calendarSelectedDay
-                                                                        ?.start)
-                                                            .where('time_start',
-                                                                isLessThan: _model
-                                                                    .calendarSelectedDay
-                                                                    ?.end)
-                                                            .orderBy(
-                                                                'time_start'),
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              child:
-                                                                  SpinKitRing(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                size: 50.0,
+                                                Flexible(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  20.0,
+                                                                  20.0,
+                                                                  20.0,
+                                                                  20.0),
+                                                      child: StreamBuilder<
+                                                          List<
+                                                              AppointmentsRecord>>(
+                                                        stream:
+                                                            queryAppointmentsRecord(
+                                                          queryBuilder: (appointmentsRecord) => appointmentsRecord
+                                                              .where(
+                                                                  'masterREF',
+                                                                  isEqualTo:
+                                                                      columnUsersRecord
+                                                                          .reference)
+                                                              .where(
+                                                                  'time_start',
+                                                                  isGreaterThan:
+                                                                      _model
+                                                                          .calendarSelectedDay
+                                                                          ?.start)
+                                                              .where(
+                                                                  'time_start',
+                                                                  isLessThan: _model
+                                                                      .calendarSelectedDay
+                                                                      ?.end)
+                                                              .orderBy(
+                                                                  'time_start'),
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    SpinKitRing(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  size: 50.0,
+                                                                ),
                                                               ),
+                                                            );
+                                                          }
+                                                          List<AppointmentsRecord>
+                                                              rozkladAppointmentsRecordList =
+                                                              snapshot.data!;
+                                                          if (rozkladAppointmentsRecordList
+                                                              .isEmpty) {
+                                                            return Image.asset(
+                                                              'assets/images/no-windows.png',
+                                                              width: 250.0,
+                                                              height: 250.0,
+                                                            );
+                                                          }
+                                                          return GridView
+                                                              .builder(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            gridDelegate:
+                                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                              crossAxisCount: 2,
+                                                              crossAxisSpacing:
+                                                                  20.0,
+                                                              mainAxisSpacing:
+                                                                  20.0,
+                                                              childAspectRatio:
+                                                                  3.0,
                                                             ),
-                                                          );
-                                                        }
-                                                        List<AppointmentsRecord>
-                                                            rozkladAppointmentsRecordList =
-                                                            snapshot.data!;
-                                                        if (rozkladAppointmentsRecordList
-                                                            .isEmpty) {
-                                                          return Image.asset(
-                                                            'assets/images/no-windows.png',
-                                                            width: 250.0,
-                                                            height: 250.0,
-                                                          );
-                                                        }
-                                                        return GridView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          gridDelegate:
-                                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                            crossAxisCount: 2,
-                                                            crossAxisSpacing:
-                                                                20.0,
-                                                            mainAxisSpacing:
-                                                                20.0,
-                                                            childAspectRatio:
-                                                                3.0,
-                                                          ),
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              rozkladAppointmentsRecordList
-                                                                  .length,
-                                                          itemBuilder: (context,
-                                                              rozkladIndex) {
-                                                            final rozkladAppointmentsRecord =
-                                                                rozkladAppointmentsRecordList[
-                                                                    rozkladIndex];
-                                                            return InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                if (rozkladAppointmentsRecord
-                                                                        .isActive ==
-                                                                    true) {
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                rozkladAppointmentsRecordList
+                                                                    .length,
+                                                            itemBuilder: (context,
+                                                                rozkladIndex) {
+                                                              final rozkladAppointmentsRecord =
+                                                                  rozkladAppointmentsRecordList[
+                                                                      rozkladIndex];
+                                                              return InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
                                                                   if (rozkladAppointmentsRecord
-                                                                          .timeStart! >
-                                                                      getCurrentTimestamp) {
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'appointmentDetailsClient',
-                                                                      queryParameters:
-                                                                          {
-                                                                        'appointmentRef':
-                                                                            serializeParam(
-                                                                          rozkladAppointmentsRecord
-                                                                              .reference,
-                                                                          ParamType
-                                                                              .DocumentReference,
+                                                                          .isActive ==
+                                                                      true) {
+                                                                    if (rozkladAppointmentsRecord
+                                                                            .timeStart! >
+                                                                        getCurrentTimestamp) {
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'appointmentDetailsClient',
+                                                                        queryParameters:
+                                                                            {
+                                                                          'appointmentRef':
+                                                                              serializeParam(
+                                                                            rozkladAppointmentsRecord.reference,
+                                                                            ParamType.DocumentReference,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+                                                                    } else {
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                        SnackBar(
+                                                                          content:
+                                                                              Text(
+                                                                            'Віконце уже прострочене',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                            ),
+                                                                          ),
+                                                                          duration:
+                                                                              Duration(milliseconds: 4000),
+                                                                          backgroundColor:
+                                                                              Color(0x00000000),
                                                                         ),
-                                                                      }.withoutNulls,
-                                                                    );
+                                                                      );
+                                                                    }
                                                                   } else {
                                                                     ScaffoldMessenger.of(
                                                                             context)
@@ -1291,7 +1265,7 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                       SnackBar(
                                                                         content:
                                                                             Text(
-                                                                          'Віконце уже прострочене',
+                                                                          'Це віконце зайняте. Спробуй інше',
                                                                           style:
                                                                               TextStyle(
                                                                             color:
@@ -1305,91 +1279,68 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                       ),
                                                                     );
                                                                   }
-                                                                } else {
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      content:
-                                                                          Text(
-                                                                        'Це віконце зайняте. Спробуй інше',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                        ),
-                                                                      ),
-                                                                      duration: Duration(
-                                                                          milliseconds:
-                                                                              4000),
-                                                                      backgroundColor:
-                                                                          Color(
-                                                                              0x00000000),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                              },
-                                                              child: Material(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                elevation: 2.0,
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10.0),
-                                                                ),
-                                                                child:
-                                                                    Container(
-                                                                  width: 100.0,
-                                                                  height: 50.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: (rozkladAppointmentsRecord.timeStart! >
-                                                                                getCurrentTimestamp) &&
-                                                                            rozkladAppointmentsRecord
-                                                                                .isActive
-                                                                        ? Color(
-                                                                            0xFF0933E3)
-                                                                        : Color(
-                                                                            0xFF949EA8),
+                                                                },
+                                                                child: Material(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  elevation:
+                                                                      2.0,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             10.0),
                                                                   ),
-                                                                  child: Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      dateTimeFormat(
-                                                                        'Hm',
-                                                                        rozkladAppointmentsRecord
-                                                                            .timeStart!,
-                                                                        locale:
-                                                                            FFLocalizations.of(context).languageCode,
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        100.0,
+                                                                    height:
+                                                                        50.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: (rozkladAppointmentsRecord.timeStart! > getCurrentTimestamp) &&
+                                                                              rozkladAppointmentsRecord
+                                                                                  .isActive
+                                                                          ? Color(
+                                                                              0xFF0933E3)
+                                                                          : Color(
+                                                                              0xFF949EA8),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.0),
+                                                                    ),
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        dateTimeFormat(
+                                                                          'Hm',
+                                                                          rozkladAppointmentsRecord
+                                                                              .timeStart!,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        ),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Roboto',
+                                                                              color: Color(0xFFF9F9F9),
+                                                                              fontSize: 16.0,
+                                                                            ),
                                                                       ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Roboto',
-                                                                            color:
-                                                                                Color(0xFFF9F9F9),
-                                                                            fontSize:
-                                                                                16.0,
-                                                                          ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -1487,6 +1438,7 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                 0,
                                                                 0,
                                                               ),
+                                                              primary: false,
                                                               shrinkWrap: true,
                                                               scrollDirection:
                                                                   Axis.vertical,

@@ -26,9 +26,11 @@ class MainPageClientModel extends FlutterFlowModel {
   // Models for newNotify dynamic component.
   late FlutterFlowDynamicModels<NewNotifyModel> newNotifyModels1;
   // State field(s) for ListView widget.
-  PagingController<DocumentSnapshot?, NotificationsRecord>? pagingController;
-  Query? pagingQuery;
-  List<StreamSubscription?> streamSubscriptions = [];
+
+  PagingController<DocumentSnapshot?, NotificationsRecord>?
+      listViewPagingController3;
+  Query? listViewPagingQuery3;
+  List<StreamSubscription?> listViewStreamSubscriptions3 = [];
 
   /// Initialization and disposal methods.
 
@@ -41,10 +43,44 @@ class MainPageClientModel extends FlutterFlowModel {
     unfocusNode.dispose();
     navBar1Model.dispose();
     newNotifyModels1.dispose();
-    streamSubscriptions.forEach((s) => s?.cancel());
+    listViewStreamSubscriptions3.forEach((s) => s?.cancel());
+    listViewPagingController3?.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  PagingController<DocumentSnapshot?, NotificationsRecord>
+      setListViewController3(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController3 ??= _createListViewController3(query, parent);
+    if (listViewPagingQuery3 != query) {
+      listViewPagingQuery3 = query;
+      listViewPagingController3?.refresh();
+    }
+    return listViewPagingController3!;
+  }
+
+  PagingController<DocumentSnapshot?, NotificationsRecord>
+      _createListViewController3(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, NotificationsRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryNotificationsRecordPage(
+          queryBuilder: (_) => listViewPagingQuery3 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions3,
+          controller: controller,
+          pageSize: 10,
+          isStream: true,
+        ),
+      );
+  }
 }

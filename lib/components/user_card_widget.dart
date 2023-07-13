@@ -121,6 +121,8 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
+                        fadeInDuration: Duration(milliseconds: 500),
+                        fadeOutDuration: Duration(milliseconds: 500),
                         imageUrl: containerUsersRecord.photoUrl,
                         width: 80.0,
                         height: 80.0,
@@ -421,12 +423,12 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                                     Text(
                                       '${functions.getUkrainianDate(dateTimeFormat(
                                         'd/M',
-                                        containerAppointmentsRecord!.timeStart,
+                                        containerAppointmentsRecord?.timeStart,
                                         locale: FFLocalizations.of(context)
                                             .languageCode,
                                       ))} ${dateTimeFormat(
                                         'Hm',
-                                        containerAppointmentsRecord!.timeStart,
+                                        containerAppointmentsRecord?.timeStart,
                                         locale: FFLocalizations.of(context)
                                             .languageCode,
                                       )}',

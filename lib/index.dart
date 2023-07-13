@@ -25,8 +25,7 @@ export '/pages/for_master/clients_list/clients_list_widget.dart'
     show ClientsListWidget;
 export '/pages/for_master/client_page/client_page_widget.dart'
     show ClientPageWidget;
-export '/pages/for_master/master_page/master_page_widget.dart'
-    show MasterPageWidget;
+export '/pages/master_page/master_page_widget.dart' show MasterPageWidget;
 export '/pages/logining/confirm_phone/confirm_phone_widget.dart'
     show ConfirmPhoneWidget;
 export '/start/start_widget.dart' show StartWidget;

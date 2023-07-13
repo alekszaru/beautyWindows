@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,12 +12,7 @@ import 'add_client_model.dart';
 export 'add_client_model.dart';
 
 class AddClientWidget extends StatefulWidget {
-  const AddClientWidget({
-    Key? key,
-    this.phoneAndName,
-  }) : super(key: key);
-
-  final String? phoneAndName;
+  const AddClientWidget({Key? key}) : super(key: key);
 
   @override
   _AddClientWidgetState createState() => _AddClientWidgetState();
@@ -38,10 +32,8 @@ class _AddClientWidgetState extends State<AddClientWidget> {
     super.initState();
     _model = createModel(context, () => AddClientModel());
 
-    _model.nameController ??= TextEditingController(
-        text: functions.getWordFromString(widget.phoneAndName!, 1));
-    _model.phoneController ??= TextEditingController(
-        text: functions.getWordFromString(widget.phoneAndName!, 2));
+    _model.nameController ??= TextEditingController();
+    _model.phoneController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -95,7 +87,7 @@ class _AddClientWidgetState extends State<AddClientWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                       child: Text(
-                        'Клієнта з таким ім\'ям та номером телефону в нашій базі ще не зареєстровано. Давай додамо твого клієнта:',
+                        'Додай нового клієнта',
                         textAlign: TextAlign.center,
                         maxLines: 4,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -108,163 +100,184 @@ class _AddClientWidgetState extends State<AddClientWidget> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
-                child: Row(
+              Form(
+                key: _model.formKey,
+                autovalidateMode: AutovalidateMode.disabled,
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: Text(
-                        'Ім\'я :   ',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.of(context).tertiary,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.normal,
+                          EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
+                            child: Text(
+                              'Ім\'я :   ',
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                             ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                        child: TextFormField(
-                          controller: _model.nameController,
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'ім\'я клієнта',
-                            hintStyle: FlutterFlowTheme.of(context).bodySmall,
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).grayIcon,
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 0.0),
+                              child: TextFormField(
+                                controller: _model.nameController,
+                                autofocus: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'ім\'я клієнта',
+                                  hintStyle:
+                                      FlutterFlowTheme.of(context).bodySmall,
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).grayIcon,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  errorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                validator: _model.nameControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
-                          validator: _model.nameControllerValidator
-                              .asValidator(context),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: Text(
-                        'телефон :   ',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.of(context).tertiary,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.normal,
+                          EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
+                            child: Text(
+                              'телефон :   ',
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                             ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                        child: TextFormField(
-                          controller: _model.phoneController,
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'ім\'я клієнта',
-                            hintStyle: FlutterFlowTheme.of(context).bodySmall,
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).grayIcon,
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 0.0),
+                              child: TextFormField(
+                                controller: _model.phoneController,
+                                autofocus: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'Телефон',
+                                  hintStyle:
+                                      FlutterFlowTheme.of(context).bodySmall,
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).grayIcon,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  errorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                validator: _model.phoneControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
-                          validator: _model.phoneControllerValidator
-                              .asValidator(context),
-                        ),
+                        ],
                       ),
                     ),
                   ],
@@ -287,25 +300,19 @@ class _AddClientWidgetState extends State<AddClientWidget> {
                                 TempUsersRecord.collection.doc();
                             await tempUsersRecordReference
                                 .set(createTempUsersRecordData(
-                              owner: currentUserReference,
                               clientName: _model.nameController.text,
-                              clientPhone: _model.phoneController.text,
-                              clientPhoneAndName:
-                                  '${_model.nameController.text} ${_model.phoneController.text}',
+                              phoneNumber: _model.phoneController.text,
                             ));
                             _model.tempClient =
                                 TempUsersRecord.getDocumentFromData(
                                     createTempUsersRecordData(
-                                      owner: currentUserReference,
                                       clientName: _model.nameController.text,
-                                      clientPhone: _model.phoneController.text,
-                                      clientPhoneAndName:
-                                          '${_model.nameController.text} ${_model.phoneController.text}',
+                                      phoneNumber: _model.phoneController.text,
                                     ),
                                     tempUsersRecordReference);
-                            FFAppState().update(() {
+                            setState(() {
                               FFAppState().tempClientRef =
-                                  _model.tempClient!.reference;
+                                  _model.tempClient?.reference;
                             });
                             Navigator.pop(context);
 

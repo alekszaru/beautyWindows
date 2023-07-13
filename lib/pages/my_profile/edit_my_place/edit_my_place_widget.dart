@@ -212,7 +212,7 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                                         : null;
                                 return Builder(builder: (context) {
                                   final _googleMapMarker =
-                                      editMyPlacePlacesRecord!.latLng;
+                                      editMyPlacePlacesRecord?.latLng;
                                   return FlutterFlowGoogleMap(
                                     controller: _model.googleMapsController,
                                     onCameraIdle: (latLng) =>
@@ -342,7 +342,7 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                             ],
                           ),
                         ),
-                        if (editMyPlacePlacesRecord!.photos.length != 0)
+                        if (editMyPlacePlacesRecord?.photos?.length != 0)
                           Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -354,9 +354,11 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                                   10.0, 0.0, 10.0, 0.0),
                               child: Builder(
                                 builder: (context) {
-                                  final photo = editMyPlacePlacesRecord!.photos
-                                      .map((e) => e)
-                                      .toList();
+                                  final photo = editMyPlacePlacesRecord?.photos
+                                          ?.map((e) => e)
+                                          .toList()
+                                          ?.toList() ??
+                                      [];
                                   if (photo.isEmpty) {
                                     return Image.asset(
                                       'assets/images/no-photo-cabinet.png',

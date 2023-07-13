@@ -258,6 +258,14 @@ class _AppointmentDetailsMasterWidgetState
                                                                               10.0),
                                                                   child:
                                                                       CachedNetworkImage(
+                                                                    fadeInDuration:
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                500),
+                                                                    fadeOutDuration:
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                500),
                                                                     imageUrl:
                                                                         cardUsersRecord
                                                                             .photoUrl,

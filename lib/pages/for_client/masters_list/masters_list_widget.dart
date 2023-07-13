@@ -359,10 +359,12 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                           child: Builder(
                                             builder: (context) {
                                               final favMaster =
-                                                  columnFavoriteMastersRecord!
-                                                      .mastersREFList
-                                                      .map((e) => e)
-                                                      .toList();
+                                                  columnFavoriteMastersRecord
+                                                          ?.mastersREFList
+                                                          ?.map((e) => e)
+                                                          .toList()
+                                                          ?.toList() ??
+                                                      [];
                                               if (favMaster.isEmpty) {
                                                 return Image.asset(
                                                   'assets/images/no-favorite-masters.png',

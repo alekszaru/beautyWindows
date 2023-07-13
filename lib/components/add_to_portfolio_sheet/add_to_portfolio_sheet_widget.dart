@@ -54,6 +54,7 @@ class _AddToPortfolioSheetWidgetState extends State<AddToPortfolioSheetWidget> {
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primaryBackground,
+        borderRadius: BorderRadius.circular(0.0),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -197,38 +198,43 @@ class _AddToPortfolioSheetWidgetState extends State<AddToPortfolioSheetWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: AuthUserStreamWidget(
-                                builder: (context) =>
-                                    FlutterFlowDropDown<String>(
-                                  controller: _model.categoryValueController ??=
-                                      FormFieldController<String>(null),
-                                  options: (currentUserDocument
-                                          ?.favoriteCategories
-                                          ?.toList() ??
-                                      []),
-                                  onChanged: (val) => setState(
-                                      () => _model.categoryValue = val),
-                                  width: 180.0,
-                                  height: 50.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiary,
-                                      ),
-                                  hintText: 'Обери категорію',
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  borderWidth: 1.0,
-                                  borderRadius: 10.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 4.0, 12.0, 4.0),
-                                  hidesUnderline: true,
-                                  isSearchable: false,
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 10.0, 0.0, 0.0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) =>
+                                      FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.categoryValueController ??=
+                                            FormFieldController<String>(null),
+                                    options: (currentUserDocument
+                                            ?.favoriteCategories
+                                            ?.toList() ??
+                                        []),
+                                    onChanged: (val) => setState(
+                                        () => _model.categoryValue = val),
+                                    width: 180.0,
+                                    height: 50.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
+                                        ),
+                                    hintText: 'Обери категорію',
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    borderWidth: 1.0,
+                                    borderRadius: 10.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 4.0, 12.0, 4.0),
+                                    hidesUnderline: true,
+                                    isSearchable: false,
+                                  ),
                                 ),
                               ),
                             ),
@@ -241,46 +247,49 @@ class _AddToPortfolioSheetWidgetState extends State<AddToPortfolioSheetWidget> {
               ),
             ],
           ),
-          FFButtonWidget(
-            onPressed: () async {
-              await PortfolioRecord.collection
-                  .doc()
-                  .set(createPortfolioRecordData(
-                    masterRef: currentUserReference,
-                    categoryName: _model.categoryValue,
-                    photoUrl: _model.uploadedFileUrl,
-                  ));
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Фото завантажено',
-                    style: TextStyle(
-                      color: FlutterFlowTheme.of(context).primaryText,
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 50.0),
+            child: FFButtonWidget(
+              onPressed: () async {
+                await PortfolioRecord.collection
+                    .doc()
+                    .set(createPortfolioRecordData(
+                      masterRef: currentUserReference,
+                      categoryName: _model.categoryValue,
+                      photoUrl: _model.uploadedFileUrl,
+                    ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Фото завантажено',
+                      style: TextStyle(
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
                     ),
+                    duration: Duration(milliseconds: 4000),
+                    backgroundColor: Color(0x00000000),
                   ),
-                  duration: Duration(milliseconds: 4000),
-                  backgroundColor: Color(0x00000000),
+                );
+                Navigator.pop(context);
+              },
+              text: 'Додати фото до портфоліо',
+              options: FFButtonOptions(
+                width: 200.0,
+                height: 50.0,
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                color: FlutterFlowTheme.of(context).info,
+                textStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                      fontFamily: 'Open Sans',
+                      color: FlutterFlowTheme.of(context).white,
+                    ),
+                elevation: 5.0,
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).tertiary,
+                  width: 2.0,
                 ),
-              );
-              Navigator.pop(context);
-            },
-            text: 'Додати фото до портфоліо',
-            options: FFButtonOptions(
-              width: 200.0,
-              height: 50.0,
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              color: FlutterFlowTheme.of(context).info,
-              textStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                    fontFamily: 'Open Sans',
-                    color: FlutterFlowTheme.of(context).white,
-                  ),
-              elevation: 5.0,
-              borderSide: BorderSide(
-                color: FlutterFlowTheme.of(context).tertiary,
-                width: 2.0,
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              borderRadius: BorderRadius.circular(10.0),
             ),
           ),
         ],
