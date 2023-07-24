@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'all_users_model.dart';
@@ -130,9 +129,10 @@ class _AllUsersWidgetState extends State<AllUsersWidget> {
                               child: SizedBox(
                                 width: 50.0,
                                 height: 50.0,
-                                child: SpinKitRing(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
                             );

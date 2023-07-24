@@ -21,8 +21,7 @@ export '/pages/for_master/appointment_details_master/appointment_details_master_
     show AppointmentDetailsMasterWidget;
 export '/pages/for_master/edit_windows/edit_windows_widget.dart'
     show EditWindowsWidget;
-export '/pages/for_master/clients_list/clients_list_widget.dart'
-    show ClientsListWidget;
+export '/pages/clients_list/clients_list_widget.dart' show ClientsListWidget;
 export '/pages/for_master/client_page/client_page_widget.dart'
     show ClientPageWidget;
 export '/pages/master_page/master_page_widget.dart' show MasterPageWidget;

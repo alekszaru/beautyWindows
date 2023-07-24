@@ -11,7 +11,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'edit_windows_model.dart';
@@ -75,9 +74,10 @@ class _EditWindowsWidgetState extends State<EditWindowsWidget> {
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: SpinKitRing(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
               ),
             ),
@@ -170,9 +170,10 @@ class _EditWindowsWidgetState extends State<EditWindowsWidget> {
                         child: SizedBox(
                           width: 50.0,
                           height: 50.0,
-                          child: SpinKitRing(
-                            color: FlutterFlowTheme.of(context).primary,
-                            size: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
                       );
@@ -233,10 +234,11 @@ class _EditWindowsWidgetState extends State<EditWindowsWidget> {
                                     child: SizedBox(
                                       width: 50.0,
                                       height: 50.0,
-                                      child: SpinKitRing(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
                                     ),
                                   );

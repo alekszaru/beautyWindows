@@ -5,9 +5,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:text_search/text_search.dart';
 
 class AddClientModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this component.
@@ -21,23 +22,25 @@ class AddClientModel extends FlutterFlowModel {
       return 'Field is required';
     }
 
+    if (!RegExp(kTextValidatorUsernameRegex).hasMatch(val)) {
+      return 'Must start with a letter and can only contain letters, digits and - or _.';
+    }
     return null;
   }
 
   // State field(s) for phone widget.
   TextEditingController? phoneController;
+  final phoneMask = MaskTextInputFormatter(mask: '+38# ## ### ####');
   String? Function(BuildContext, String?)? phoneControllerValidator;
   String? _phoneControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
 
-    if (!RegExp(kTextValidatorWebsiteRegex).hasMatch(val)) {
-      return 'Has to be a valid website.';
-    }
     return null;
   }
 
+  List<TempUsersRecord> simpleSearchResults = [];
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   TempUsersRecord? tempClient;
 

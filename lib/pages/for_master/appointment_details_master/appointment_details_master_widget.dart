@@ -10,7 +10,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'appointment_details_master_model.dart';
@@ -65,9 +64,10 @@ class _AppointmentDetailsMasterWidgetState
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: SpinKitRing(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
               ),
             ),
@@ -164,11 +164,15 @@ class _AppointmentDetailsMasterWidgetState
                                                 child: SizedBox(
                                                   width: 50.0,
                                                   height: 50.0,
-                                                  child: SpinKitRing(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 50.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                    ),
                                                   ),
                                                 ),
                                               );
@@ -520,8 +524,6 @@ class _AppointmentDetailsMasterWidgetState
                                                                             16.0,
                                                                       ),
                                                                 ),
-                                                                tileColor: Color(
-                                                                    0xFFF5F5F5),
                                                                 dense: false,
                                                               );
                                                             }),
@@ -554,11 +556,14 @@ class _AppointmentDetailsMasterWidgetState
                                               child: SizedBox(
                                                 width: 50.0,
                                                 height: 50.0,
-                                                child: SpinKitRing(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -573,7 +578,7 @@ class _AppointmentDetailsMasterWidgetState
                                             elevation: 4.0,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                  BorderRadius.circular(20.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -617,7 +622,7 @@ class _AppointmentDetailsMasterWidgetState
                                                                   children: [
                                                                     Text(
                                                                       cardTempUsersRecord
-                                                                          .clientName,
+                                                                          .displayName,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -632,7 +637,7 @@ class _AppointmentDetailsMasterWidgetState
                                                                     ),
                                                                     Text(
                                                                       cardTempUsersRecord
-                                                                          .clientPhone,
+                                                                          .phoneNumber,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -793,8 +798,6 @@ class _AppointmentDetailsMasterWidgetState
                                                                           16.0,
                                                                     ),
                                                               ),
-                                                              tileColor: Color(
-                                                                  0xFFF5F5F5),
                                                               dense: false,
                                                             );
                                                           }),
@@ -925,37 +928,6 @@ class _AppointmentDetailsMasterWidgetState
                                           0.0, 20.0, 0.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          await widget.appointmentRef!.update({
-                                            ...createAppointmentsRecordData(
-                                              isActive: true,
-                                              withTempUser: false,
-                                              durationInMinutes: 0,
-                                              totalPrice: 0.0,
-                                              isFinished: false,
-                                              isCanceled: true,
-                                            ),
-                                            'clientREF': FieldValue.delete(),
-                                            'tempUserREF': FieldValue.delete(),
-                                            'categoriesNameList':
-                                                FieldValue.delete(),
-                                            'servicesREFList':
-                                                FieldValue.delete(),
-                                          });
-
-                                          await NotificationsRecord.collection
-                                              .doc()
-                                              .set(
-                                                  createNotificationsRecordData(
-                                                userRef:
-                                                    appointmentDetailsMasterAppointmentsRecord
-                                                        .clientREF,
-                                                notification:
-                                                    'Нажаль майстер відмінив твій запис.',
-                                                isNew: true,
-                                                time: getCurrentTimestamp,
-                                                type: 'cancel',
-                                                appREF: widget.appointmentRef,
-                                              ));
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
@@ -973,6 +945,38 @@ class _AppointmentDetailsMasterWidgetState
                                                   Color(0x00000000),
                                             ),
                                           );
+
+                                          await NotificationsRecord.collection
+                                              .doc()
+                                              .set(
+                                                  createNotificationsRecordData(
+                                                userRef:
+                                                    appointmentDetailsMasterAppointmentsRecord
+                                                        .clientREF,
+                                                notification:
+                                                    'Нажаль майстер відмінив твій запис.',
+                                                isNew: true,
+                                                time: getCurrentTimestamp,
+                                                type: 'cancel',
+                                                appREF: widget.appointmentRef,
+                                              ));
+
+                                          await widget.appointmentRef!.update({
+                                            ...createAppointmentsRecordData(
+                                              isActive: true,
+                                              withTempUser: false,
+                                              durationInMinutes: 0,
+                                              totalPrice: 0.0,
+                                              isFinished: false,
+                                              isCanceled: true,
+                                            ),
+                                            'clientREF': FieldValue.delete(),
+                                            'tempUserREF': FieldValue.delete(),
+                                            'categoriesNameList':
+                                                FieldValue.delete(),
+                                            'servicesREFList':
+                                                FieldValue.delete(),
+                                          });
 
                                           context.pushNamed('mainPageMaster');
                                         },

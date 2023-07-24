@@ -1,12 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/nav_bar1/nav_bar1_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/user_card_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'clients_list_model.dart';
@@ -60,9 +59,10 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: SpinKitRing(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
               ),
             ),
@@ -166,50 +166,8 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                             Tab(
                                               text: 'Обрані',
                                             ),
-                                            StreamBuilder<
-                                                List<TempUsersRecord>>(
-                                              stream: queryTempUsersRecord(
-                                                queryBuilder: (tempUsersRecord) =>
-                                                    tempUsersRecord.where(
-                                                        'owner',
-                                                        isEqualTo:
-                                                            currentUserReference),
-                                                singleRecord: true,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child: SpinKitRing(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 50.0,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<TempUsersRecord>
-                                                    addedByMeTempUsersRecordList =
-                                                    snapshot.data!;
-                                                // Return an empty Container when the item does not exist.
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Container();
-                                                }
-                                                final addedByMeTempUsersRecord =
-                                                    addedByMeTempUsersRecordList
-                                                            .isNotEmpty
-                                                        ? addedByMeTempUsersRecordList
-                                                            .first
-                                                        : null;
-                                                return Tab(
-                                                  text: 'Додані мною',
-                                                );
-                                              },
+                                            Tab(
+                                              text: 'Додані мною',
                                             ),
                                           ],
                                         ),
@@ -217,91 +175,78 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                       Expanded(
                                         child: TabBarView(
                                           children: [
-                                            Visibility(
-                                              visible: (currentUserDocument
-                                                              ?.allClients
-                                                              ?.toList() ??
-                                                          [])
-                                                      .length >
-                                                  0,
-                                              child: AuthUserStreamWidget(
-                                                builder: (context) =>
-                                                    SingleChildScrollView(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      10.0,
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0),
-                                                          child: Builder(
-                                                            builder: (context) {
-                                                              final myClient =
-                                                                  (currentUserDocument
-                                                                              ?.allClients
-                                                                              ?.toList() ??
-                                                                          [])
-                                                                      .map(
-                                                                          (e) =>
-                                                                              e)
-                                                                      .toList();
-                                                              if (myClient
-                                                                  .isEmpty) {
-                                                                return Image
-                                                                    .asset(
-                                                                  'assets/images/empty-all-client.png',
-                                                                  width: 250.0,
-                                                                  height: 250.0,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                );
-                                                              }
-                                                              return ListView
-                                                                  .builder(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .zero,
-                                                                primary: false,
-                                                                shrinkWrap:
-                                                                    true,
-                                                                scrollDirection:
-                                                                    Axis.vertical,
-                                                                itemCount:
-                                                                    myClient
-                                                                        .length,
-                                                                itemBuilder:
-                                                                    (context,
-                                                                        myClientIndex) {
-                                                                  final myClientItem =
-                                                                      myClient[
-                                                                          myClientIndex];
-                                                                  return UserCardWidget(
-                                                                    key: Key(
-                                                                        'Key74p_${myClientIndex}_of_${myClient.length}'),
-                                                                    userRef:
-                                                                        myClientItem,
-                                                                  );
-                                                                },
+                                            SingleChildScrollView(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  10.0,
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0),
+                                                      child:
+                                                          AuthUserStreamWidget(
+                                                        builder: (context) =>
+                                                            Builder(
+                                                          builder: (context) {
+                                                            final user =
+                                                                (currentUserDocument
+                                                                            ?.allClients
+                                                                            ?.toList() ??
+                                                                        [])
+                                                                    .map((e) =>
+                                                                        e)
+                                                                    .toList();
+                                                            if (user.isEmpty) {
+                                                              return Image
+                                                                  .asset(
+                                                                'assets/images/empty-all-client.png',
+                                                                width: 250.0,
+                                                                height: 250.0,
+                                                                fit: BoxFit
+                                                                    .contain,
                                                               );
-                                                            },
-                                                          ),
+                                                            }
+                                                            return ListView
+                                                                .builder(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              primary: false,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  user.length,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      userIndex) {
+                                                                final userItem =
+                                                                    user[
+                                                                        userIndex];
+                                                                return UserCardWidget(
+                                                                  key: Key(
+                                                                      'Key74p_${userIndex}_of_${user.length}'),
+                                                                  userRef:
+                                                                      userItem,
+                                                                );
+                                                              },
+                                                            );
+                                                          },
                                                         ),
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
+                                                ],
                                               ),
                                             ),
                                             SingleChildScrollView(
@@ -315,48 +260,59 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                               .of(context)
                                                           .primaryBackground,
                                                     ),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final favoriteClient =
-                                                            clientsListFavoriteClientsRecord
-                                                                    ?.clientsREFList
-                                                                    ?.map((e) =>
-                                                                        e)
-                                                                    .toList()
-                                                                    ?.toList() ??
-                                                                [];
-                                                        if (favoriteClient
-                                                            .isEmpty) {
-                                                          return Image.asset(
-                                                            'assets/images/no-favorite-clients.png',
-                                                            width: 250.0,
-                                                            height: 250.0,
-                                                          );
-                                                        }
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          primary: false,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              favoriteClient
-                                                                  .length,
-                                                          itemBuilder: (context,
-                                                              favoriteClientIndex) {
-                                                            final favoriteClientItem =
-                                                                favoriteClient[
-                                                                    favoriteClientIndex];
-                                                            return UserCardWidget(
-                                                              key: Key(
-                                                                  'Keye3g_${favoriteClientIndex}_of_${favoriteClient.length}'),
-                                                              userRef:
-                                                                  favoriteClientItem,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  10.0,
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0),
+                                                      child: Builder(
+                                                        builder: (context) {
+                                                          final favoriteClient =
+                                                              clientsListFavoriteClientsRecord
+                                                                      ?.clientsREFList
+                                                                      ?.map(
+                                                                          (e) =>
+                                                                              e)
+                                                                      .toList()
+                                                                      ?.toList() ??
+                                                                  [];
+                                                          if (favoriteClient
+                                                              .isEmpty) {
+                                                            return Image.asset(
+                                                              'assets/images/no-favorite-clients.png',
+                                                              width: 250.0,
+                                                              height: 250.0,
                                                             );
-                                                          },
-                                                        );
-                                                      },
+                                                          }
+                                                          return ListView
+                                                              .builder(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            primary: false,
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                favoriteClient
+                                                                    .length,
+                                                            itemBuilder: (context,
+                                                                favoriteClientIndex) {
+                                                              final favoriteClientItem =
+                                                                  favoriteClient[
+                                                                      favoriteClientIndex];
+                                                              return UserCardWidget(
+                                                                key: Key(
+                                                                    'Keye3g_${favoriteClientIndex}_of_${favoriteClient.length}'),
+                                                                userRef:
+                                                                    favoriteClientItem,
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -377,8 +333,8 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                         queryTempUsersRecord(
                                                       queryBuilder: (tempUsersRecord) =>
                                                           tempUsersRecord.where(
-                                                              'owner',
-                                                              isEqualTo:
+                                                              'mastersRefList',
+                                                              arrayContains:
                                                                   currentUserReference),
                                                     ),
                                                     builder:
@@ -389,11 +345,15 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                           child: SizedBox(
                                                             width: 50.0,
                                                             height: 50.0,
-                                                            child: SpinKitRing(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              size: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
                                                             ),
                                                           ),
                                                         );
@@ -489,7 +449,7 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              listViewTempUsersRecord.clientName,
+                                                                              listViewTempUsersRecord.displayName,
                                                                               style: FlutterFlowTheme.of(context).titleMedium,
                                                                             ),
                                                                           ),
@@ -501,7 +461,7 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              listViewTempUsersRecord.clientPhone,
+                                                                              listViewTempUsersRecord.phoneNumber,
                                                                               style: FlutterFlowTheme.of(context).bodySmall.override(
                                                                                     fontFamily: 'Roboto',
                                                                                     fontSize: 14.0,
@@ -526,9 +486,10 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                                                                                     child: SizedBox(
                                                                                       width: 50.0,
                                                                                       height: 50.0,
-                                                                                      child: SpinKitRing(
-                                                                                        color: FlutterFlowTheme.of(context).primary,
-                                                                                        size: 50.0,
+                                                                                      child: CircularProgressIndicator(
+                                                                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                          FlutterFlowTheme.of(context).primary,
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                   );
@@ -568,9 +529,9 @@ class _ClientsListWidgetState extends State<ClientsListWidget> {
                         ),
                       ),
                       wrapWithModel(
-                        model: _model.navBar1Model,
+                        model: _model.navBarModel,
                         updateCallback: () => setState(() {}),
-                        child: NavBar1Widget(),
+                        child: NavBarWidget(),
                       ),
                     ],
                   ),

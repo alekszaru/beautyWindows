@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'new_notify_model.dart';
@@ -63,9 +62,10 @@ class _NewNotifyWidgetState extends State<NewNotifyWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: SpinKitRing(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
           );
@@ -84,9 +84,10 @@ class _NewNotifyWidgetState extends State<NewNotifyWidget> {
                     child: SizedBox(
                       width: 50.0,
                       height: 50.0,
-                      child: SpinKitRing(
-                        color: FlutterFlowTheme.of(context).primary,
-                        size: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
                       ),
                     ),
                   );
@@ -98,14 +99,18 @@ class _NewNotifyWidgetState extends State<NewNotifyWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    await containerNotificationsRecord.reference
-                        .update(createNotificationsRecordData(
-                      isNew: false,
-                    ));
-                    if (containerAppointmentsRecord != null) {
-                      if (containerAppointmentsRecord.isActive ||
-                          (containerAppointmentsRecord.clientREF ==
-                              currentUserReference)) {
+                    if (containerNotificationsRecord.isNew == true) {
+                      await containerNotificationsRecord.reference
+                          .update(createNotificationsRecordData(
+                        isNew: false,
+                      ));
+                    }
+                    if ((containerAppointmentsRecord.masterREF ==
+                            currentUserReference) ||
+                        (containerAppointmentsRecord.clientREF ==
+                            currentUserReference)) {
+                      if (containerAppointmentsRecord.clientREF ==
+                          currentUserReference) {
                         context.pushNamed(
                           'appointmentDetailsClient',
                           queryParameters: {
@@ -123,21 +128,14 @@ class _NewNotifyWidgetState extends State<NewNotifyWidget> {
                           },
                         );
                       } else {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return AlertDialog(
-                              title: Text('Цього запису вже не існує'),
-                              content: Text('Знайди інший варіант'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
-                            );
-                          },
+                        context.pushNamed(
+                          'appointmentDetailsMaster',
+                          queryParameters: {
+                            'appointmentRef': serializeParam(
+                              containerAppointmentsRecord.reference,
+                              ParamType.DocumentReference,
+                            ),
+                          }.withoutNulls,
                         );
                       }
                     } else {

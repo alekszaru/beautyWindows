@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/app_card/app_card_widget.dart';
-import '/components/nav_bar1/nav_bar1_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/new_notify_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -484,123 +483,133 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                 topRight: Radius.circular(0.0),
                                               ),
                                             ),
-                                            child: StreamBuilder<
-                                                List<NotificationsRecord>>(
-                                              stream: queryNotificationsRecord(
-                                                queryBuilder:
-                                                    (notificationsRecord) =>
-                                                        notificationsRecord
-                                                            .where('userRef',
-                                                                isEqualTo:
-                                                                    currentUserReference)
-                                                            .where('isNew',
-                                                                isEqualTo:
-                                                                    true),
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child: SpinKitRing(
-                                                        color:
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, -1.0),
+                                              child: StreamBuilder<
+                                                  List<NotificationsRecord>>(
+                                                stream:
+                                                    queryNotificationsRecord(
+                                                  queryBuilder:
+                                                      (notificationsRecord) =>
+                                                          notificationsRecord
+                                                              .where(
+                                                                  'userRef',
+                                                                  isEqualTo:
+                                                                      currentUserReference)
+                                                              .where('isNew',
+                                                                  isEqualTo:
+                                                                      true),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        size: 50.0,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<NotificationsRecord>
-                                                    listViewNotificationsRecordList =
-                                                    snapshot.data!;
-                                                if (listViewNotificationsRecordList
-                                                    .isEmpty) {
-                                                  return Image.asset(
-                                                    'assets/images/Saying-No-1000x675.jpg',
-                                                    fit: BoxFit.cover,
-                                                  );
-                                                }
-                                                return ListView.separated(
-                                                  padding: EdgeInsets.zero,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount:
-                                                      listViewNotificationsRecordList
-                                                          .length,
-                                                  separatorBuilder: (_, __) =>
-                                                      SizedBox(height: 10.0),
-                                                  itemBuilder:
-                                                      (context, listViewIndex) {
-                                                    final listViewNotificationsRecord =
-                                                        listViewNotificationsRecordList[
-                                                            listViewIndex];
-                                                    return Container(
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          await listViewNotificationsRecord
-                                                              .reference
-                                                              .update(
-                                                                  createNotificationsRecordData(
-                                                            isNew: false,
-                                                          ));
-
-                                                          context.pushNamed(
-                                                            'appointmentDetailsClient',
-                                                            queryParameters: {
-                                                              'appointmentRef':
-                                                                  serializeParam(
-                                                                listViewNotificationsRecord
-                                                                    .appREF,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        },
-                                                        child: wrapWithModel(
-                                                          model: _model
-                                                              .newNotifyModels1
-                                                              .getModel(
-                                                            listViewIndex
-                                                                .toString(),
-                                                            listViewIndex,
-                                                          ),
-                                                          updateCallback: () =>
-                                                              setState(() {}),
-                                                          child:
-                                                              NewNotifyWidget(
-                                                            key: Key(
-                                                              'Key2jj_${listViewIndex.toString()}',
-                                                            ),
-                                                            notifyRef:
-                                                                listViewNotificationsRecord
-                                                                    .reference,
-                                                            userREF:
-                                                                currentUserReference!,
-                                                            appREF:
-                                                                listViewNotificationsRecord
-                                                                    .appREF!,
                                                           ),
                                                         ),
                                                       ),
                                                     );
-                                                  },
-                                                );
-                                              },
+                                                  }
+                                                  List<NotificationsRecord>
+                                                      listViewNotificationsRecordList =
+                                                      snapshot.data!;
+                                                  if (listViewNotificationsRecordList
+                                                      .isEmpty) {
+                                                    return Image.asset(
+                                                      'assets/images/no-notifications.png',
+                                                      fit: BoxFit.contain,
+                                                    );
+                                                  }
+                                                  return ListView.separated(
+                                                    padding: EdgeInsets.zero,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        listViewNotificationsRecordList
+                                                            .length,
+                                                    separatorBuilder: (_, __) =>
+                                                        SizedBox(height: 10.0),
+                                                    itemBuilder: (context,
+                                                        listViewIndex) {
+                                                      final listViewNotificationsRecord =
+                                                          listViewNotificationsRecordList[
+                                                              listViewIndex];
+                                                      return Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            await listViewNotificationsRecord
+                                                                .reference
+                                                                .update(
+                                                                    createNotificationsRecordData(
+                                                              isNew: false,
+                                                            ));
+
+                                                            context.pushNamed(
+                                                              'appointmentDetailsClient',
+                                                              queryParameters: {
+                                                                'appointmentRef':
+                                                                    serializeParam(
+                                                                  listViewNotificationsRecord
+                                                                      .appREF,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
+                                                          child: wrapWithModel(
+                                                            model: _model
+                                                                .newNotifyModels1
+                                                                .getModel(
+                                                              listViewIndex
+                                                                  .toString(),
+                                                              listViewIndex,
+                                                            ),
+                                                            updateCallback:
+                                                                () => setState(
+                                                                    () {}),
+                                                            child:
+                                                                NewNotifyWidget(
+                                                              key: Key(
+                                                                'Key2jj_${listViewIndex.toString()}',
+                                                              ),
+                                                              notifyRef:
+                                                                  listViewNotificationsRecord
+                                                                      .reference,
+                                                              userREF:
+                                                                  currentUserReference!,
+                                                              appREF:
+                                                                  listViewNotificationsRecord
+                                                                      .appREF!,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -627,110 +636,121 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                 topRight: Radius.circular(0.0),
                                               ),
                                             ),
-                                            child: PagedListView<
-                                                DocumentSnapshot<Object?>?,
-                                                NotificationsRecord>.separated(
-                                              pagingController:
-                                                  _model.setListViewController3(
-                                                NotificationsRecord.collection
-                                                    .where('userRef',
-                                                        isEqualTo:
-                                                            currentUserReference)
-                                                    .orderBy('time',
-                                                        descending: true),
-                                              ),
-                                              padding: EdgeInsets.zero,
-                                              reverse: false,
-                                              scrollDirection: Axis.vertical,
-                                              separatorBuilder: (_, __) =>
-                                                  SizedBox(height: 10.0),
-                                              builderDelegate:
-                                                  PagedChildBuilderDelegate<
-                                                      NotificationsRecord>(
-                                                // Customize what your widget looks like when it's loading the first page.
-                                                firstPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child: SpinKitRing(
-                                                      color:
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, -1.0),
+                                              child: PagedListView<
+                                                  DocumentSnapshot<Object?>?,
+                                                  NotificationsRecord>.separated(
+                                                pagingController: _model
+                                                    .setListViewController3(
+                                                  NotificationsRecord.collection
+                                                      .where('userRef',
+                                                          isEqualTo:
+                                                              currentUserReference)
+                                                      .orderBy('time',
+                                                          descending: true),
+                                                ),
+                                                padding: EdgeInsets.zero,
+                                                reverse: false,
+                                                scrollDirection: Axis.vertical,
+                                                separatorBuilder: (_, __) =>
+                                                    SizedBox(height: 10.0),
+                                                builderDelegate:
+                                                    PagedChildBuilderDelegate<
+                                                        NotificationsRecord>(
+                                                  // Customize what your widget looks like when it's loading the first page.
+                                                  firstPageProgressIndicatorBuilder:
+                                                      (_) => Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primary,
-                                                      size: 50.0,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                // Customize what your widget looks like when it's loading another page.
-                                                newPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child: SpinKitRing(
-                                                      color:
+                                                  // Customize what your widget looks like when it's loading another page.
+                                                  newPageProgressIndicatorBuilder:
+                                                      (_) => Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primary,
-                                                      size: 50.0,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                noItemsFoundIndicatorBuilder:
-                                                    (_) => Image.asset(
-                                                  'assets/images/Saying-No-1000x675.jpg',
-                                                ),
-                                                itemBuilder: (context, _,
-                                                    listViewIndex) {
-                                                  final listViewNotificationsRecord =
-                                                      _model.listViewPagingController3!
-                                                              .itemList![
-                                                          listViewIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await listViewNotificationsRecord
-                                                          .reference
-                                                          .update(
-                                                              createNotificationsRecordData(
-                                                        isNew: false,
-                                                      ));
+                                                  noItemsFoundIndicatorBuilder:
+                                                      (_) => Image.asset(
+                                                    'assets/images/no-notifications.png',
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                  itemBuilder: (context, _,
+                                                      listViewIndex) {
+                                                    final listViewNotificationsRecord =
+                                                        _model.listViewPagingController3!
+                                                                .itemList![
+                                                            listViewIndex];
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await listViewNotificationsRecord
+                                                            .reference
+                                                            .update(
+                                                                createNotificationsRecordData(
+                                                          isNew: false,
+                                                        ));
 
-                                                      context.pushNamed(
-                                                        'appointmentDetailsClient',
-                                                        queryParameters: {
-                                                          'appointmentRef':
-                                                              serializeParam(
+                                                        context.pushNamed(
+                                                          'appointmentDetailsClient',
+                                                          queryParameters: {
+                                                            'appointmentRef':
+                                                                serializeParam(
+                                                              listViewNotificationsRecord
+                                                                  .appREF,
+                                                              ParamType
+                                                                  .DocumentReference,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
+                                                      child: NewNotifyWidget(
+                                                        key: Key(
+                                                            'Key5fu_${listViewIndex}_of_${_model.listViewPagingController3!.itemList!.length}'),
+                                                        notifyRef:
                                                             listViewNotificationsRecord
-                                                                .appREF,
-                                                            ParamType
-                                                                .DocumentReference,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    },
-                                                    child: NewNotifyWidget(
-                                                      key: Key(
-                                                          'Key5fu_${listViewIndex}_of_${_model.listViewPagingController3!.itemList!.length}'),
-                                                      notifyRef:
-                                                          listViewNotificationsRecord
-                                                              .reference,
-                                                      userREF:
-                                                          currentUserReference!,
-                                                      appREF:
-                                                          listViewNotificationsRecord
-                                                              .appREF!,
-                                                    ),
-                                                  );
-                                                },
+                                                                .reference,
+                                                        userREF:
+                                                            currentUserReference!,
+                                                        appREF:
+                                                            listViewNotificationsRecord
+                                                                .appREF!,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -791,18 +811,86 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                             style: FlutterFlowTheme.of(context).titleMedium,
                           ),
                         ),
-                        FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 30.0,
-                          borderWidth: 1.0,
-                          buttonSize: 60.0,
-                          icon: FaIcon(
-                            FontAwesomeIcons.solidBell,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                        FutureBuilder<int>(
+                          future: queryNotificationsRecordCount(
+                            queryBuilder: (notificationsRecord) =>
+                                notificationsRecord
+                                    .where('userRef',
+                                        isEqualTo: currentUserReference)
+                                    .where('isNew', isEqualTo: true),
                           ),
-                          onPressed: () async {
-                            scaffoldKey.currentState!.openEndDrawer();
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            int stackCount = snapshot.data!;
+                            return Stack(
+                              alignment: AlignmentDirectional(-1.0, 1.0),
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(-1.0, 1.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 10.0, 0.0),
+                                    child: FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 60.0,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.solidBell,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 30.0,
+                                      ),
+                                      onPressed: () async {
+                                        scaffoldKey.currentState!
+                                            .openEndDrawer();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context).accent1,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  child: Visibility(
+                                    visible: stackCount != 0,
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 2.0, 2.0, 2.0),
+                                      child: Text(
+                                        stackCount.toString(),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
                           },
                         ),
                       ],
@@ -828,9 +916,10 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                               child: SizedBox(
                                 width: 50.0,
                                 height: 50.0,
-                                child: SpinKitRing(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
                             );
@@ -913,11 +1002,12 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                           child: SizedBox(
                                             width: 50.0,
                                             height: 50.0,
-                                            child: SpinKitRing(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -1019,12 +1109,15 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                   child: SizedBox(
                                                     width: 50.0,
                                                     height: 50.0,
-                                                    child: SpinKitRing(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
                                                     ),
                                                   ),
                                                 );
@@ -1208,10 +1301,10 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                     ),
                   ),
                   wrapWithModel(
-                    model: _model.navBar1Model,
+                    model: _model.navBarModel,
                     updateCallback: () => setState(() {}),
                     updateOnChange: true,
-                    child: NavBar1Widget(),
+                    child: NavBarWidget(),
                   ),
                 ],
               ),

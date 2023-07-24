@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/master_from_place/master_from_place_widget.dart';
-import '/components/nav_bar1/nav_bar1_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/user_card_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'masters_list_model.dart';
@@ -115,9 +114,10 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                     child: SizedBox(
                       width: 50.0,
                       height: 50.0,
-                      child: SpinKitRing(
-                        color: FlutterFlowTheme.of(context).primary,
-                        size: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
                       ),
                     ),
                   );
@@ -190,7 +190,12 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                   10.0, 10.0, 10.0, 0.0),
                                           child: StreamBuilder<
                                               List<CategoriesRecord>>(
-                                            stream: queryCategoriesRecord(),
+                                            stream: queryCategoriesRecord(
+                                              queryBuilder:
+                                                  (categoriesRecord) =>
+                                                      categoriesRecord
+                                                          .orderBy('sort'),
+                                            ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
@@ -198,12 +203,15 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                   child: SizedBox(
                                                     width: 50.0,
                                                     height: 50.0,
-                                                    child: SpinKitRing(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
                                                     ),
                                                   ),
                                                 );
@@ -292,23 +300,22 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                     child: SizedBox(
                                                       width: 50.0,
                                                       height: 50.0,
-                                                      child: SpinKitRing(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                        ),
                                                       ),
                                                     ),
                                                   );
                                                 }
                                                 List<UsersRecord>
                                                     listViewUsersRecordList =
-                                                    snapshot.data!
-                                                        .where((u) =>
-                                                            u.uid !=
-                                                            currentUserUid)
-                                                        .toList();
+                                                    snapshot.data!;
                                                 if (listViewUsersRecordList
                                                     .isEmpty) {
                                                   return Image.asset(
@@ -355,7 +362,7 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
+                                                  10.0, 10.0, 10.0, 0.0),
                                           child: Builder(
                                             builder: (context) {
                                               final favMaster =
@@ -368,8 +375,9 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                               if (favMaster.isEmpty) {
                                                 return Image.asset(
                                                   'assets/images/no-favorite-masters.png',
-                                                  width: 150.0,
-                                                  height: 150.0,
+                                                  width: 250.0,
+                                                  height: 250.0,
+                                                  fit: BoxFit.contain,
                                                 );
                                               }
                                               return ListView.builder(
@@ -404,7 +412,12 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                   10.0, 10.0, 10.0, 0.0),
                                           child: StreamBuilder<
                                               List<CategoriesRecord>>(
-                                            stream: queryCategoriesRecord(),
+                                            stream: queryCategoriesRecord(
+                                              queryBuilder:
+                                                  (categoriesRecord) =>
+                                                      categoriesRecord
+                                                          .orderBy('sort'),
+                                            ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
@@ -412,12 +425,15 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                   child: SizedBox(
                                                     width: 50.0,
                                                     height: 50.0,
-                                                    child: SpinKitRing(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
                                                     ),
                                                   ),
                                                 );
@@ -477,101 +493,128 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                             },
                                           ),
                                         ),
-                                        StreamBuilder<List<UsersRecord>>(
-                                          stream: queryUsersRecord(
-                                            queryBuilder: (usersRecord) =>
-                                                usersRecord
-                                                    .where('isMaster',
-                                                        isEqualTo: true)
-                                                    .where(
-                                                        'favorite_categories',
-                                                        arrayContains: FFAppState()
-                                                            .currentCategoryName),
-                                          ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child: SpinKitRing(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 50.0,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10.0, 0.0, 10.0, 0.0),
+                                          child:
+                                              StreamBuilder<List<UsersRecord>>(
+                                            stream: queryUsersRecord(
+                                              queryBuilder: (usersRecord) =>
+                                                  usersRecord
+                                                      .where('isMaster',
+                                                          isEqualTo: true)
+                                                      .where(
+                                                          'favorite_categories',
+                                                          arrayContains:
+                                                              FFAppState()
+                                                                  .currentCategoryName),
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            }
-                                            List<UsersRecord>
-                                                columnUsersRecordList =
-                                                snapshot.data!;
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: List.generate(
-                                                  columnUsersRecordList.length,
-                                                  (columnIndex) {
-                                                final columnUsersRecord =
-                                                    columnUsersRecordList[
-                                                        columnIndex];
-                                                return StreamBuilder<
-                                                    List<AppointmentsRecord>>(
-                                                  stream:
-                                                      queryAppointmentsRecord(
-                                                    queryBuilder: (appointmentsRecord) => appointmentsRecord
-                                                        .where('time_start',
-                                                            isGreaterThan:
-                                                                dateTimeFromSecondsSinceEpoch(
-                                                                    getCurrentTimestamp
-                                                                        .secondsSinceEpoch))
-                                                        .where('isActive',
-                                                            isEqualTo: true)
-                                                        .where('masterREF',
-                                                            isEqualTo:
-                                                                columnUsersRecord
-                                                                    .reference)
-                                                        .orderBy('time_start'),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child: SpinKitRing(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            size: 50.0,
+                                                );
+                                              }
+                                              List<UsersRecord>
+                                                  columnUsersRecordList =
+                                                  snapshot.data!;
+                                              if (columnUsersRecordList
+                                                  .isEmpty) {
+                                                return Image.asset(
+                                                  'assets/images/no-masters-in-category.png',
+                                                  width: 250.0,
+                                                  height: 250.0,
+                                                  fit: BoxFit.contain,
+                                                );
+                                              }
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: List.generate(
+                                                    columnUsersRecordList
+                                                        .length, (columnIndex) {
+                                                  final columnUsersRecord =
+                                                      columnUsersRecordList[
+                                                          columnIndex];
+                                                  return StreamBuilder<
+                                                      List<AppointmentsRecord>>(
+                                                    stream:
+                                                        queryAppointmentsRecord(
+                                                      queryBuilder: (appointmentsRecord) => appointmentsRecord
+                                                          .where('time_start',
+                                                              isGreaterThan:
+                                                                  dateTimeFromSecondsSinceEpoch(
+                                                                      getCurrentTimestamp
+                                                                          .secondsSinceEpoch))
+                                                          .where('isActive',
+                                                              isEqualTo: true)
+                                                          .where('masterREF',
+                                                              isEqualTo:
+                                                                  columnUsersRecord
+                                                                      .reference)
+                                                          .orderBy(
+                                                              'time_start'),
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                            ),
                                                           ),
+                                                        );
+                                                      }
+                                                      List<AppointmentsRecord>
+                                                          mastersAllAppointmentsRecordList =
+                                                          snapshot.data!;
+                                                      return Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                        ),
+                                                        child: UserCardWidget(
+                                                          key: Key(
+                                                              'Key03b_${columnIndex}_of_${columnUsersRecordList.length}'),
+                                                          userRef:
+                                                              columnUsersRecord
+                                                                  .reference,
                                                         ),
                                                       );
-                                                    }
-                                                    List<AppointmentsRecord>
-                                                        mastersAllAppointmentsRecordList =
-                                                        snapshot.data!;
-                                                    return Container(
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                      ),
-                                                      child: UserCardWidget(
-                                                        key: Key(
-                                                            'Key03b_${columnIndex}_of_${columnUsersRecordList.length}'),
-                                                        userRef:
-                                                            columnUsersRecord
-                                                                .reference,
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              }).addToStart(
-                                                  SizedBox(height: 10.0)),
-                                            );
-                                          },
+                                                    },
+                                                  );
+                                                }).addToStart(
+                                                    SizedBox(height: 10.0)),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -595,11 +638,13 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                             child: SizedBox(
                                               width: 50.0,
                                               height: 50.0,
-                                              child: SpinKitRing(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
                                               ),
                                             ),
                                           );
@@ -627,8 +672,13 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                         10.0, 0.0, 10.0, 0.0),
                                                 child: StreamBuilder<
                                                     List<CategoriesRecord>>(
-                                                  stream:
-                                                      queryCategoriesRecord(),
+                                                  stream: queryCategoriesRecord(
+                                                    queryBuilder:
+                                                        (categoriesRecord) =>
+                                                            categoriesRecord
+                                                                .orderBy(
+                                                                    'sort'),
+                                                  ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
                                                     if (!snapshot.hasData) {
@@ -636,11 +686,15 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                         child: SizedBox(
                                                           width: 50.0,
                                                           height: 50.0,
-                                                          child: SpinKitRing(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            size: 50.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                            ),
                                                           ),
                                                         ),
                                                       );
@@ -738,11 +792,15 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                           child: SizedBox(
                                                             width: 50.0,
                                                             height: 50.0,
-                                                            child: SpinKitRing(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              size: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
                                                             ),
                                                           ),
                                                         );
@@ -775,11 +833,14 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                                                                   width: 50.0,
                                                                   height: 50.0,
                                                                   child:
-                                                                      SpinKitRing(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    size: 50.0,
+                                                                      CircularProgressIndicator(
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -877,9 +938,9 @@ class _MastersListWidgetState extends State<MastersListWidget> {
                       ),
                     ),
                     wrapWithModel(
-                      model: _model.navBar1Model,
+                      model: _model.navBarModel,
                       updateCallback: () => setState(() {}),
-                      child: NavBar1Widget(),
+                      child: NavBarWidget(),
                     ),
                   ],
                 );

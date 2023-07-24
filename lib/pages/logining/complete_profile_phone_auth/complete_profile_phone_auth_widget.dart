@@ -10,7 +10,6 @@ import '/flutter_flow/upload_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'complete_profile_phone_auth_model.dart';
@@ -347,9 +346,10 @@ class _CompleteProfilePhoneAuthWidgetState
                             child: SizedBox(
                               width: 50.0,
                               height: 50.0,
-                              child: SpinKitRing(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
                           );

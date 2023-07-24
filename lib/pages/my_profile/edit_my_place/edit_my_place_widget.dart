@@ -12,7 +12,6 @@ import '/flutter_flow/upload_data.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'edit_my_place_model.dart';
@@ -64,9 +63,10 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: SpinKitRing(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
               ),
             ),
@@ -192,10 +192,11 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                                     child: SizedBox(
                                       width: 50.0,
                                       height: 50.0,
-                                      child: SpinKitRing(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
                                     ),
                                   );
@@ -397,7 +398,7 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                                                         title: Text(
                                                             'Видалення фотографії'),
                                                         content: Text(
-                                                            'Ти дійсно хочете видалити цю фотографію твого кабінету'),
+                                                            'Ти дійсно хочеш видалити цю фотографію твого кабінету'),
                                                         actions: [
                                                           TextButton(
                                                             onPressed: () =>

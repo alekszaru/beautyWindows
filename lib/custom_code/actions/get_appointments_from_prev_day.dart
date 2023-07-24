@@ -31,6 +31,10 @@ Future<String> getAppointmentsFromPrevDay(DateTime currentDay) async {
       'masterREF': doc['masterREF'],
       'isActive': true,
       'withTempUser': false,
+      'isCanceled': false,
+      'isFinished': false,
+      'duration_in_minutes': 0,
+      'total_price': 0,
     });
   }
   return "Ok";

@@ -7,7 +7,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'start_temp_model.dart';
@@ -63,14 +62,27 @@ class _StartTempWidgetState extends State<StartTempWidget> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Hero(
-                        tag: 'signup',
-                        transitionOnUserGestures: true,
-                        child: Image.asset(
-                          'assets/images/rose-p.png',
-                          width: 200.0,
-                          height: 150.0,
-                          fit: BoxFit.fitHeight,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          GoRouter.of(context).prepareAuthEvent();
+                          await authManager.signOut();
+                          GoRouter.of(context).clearRedirectLocation();
+
+                          context.goNamedAuth('loginPhone', context.mounted);
+                        },
+                        child: Hero(
+                          tag: 'signup',
+                          transitionOnUserGestures: true,
+                          child: Image.asset(
+                            'assets/images/rose-p.png',
+                            width: 200.0,
+                            height: 150.0,
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
                       ),
                     ],

@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/master_from_place/master_from_place_widget.dart';
-import '/components/nav_bar1/nav_bar1_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/user_card_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -31,18 +30,18 @@ class MastersListModel extends FlutterFlowModel {
   // State field(s) for GoogleMap widget.
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
-  // Model for NavBar1 component.
-  late NavBar1Model navBar1Model;
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    navBar1Model = createModel(context, () => NavBar1Model());
+    navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    navBar1Model.dispose();
+    navBarModel.dispose();
   }
 
   /// Action blocks are added here.

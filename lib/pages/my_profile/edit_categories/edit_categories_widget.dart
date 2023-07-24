@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'edit_categories_model.dart';
@@ -205,7 +204,10 @@ class _EditCategoriesWidgetState extends State<EditCategoriesWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 50.0),
                       child: StreamBuilder<List<CategoriesRecord>>(
-                        stream: queryCategoriesRecord(),
+                        stream: queryCategoriesRecord(
+                          queryBuilder: (categoriesRecord) =>
+                              categoriesRecord.orderBy('sort'),
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -213,9 +215,10 @@ class _EditCategoriesWidgetState extends State<EditCategoriesWidget> {
                               child: SizedBox(
                                 width: 50.0,
                                 height: 50.0,
-                                child: SpinKitRing(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
                             );

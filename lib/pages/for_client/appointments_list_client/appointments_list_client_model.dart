@@ -1,13 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/app_card/app_card_widget.dart';
-import '/components/nav_bar1/nav_bar1_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -21,23 +20,22 @@ class AppointmentsListClientModel extends FlutterFlowModel {
   PagingController<DocumentSnapshot?, AppointmentsRecord>?
       listAppClientPagingController2;
   Query? listAppClientPagingQuery2;
-  List<StreamSubscription?> listAppClientStreamSubscriptions2 = [];
 
-  // Model for NavBar1 component.
-  late NavBar1Model navBar1Model;
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    navBar1Model = createModel(context, () => NavBar1Model());
+    navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    listAppClientStreamSubscriptions2.forEach((s) => s?.cancel());
+
     listAppClientPagingController2?.dispose();
 
-    navBar1Model.dispose();
+    navBarModel.dispose();
   }
 
   /// Action blocks are added here.
@@ -70,10 +68,9 @@ class AppointmentsListClientModel extends FlutterFlowModel {
         (nextPageMarker) => queryAppointmentsRecordPage(
           queryBuilder: (_) => listAppClientPagingQuery2 ??= query,
           nextPageMarker: nextPageMarker,
-          streamSubscriptions: listAppClientStreamSubscriptions2,
           controller: controller,
           pageSize: 10,
-          isStream: true,
+          isStream: false,
         ),
       );
   }

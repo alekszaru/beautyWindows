@@ -10,7 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
@@ -92,9 +91,10 @@ class _AddClientTowindowSheetWidgetState
                 child: SizedBox(
                   width: 50.0,
                   height: 50.0,
-                  child: SpinKitRing(
-                    color: FlutterFlowTheme.of(context).primary,
-                    size: 50.0,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      FlutterFlowTheme.of(context).primary,
+                    ),
                   ),
                 ),
               );
@@ -223,11 +223,12 @@ class _AddClientTowindowSheetWidgetState
                                           child: SizedBox(
                                             width: 50.0,
                                             height: 50.0,
-                                            child: SpinKitRing(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -425,11 +426,14 @@ class _AddClientTowindowSheetWidgetState
                                               child: SizedBox(
                                                 width: 50.0,
                                                 height: 50.0,
-                                                child: SpinKitRing(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -578,23 +582,16 @@ class _AddClientTowindowSheetWidgetState
                                                       tempUserREF: tempNameItem
                                                           .reference,
                                                     ));
+                                                    setState(() {
+                                                      _model
+                                                          .newClientPhoneController
+                                                          ?.clear();
+                                                    });
                                                   },
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      Container(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .error,
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                      ),
                                                       Text(
                                                         tempNameItem
                                                             .displayName,
@@ -642,6 +639,8 @@ class _AddClientTowindowSheetWidgetState
                                                   Colors.transparent,
                                               onTap: () async {
                                                 await showAlignedDialog(
+                                                  barrierColor:
+                                                      Color(0x25000000),
                                                   context: context,
                                                   isGlobal: true,
                                                   avoidOverflow: false,
@@ -653,14 +652,22 @@ class _AddClientTowindowSheetWidgetState
                                                                   context)),
                                                   followerAnchor:
                                                       AlignmentDirectional(
-                                                              0.0, 0.0)
+                                                              0.0, 1.0)
                                                           .resolve(
                                                               Directionality.of(
                                                                   context)),
                                                   builder: (dialogContext) {
                                                     return Material(
                                                       color: Colors.transparent,
-                                                      child: AddClientWidget(),
+                                                      child: Container(
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.5,
+                                                        child:
+                                                            AddClientWidget(),
+                                                      ),
                                                     );
                                                   },
                                                 ).then(
@@ -726,9 +733,15 @@ class _AddClientTowindowSheetWidgetState
                           ),
                           if (columnAppointmentsRecord.withTempUser)
                             Container(
+                              height: 50.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                ),
                               ),
                               child: StreamBuilder<TempUsersRecord>(
                                 stream: TempUsersRecord.getDocument(
@@ -740,10 +753,12 @@ class _AddClientTowindowSheetWidgetState
                                       child: SizedBox(
                                         width: 50.0,
                                         height: 50.0,
-                                        child: SpinKitRing(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
                                         ),
                                       ),
                                     );
@@ -840,66 +855,44 @@ class _AddClientTowindowSheetWidgetState
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                  child: StreamBuilder<List<TempUsersRecord>>(
-                    stream: queryTempUsersRecord(
-                      queryBuilder: (tempUsersRecord) => tempUsersRecord
-                          .where('owner', isEqualTo: currentUserReference),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: SpinKitRing(
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 50.0,
-                            ),
-                          ),
-                        );
-                      }
-                      List<TempUsersRecord> buttonTempUsersRecordList =
-                          snapshot.data!;
-                      return FFButtonWidget(
-                        onPressed: () async {
-                          await widget.appointmentREF!.update({
-                            ...createAppointmentsRecordData(
-                              isActive: false,
-                            ),
-                            'categoriesNameList':
-                                _model.checkboxListTileCheckedItems,
-                          });
-
-                          await currentUserReference!.update({
-                            'all_clients': FieldValue.arrayUnion(
-                                [columnAppointmentsRecord.clientREF]),
-                          });
-                          Navigator.pop(context);
-                        },
-                        text: 'Записати клієнта',
-                        options: FFButtonOptions(
-                          width: 200.0,
-                          height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).info,
-                          textStyle:
-                              FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Open Sans',
-                                    color: FlutterFlowTheme.of(context).white,
-                                  ),
-                          elevation: 5.0,
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).tertiary,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      await widget.appointmentREF!.update({
+                        ...createAppointmentsRecordData(
+                          isActive: false,
                         ),
-                      );
+                        'categoriesNameList':
+                            _model.checkboxListTileCheckedItems,
+                      });
+                      if (!columnAppointmentsRecord.withTempUser) {
+                        await currentUserReference!.update({
+                          'all_clients': FieldValue.arrayUnion(
+                              [columnAppointmentsRecord.clientREF]),
+                        });
+                      }
+                      Navigator.pop(context);
                     },
+                    text: 'Записати клієнта',
+                    options: FFButtonOptions(
+                      width: 200.0,
+                      height: 50.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).info,
+                      textStyle:
+                          FlutterFlowTheme.of(context).labelLarge.override(
+                                fontFamily: 'Open Sans',
+                                color: FlutterFlowTheme.of(context).white,
+                              ),
+                      elevation: 5.0,
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).tertiary,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
                 ),
                 Container(

@@ -1,13 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/app_card/app_card_widget.dart';
-import '/components/nav_bar1/nav_bar1_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -166,12 +165,15 @@ class _AppointmentsListClientWidgetState
                                                   child: SizedBox(
                                                     width: 50.0,
                                                     height: 50.0,
-                                                    child: SpinKitRing(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
                                                     ),
                                                   ),
                                                 );
@@ -185,6 +187,7 @@ class _AppointmentsListClientWidgetState
                                                   'assets/images/no-appointment-with-client.png',
                                                   width: 250.0,
                                                   height: 250.0,
+                                                  fit: BoxFit.contain,
                                                 );
                                               }
                                               return ListView.separated(
@@ -272,11 +275,14 @@ class _AppointmentsListClientWidgetState
                                               child: SizedBox(
                                                 width: 50.0,
                                                 height: 50.0,
-                                                child: SpinKitRing(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -286,15 +292,24 @@ class _AppointmentsListClientWidgetState
                                               child: SizedBox(
                                                 width: 50.0,
                                                 height: 50.0,
-                                                child: SpinKitRing(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-
+                                            noItemsFoundIndicatorBuilder: (_) =>
+                                                Image.asset(
+                                              'assets/images/no-finished-appointment-with-client.png',
+                                              width: 250.0,
+                                              height: 250.0,
+                                              fit: BoxFit.contain,
+                                            ),
                                             itemBuilder: (context, _,
                                                 listAppClientIndex) {
                                               final listAppClientAppointmentsRecord =
@@ -324,9 +339,9 @@ class _AppointmentsListClientWidgetState
                   ),
                 ),
                 wrapWithModel(
-                  model: _model.navBar1Model,
+                  model: _model.navBarModel,
                   updateCallback: () => setState(() {}),
-                  child: NavBar1Widget(),
+                  child: NavBarWidget(),
                 ),
               ],
             ),
