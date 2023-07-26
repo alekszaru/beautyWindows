@@ -524,13 +524,6 @@ class _MainPageClientWidgetState extends State<MainPageClientWidget> {
                                                   List<NotificationsRecord>
                                                       listViewNotificationsRecordList =
                                                       snapshot.data!;
-                                                  if (listViewNotificationsRecordList
-                                                      .isEmpty) {
-                                                    return Image.asset(
-                                                      'assets/images/no-notifications.png',
-                                                      fit: BoxFit.contain,
-                                                    );
-                                                  }
                                                   return ListView.separated(
                                                     padding: EdgeInsets.zero,
                                                     scrollDirection:

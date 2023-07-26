@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -1064,7 +1063,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                               ));
 
                                                               context.pushNamed(
-                                                                'appointmentDetailsClient',
+                                                                'appointmentDetailsMaster',
                                                                 queryParameters:
                                                                     {
                                                                   'appointmentRef':
@@ -1242,7 +1241,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                               ));
 
                                                               context.pushNamed(
-                                                                'appointmentDetailsClient',
+                                                                'appointmentDetailsMaster',
                                                                 queryParameters:
                                                                     {
                                                                   'appointmentRef':
@@ -1273,64 +1272,6 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ),
-                                              FFButtonWidget(
-                                                onPressed: () async {
-                                                  _model.deleteItems =
-                                                      await queryNotificationsRecordCount(
-                                                    queryBuilder:
-                                                        (notificationsRecord) =>
-                                                            notificationsRecord
-                                                                .where(
-                                                                    'userRef',
-                                                                    isEqualTo:
-                                                                        currentUserReference),
-                                                  );
-                                                  while (
-                                                      _model.deleteItems != 0) {
-                                                    await endDrawerNotificationsRecordList
-                                                        .first.reference
-                                                        .delete();
-                                                    setState(() {});
-                                                  }
-
-                                                  setState(() {});
-                                                },
-                                                text: 'Видалити всі сповіщення',
-                                                options: FFButtonOptions(
-                                                  width: 200.0,
-                                                  height: 50.0,
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 0.0),
-                                                  iconPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .info,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily: 'Open Sans',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .white,
-                                                      ),
-                                                  elevation: 5.0,
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiary,
-                                                    width: 2.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
                                                 ),
                                               ),
                                             ],
