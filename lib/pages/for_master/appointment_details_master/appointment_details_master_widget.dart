@@ -123,341 +123,340 @@ class _AppointmentDetailsMasterWidgetState
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (valueOrDefault<bool>(
-                        currentUserDocument?.isMaster, false))
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                        child: AuthUserStreamWidget(
-                          builder: (context) => Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                            ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                    ),
-                                    child: Visibility(
-                                      visible:
-                                          !appointmentDetailsMasterAppointmentsRecord
-                                              .withTempUser,
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
-                                        child: StreamBuilder<UsersRecord>(
-                                          stream: UsersRecord.getDocument(
-                                              appointmentDetailsMasterAppointmentsRecord
-                                                  .clientREF!),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final cardUsersRecord =
-                                                snapshot.data!;
-                                            return Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color:
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              if (!appointmentDetailsMasterAppointmentsRecord
+                                  .withTempUser)
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: StreamBuilder<UsersRecord>(
+                                      stream: UsersRecord.getDocument(
+                                          appointmentDetailsMasterAppointmentsRecord
+                                              .clientREF!),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 4.0,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                      .primary,
+                                                ),
                                               ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 5.0, 5.0, 5.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          if (cardUsersRecord
-                                                                      .photoUrl !=
-                                                                  null &&
-                                                              cardUsersRecord
-                                                                      .photoUrl !=
-                                                                  '')
+                                            ),
+                                          );
+                                        }
+                                        final cardUsersRecord = snapshot.data!;
+                                        return Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 5.0, 5.0, 5.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 10.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'clientPage',
+                                                              queryParameters: {
+                                                                'clientRefParameter':
+                                                                    serializeParam(
+                                                                  appointmentDetailsMasterAppointmentsRecord
+                                                                      .clientREF,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              fadeInDuration:
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                              fadeOutDuration:
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                              imageUrl:
+                                                                  cardUsersRecord
+                                                                      .photoUrl,
+                                                              width: 100.0,
+                                                              height: 100.0,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
                                                             Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
-                                                                          0.0,
                                                                           10.0,
+                                                                          0.0,
                                                                           0.0),
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  context
-                                                                      .pushNamed(
-                                                                    'clientPage',
-                                                                    queryParameters:
-                                                                        {
-                                                                      'clientRefParameter':
-                                                                          serializeParam(
-                                                                        appointmentDetailsMasterAppointmentsRecord
-                                                                            .clientREF,
-                                                                        ParamType
-                                                                            .DocumentReference,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                  );
-                                                                },
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10.0),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    fadeInDuration:
-                                                                        Duration(
-                                                                            milliseconds:
-                                                                                500),
-                                                                    fadeOutDuration:
-                                                                        Duration(
-                                                                            milliseconds:
-                                                                                500),
-                                                                    imageUrl:
-                                                                        cardUsersRecord
-                                                                            .photoUrl,
-                                                                    width:
-                                                                        100.0,
-                                                                    height:
-                                                                        100.0,
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'clientPage',
+                                                                        queryParameters:
+                                                                            {
+                                                                          'clientRefParameter':
+                                                                              serializeParam(
+                                                                            appointmentDetailsMasterAppointmentsRecord.clientREF,
+                                                                            ParamType.DocumentReference,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+                                                                    },
+                                                                    child: Text(
+                                                                      cardUsersRecord
+                                                                          .displayName,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Roboto',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            fontSize:
+                                                                                16.0,
+                                                                          ),
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          Expanded(
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          context
-                                                                              .pushNamed(
-                                                                            'clientPage',
-                                                                            queryParameters:
-                                                                                {
-                                                                              'clientRefParameter': serializeParam(
-                                                                                appointmentDetailsMasterAppointmentsRecord.clientREF,
-                                                                                ParamType.DocumentReference,
-                                                                              ),
-                                                                            }.withoutNulls,
-                                                                          );
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          cardUsersRecord
-                                                                              .displayName,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Roboto',
-                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                                fontSize: 16.0,
-                                                                              ),
+                                                                  Text(
+                                                                    cardUsersRecord
+                                                                        .phoneNumber,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Roboto',
+                                                                          fontSize:
+                                                                              12.0,
                                                                         ),
-                                                                      ),
-                                                                      Text(
-                                                                        cardUsersRecord
-                                                                            .phoneNumber,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Roboto',
-                                                                              fontSize: 12.0,
-                                                                            ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
                                                                             0.0,
                                                                             10.0,
                                                                             0.0,
                                                                             0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            FlutterFlowIconButton(
-                                                                              borderColor: Colors.transparent,
-                                                                              borderRadius: 10.0,
-                                                                              borderWidth: 1.0,
-                                                                              buttonSize: 60.0,
-                                                                              icon: Icon(
-                                                                                Icons.phone,
-                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 20.0,
-                                                                              ),
-                                                                              onPressed: () async {
-                                                                                ScaffoldMessenger.of(context).showSnackBar(
-                                                                                  SnackBar(
-                                                                                    content: Text(
-                                                                                      'Телефонуємо клієнту',
-                                                                                      style: TextStyle(
-                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                      ),
-                                                                                    ),
-                                                                                    duration: Duration(milliseconds: 6000),
-                                                                                    backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        FlutterFlowIconButton(
+                                                                          borderColor:
+                                                                              Colors.transparent,
+                                                                          borderRadius:
+                                                                              10.0,
+                                                                          borderWidth:
+                                                                              1.0,
+                                                                          buttonSize:
+                                                                              60.0,
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.phone,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                20.0,
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                              SnackBar(
+                                                                                content: Text(
+                                                                                  'Телефонуємо клієнту',
+                                                                                  style: TextStyle(
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
                                                                                   ),
-                                                                                );
-                                                                              },
-                                                                            ),
-                                                                            FlutterFlowIconButton(
-                                                                              borderColor: Colors.transparent,
-                                                                              borderRadius: 10.0,
-                                                                              borderWidth: 1.0,
-                                                                              buttonSize: 60.0,
-                                                                              icon: Icon(
-                                                                                Icons.mail,
-                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 20.0,
+                                                                                ),
+                                                                                duration: Duration(milliseconds: 6000),
+                                                                                backgroundColor: FlutterFlowTheme.of(context).secondary,
                                                                               ),
-                                                                              onPressed: () async {
-                                                                                context.pushNamed(
-                                                                                  'chatDetails',
-                                                                                  queryParameters: {
-                                                                                    'chatUser': serializeParam(
-                                                                                      cardUsersRecord,
-                                                                                      ParamType.Document,
-                                                                                    ),
-                                                                                  }.withoutNulls,
-                                                                                  extra: <String, dynamic>{
-                                                                                    'chatUser': cardUsersRecord,
-                                                                                  },
-                                                                                );
-                                                                              },
-                                                                            ),
-                                                                          ],
+                                                                            );
+                                                                          },
                                                                         ),
-                                                                      ),
-                                                                    ],
+                                                                        FlutterFlowIconButton(
+                                                                          borderColor:
+                                                                              Colors.transparent,
+                                                                          borderRadius:
+                                                                              10.0,
+                                                                          borderWidth:
+                                                                              1.0,
+                                                                          buttonSize:
+                                                                              60.0,
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.mail,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                20.0,
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            context.pushNamed(
+                                                                              'chatDetails',
+                                                                              queryParameters: {
+                                                                                'chatUser': serializeParam(
+                                                                                  cardUsersRecord,
+                                                                                  ParamType.Document,
+                                                                                ),
+                                                                              }.withoutNulls,
+                                                                              extra: <String, dynamic>{
+                                                                                'chatUser': cardUsersRecord,
+                                                                              },
+                                                                            );
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    StyledDivider(
-                                                      thickness: 2.0,
-                                                      color:
+                                                    ],
+                                                  ),
+                                                ),
+                                                StyledDivider(
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .gray600,
+                                                  lineStyle:
+                                                      DividerLineStyle.dotted,
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Text(
+                                                      '${functions.getUkrainianDate(dateTimeFormat(
+                                                        'd/M',
+                                                        appointmentDetailsMasterAppointmentsRecord
+                                                            .timeStart,
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      ))} ${dateTimeFormat(
+                                                        'Hm',
+                                                        appointmentDetailsMasterAppointmentsRecord
+                                                            .timeStart,
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      )}',
+                                                      style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .gray600,
-                                                      lineStyle:
-                                                          DividerLineStyle
-                                                              .dotted,
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Text(
-                                                          '${functions.getUkrainianDate(dateTimeFormat(
-                                                            'd/M',
-                                                            appointmentDetailsMasterAppointmentsRecord
-                                                                .timeStart,
-                                                            locale: FFLocalizations
-                                                                    .of(context)
-                                                                .languageCode,
-                                                          ))} ${dateTimeFormat(
-                                                            'Hm',
-                                                            appointmentDetailsMasterAppointmentsRecord
-                                                                .timeStart,
-                                                            locale: FFLocalizations
-                                                                    .of(context)
-                                                                .languageCode,
-                                                          )}',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
@@ -470,469 +469,388 @@ class _AppointmentDetailsMasterWidgetState
                                                                     FontWeight
                                                                         .bold,
                                                               ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    StyledDivider(
-                                                      thickness: 2.0,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .gray600,
-                                                      lineStyle:
-                                                          DividerLineStyle
-                                                              .dotted,
-                                                    ),
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                      ),
-                                                      child: Builder(
-                                                        builder: (context) {
-                                                          final category =
-                                                              appointmentDetailsMasterAppointmentsRecord
-                                                                  .categoriesNameList
-                                                                  .map((e) => e)
-                                                                  .toList();
-                                                          return Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: List.generate(
-                                                                category.length,
-                                                                (categoryIndex) {
-                                                              final categoryItem =
-                                                                  category[
-                                                                      categoryIndex];
-                                                              return ListTile(
-                                                                title: Text(
-                                                                  categoryItem,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineSmall
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        fontSize:
-                                                                            16.0,
-                                                                      ),
-                                                                ),
-                                                                dense: false,
-                                                              );
-                                                            }),
-                                                          );
-                                                        },
-                                                      ),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  if (appointmentDetailsMasterAppointmentsRecord
-                                      .withTempUser)
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 10.0, 0.0),
-                                      child: StreamBuilder<TempUsersRecord>(
-                                        stream: TempUsersRecord.getDocument(
-                                            appointmentDetailsMasterAppointmentsRecord
-                                                .tempUserREF!),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
+                                                StyledDivider(
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .gray600,
+                                                  lineStyle:
+                                                      DividerLineStyle.dotted,
                                                 ),
-                                              ),
-                                            );
-                                          }
-                                          final cardTempUsersRecord =
-                                              snapshot.data!;
-                                          return Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            elevation: 4.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 5.0, 5.0, 5.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(20.0, 0.0,
-                                                                20.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      cardTempUsersRecord
-                                                                          .displayName,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Roboto',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            fontSize:
-                                                                                20.0,
-                                                                          ),
-                                                                    ),
-                                                                    Text(
-                                                                      cardTempUsersRecord
-                                                                          .phoneNumber,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Roboto',
-                                                                            fontSize:
-                                                                                16.0,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        FlutterFlowIconButton(
-                                                          borderColor: Colors
-                                                              .transparent,
-                                                          borderRadius: 10.0,
-                                                          borderWidth: 1.0,
-                                                          buttonSize: 60.0,
-                                                          icon: Icon(
-                                                            Icons.phone,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            size: 20.0,
-                                                          ),
-                                                          onPressed: () async {
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Телефонуємо клієнту',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Color(
-                                                                        0xFFDA1929),
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                  ),
-                                                                ),
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        6000),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  StyledDivider(
-                                                    thickness: 2.0,
+                                                Container(
+                                                  decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .gray600,
-                                                    lineStyle:
-                                                        DividerLineStyle.dotted,
+                                                        .secondaryBackground,
                                                   ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Text(
-                                                        '${functions.getUkrainianDate(dateTimeFormat(
-                                                          'd/M',
+                                                  child: Builder(
+                                                    builder: (context) {
+                                                      final category =
                                                           appointmentDetailsMasterAppointmentsRecord
-                                                              .timeStart,
-                                                          locale:
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .languageCode,
-                                                        ))} ${dateTimeFormat(
-                                                          'Hm',
-                                                          appointmentDetailsMasterAppointmentsRecord
-                                                              .timeStart,
-                                                          locale:
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .languageCode,
-                                                        )}',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                              .categoriesNameList
+                                                              .map((e) => e)
+                                                              .toList();
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: List.generate(
+                                                            category.length,
+                                                            (categoryIndex) {
+                                                          final categoryItem =
+                                                              category[
+                                                                  categoryIndex];
+                                                          return Text(
+                                                            categoryItem,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Roboto',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      16.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
                                                                 ),
-                                                      ),
-                                                    ],
+                                                          );
+                                                        }),
+                                                      );
+                                                    },
                                                   ),
-                                                  StyledDivider(
-                                                    thickness: 2.0,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .gray600,
-                                                    lineStyle:
-                                                        DividerLineStyle.dotted,
-                                                  ),
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                    ),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final category =
-                                                            appointmentDetailsMasterAppointmentsRecord
-                                                                .categoriesNameList
-                                                                .map((e) => e)
-                                                                .toList();
-                                                        return Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: List.generate(
-                                                              category.length,
-                                                              (categoryIndex) {
-                                                            final categoryItem =
-                                                                category[
-                                                                    categoryIndex];
-                                                            return ListTile(
-                                                              title: Text(
-                                                                categoryItem,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                    ),
-                                                              ),
-                                                              dense: false,
-                                                            );
-                                                          }),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              if (appointmentDetailsMasterAppointmentsRecord
+                                      .withTempUser ==
+                                  true)
+                                Container(
+                                  decoration: BoxDecoration(),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: StreamBuilder<TempUsersRecord>(
+                                      stream: TempUsersRecord.getDocument(
+                                          appointmentDetailsMasterAppointmentsRecord
+                                              .tempUserREF!),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
                                               ),
                                             ),
                                           );
-                                        },
-                                      ),
-                                    ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 0.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        if (appointmentDetailsMasterAppointmentsRecord
-                                                .timeStart! >
-                                            getCurrentTimestamp)
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              final _datePickedTime =
-                                                  await showTimePicker(
-                                                context: context,
-                                                initialTime: TimeOfDay.fromDateTime(
-                                                    appointmentDetailsMasterAppointmentsRecord
-                                                        .timeStart!),
-                                              );
-                                              if (_datePickedTime != null) {
-                                                setState(() {
-                                                  _model.datePicked = DateTime(
-                                                    appointmentDetailsMasterAppointmentsRecord
-                                                        .timeStart!.year,
-                                                    appointmentDetailsMasterAppointmentsRecord
-                                                        .timeStart!.month,
-                                                    appointmentDetailsMasterAppointmentsRecord
-                                                        .timeStart!.day,
-                                                    _datePickedTime.hour,
-                                                    _datePickedTime.minute,
-                                                  );
-                                                });
-                                              }
-
-                                              await widget.appointmentRef!.update(
-                                                  createAppointmentsRecordData(
-                                                timeStart: _model.datePicked,
-                                              ));
-
-                                              await NotificationsRecord
-                                                  .collection
-                                                  .doc()
-                                                  .set(
-                                                      createNotificationsRecordData(
-                                                    userRef:
+                                        }
+                                        final cardTempUsersRecord =
+                                            snapshot.data!;
+                                        return Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 5.0, 5.0, 5.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          20.0, 0.0, 20.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    cardTempUsersRecord
+                                                                        .displayName,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Roboto',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          fontSize:
+                                                                              20.0,
+                                                                        ),
+                                                                  ),
+                                                                  Text(
+                                                                    cardTempUsersRecord
+                                                                        .phoneNumber,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Roboto',
+                                                                          fontSize:
+                                                                              16.0,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderRadius: 10.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 60.0,
+                                                        icon: Icon(
+                                                          Icons.phone,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          size: 20.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content: Text(
+                                                                'Телефонуємо клієнту',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color(
+                                                                      0xFFDA1929),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                              ),
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      6000),
+                                                              backgroundColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                StyledDivider(
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .gray600,
+                                                  lineStyle:
+                                                      DividerLineStyle.dotted,
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Text(
+                                                      '${functions.getUkrainianDate(dateTimeFormat(
+                                                        'd/M',
                                                         appointmentDetailsMasterAppointmentsRecord
-                                                            .clientREF,
-                                                    notification:
-                                                        'Майстер переніс час твого запису',
-                                                    isNew: true,
-                                                    time: getCurrentTimestamp,
-                                                    type: 'edit',
-                                                    appREF:
-                                                        widget.appointmentRef,
-                                                  ));
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Час віконця змінено. Попередимо клієнта',
-                                                    style: TextStyle(
-                                                      color:
+                                                            .timeStart,
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      ))} ${dateTimeFormat(
+                                                        'Hm',
+                                                        appointmentDetailsMasterAppointmentsRecord
+                                                            .timeStart,
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      )}',
+                                                      style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryText,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Roboto',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontSize: 16.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                     ),
-                                                  ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      Color(0x00000000),
+                                                  ],
                                                 ),
-                                              );
-                                            },
-                                            text: 'Змінити час прийому',
-                                            options: FFButtonOptions(
-                                              width: 200.0,
-                                              height: 50.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: Color(0xFFE35456),
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily: 'Open Sans',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .white,
-                                                      ),
-                                              elevation: 5.0,
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .tertiary,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                StyledDivider(
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .gray600,
+                                                  lineStyle:
+                                                      DividerLineStyle.dotted,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                  ),
+                                                  child: Builder(
+                                                    builder: (context) {
+                                                      final category =
+                                                          appointmentDetailsMasterAppointmentsRecord
+                                                              .categoriesNameList
+                                                              .map((e) => e)
+                                                              .toList();
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: List.generate(
+                                                            category.length,
+                                                            (categoryIndex) {
+                                                          final categoryItem =
+                                                              category[
+                                                                  categoryIndex];
+                                                          return Text(
+                                                            categoryItem,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          );
+                                                        }),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                      ],
+                                        );
+                                      },
                                     ),
                                   ),
-                                  if (appointmentDetailsMasterAppointmentsRecord
-                                          .timeStart! >
-                                      getCurrentTimestamp)
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
-                                      child: FFButtonWidget(
+                                ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 20.0, 0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    if (appointmentDetailsMasterAppointmentsRecord
+                                            .timeStart! >
+                                        getCurrentTimestamp)
+                                      FFButtonWidget(
                                         onPressed: () async {
+                                          final _datePickedTime =
+                                              await showTimePicker(
+                                            context: context,
+                                            initialTime: TimeOfDay.fromDateTime(
+                                                appointmentDetailsMasterAppointmentsRecord
+                                                    .timeStart!),
+                                          );
+                                          if (_datePickedTime != null) {
+                                            setState(() {
+                                              _model.datePicked = DateTime(
+                                                appointmentDetailsMasterAppointmentsRecord
+                                                    .timeStart!.year,
+                                                appointmentDetailsMasterAppointmentsRecord
+                                                    .timeStart!.month,
+                                                appointmentDetailsMasterAppointmentsRecord
+                                                    .timeStart!.day,
+                                                _datePickedTime.hour,
+                                                _datePickedTime.minute,
+                                              );
+                                            });
+                                          }
+
+                                          await widget.appointmentRef!.update(
+                                              createAppointmentsRecordData(
+                                            timeStart: _model.datePicked,
+                                          ));
+
+                                          await NotificationsRecord.collection
+                                              .doc()
+                                              .set(
+                                                  createNotificationsRecordData(
+                                                userRef:
+                                                    appointmentDetailsMasterAppointmentsRecord
+                                                        .clientREF,
+                                                notification:
+                                                    'Майстер переніс час твого запису',
+                                                isNew: true,
+                                                time: getCurrentTimestamp,
+                                                type: 'edit',
+                                                appREF: widget.appointmentRef,
+                                              ));
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                'Запис відмінено. Запишіться на інший час',
+                                                'Час віконця змінено. Попередимо клієнта',
                                                 style: TextStyle(
                                                   color: FlutterFlowTheme.of(
                                                           context)
@@ -945,42 +863,8 @@ class _AppointmentDetailsMasterWidgetState
                                                   Color(0x00000000),
                                             ),
                                           );
-
-                                          await NotificationsRecord.collection
-                                              .doc()
-                                              .set(
-                                                  createNotificationsRecordData(
-                                                userRef:
-                                                    appointmentDetailsMasterAppointmentsRecord
-                                                        .clientREF,
-                                                notification:
-                                                    'Нажаль майстер відмінив твій запис.',
-                                                isNew: true,
-                                                time: getCurrentTimestamp,
-                                                type: 'cancel',
-                                                appREF: widget.appointmentRef,
-                                              ));
-
-                                          await widget.appointmentRef!.update({
-                                            ...createAppointmentsRecordData(
-                                              isActive: true,
-                                              withTempUser: false,
-                                              durationInMinutes: 0,
-                                              totalPrice: 0.0,
-                                              isFinished: false,
-                                              isCanceled: true,
-                                            ),
-                                            'clientREF': FieldValue.delete(),
-                                            'tempUserREF': FieldValue.delete(),
-                                            'categoriesNameList':
-                                                FieldValue.delete(),
-                                            'servicesREFList':
-                                                FieldValue.delete(),
-                                          });
-
-                                          context.pushNamed('mainPageMaster');
                                         },
-                                        text: 'Відмінити запис',
+                                        text: 'Змінити час прийому',
                                         options: FFButtonOptions(
                                           width: 200.0,
                                           height: 50.0,
@@ -1010,53 +894,134 @@ class _AppointmentDetailsMasterWidgetState
                                               BorderRadius.circular(10.0),
                                         ),
                                       ),
-                                    ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 0.0, 40.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        if (Navigator.of(context).canPop()) {
-                                          context.pop();
-                                        }
-                                        context.pushNamed('mainPageMaster');
-                                      },
-                                      text: 'Повернутись на головну',
-                                      options: FFButtonOptions(
-                                        width: 200.0,
-                                        height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Open Sans',
+                                  ],
+                                ),
+                              ),
+                              if (appointmentDetailsMasterAppointmentsRecord
+                                      .timeStart! >
+                                  getCurrentTimestamp)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 20.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Запис відмінено. Запишіться на інший час',
+                                            style: TextStyle(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .white,
+                                                      .primaryText,
                                             ),
-                                        elevation: 5.0,
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          width: 2.0,
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor: Color(0x00000000),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                      );
+
+                                      await NotificationsRecord.collection
+                                          .doc()
+                                          .set(createNotificationsRecordData(
+                                            userRef:
+                                                appointmentDetailsMasterAppointmentsRecord
+                                                    .clientREF,
+                                            notification:
+                                                'Нажаль майстер відмінив твій запис.',
+                                            isNew: true,
+                                            time: getCurrentTimestamp,
+                                            type: 'cancel',
+                                            appREF: widget.appointmentRef,
+                                          ));
+
+                                      await widget.appointmentRef!.update({
+                                        ...createAppointmentsRecordData(
+                                          isActive: true,
+                                          withTempUser: false,
+                                          durationInMinutes: 0,
+                                          totalPrice: 0.0,
+                                          isFinished: false,
+                                          isCanceled: true,
+                                        ),
+                                        'clientREF': FieldValue.delete(),
+                                        'tempUserREF': FieldValue.delete(),
+                                        'categoriesNameList':
+                                            FieldValue.delete(),
+                                        'servicesREFList': FieldValue.delete(),
+                                      });
+
+                                      context.pushNamed('mainPageMaster');
+                                    },
+                                    text: 'Відмінити запис',
+                                    options: FFButtonOptions(
+                                      width: 200.0,
+                                      height: 50.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: Color(0xFFE35456),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily: 'Open Sans',
+                                            color: FlutterFlowTheme.of(context)
+                                                .white,
+                                          ),
+                                      elevation: 5.0,
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
+                                        width: 2.0,
                                       ),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                   ),
-                                ],
+                                ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 20.0, 0.0, 40.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    if (Navigator.of(context).canPop()) {
+                                      context.pop();
+                                    }
+                                    context.pushNamed('mainPageMaster');
+                                  },
+                                  text: 'Повернутись на головну',
+                                  options: FFButtonOptions(
+                                    width: 200.0,
+                                    height: 50.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).info,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .override(
+                                          fontFamily: 'Open Sans',
+                                          color: FlutterFlowTheme.of(context)
+                                              .white,
+                                        ),
+                                    elevation: 5.0,
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),

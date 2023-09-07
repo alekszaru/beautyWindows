@@ -67,14 +67,15 @@ class _ImageViewWidgetState extends State<ImageViewWidget> {
         }
         final containerPortfolioRecord = snapshot.data!;
         return Container(
-          decoration: BoxDecoration(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: AlignmentDirectional(0.00, 0.00),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  width: MediaQuery.sizeOf(context).width * 0.9,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),

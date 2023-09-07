@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -93,7 +94,7 @@ class _StartWidgetState extends State<StartWidget>
         color: FlutterFlowTheme.of(context).primary.withAlpha(0XFF),
         child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: Color(0xFF1E2429),
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: Stack(
             alignment: AlignmentDirectional(1.0, 1.0),
             children: [
@@ -101,54 +102,68 @@ class _StartWidgetState extends State<StartWidget>
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  gradient: LinearGradient(
+                    colors: [
+                      FlutterFlowTheme.of(context).primaryBackground,
+                      FlutterFlowTheme.of(context).accent2,
+                      FlutterFlowTheme.of(context).primaryBackground
+                    ],
+                    stops: [0.0, 0.5, 1.0],
+                    begin: AlignmentDirectional(0.94, -1.0),
+                    end: AlignmentDirectional(-0.94, 1.0),
+                  ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Hero(
-                      tag: 'signup',
-                      transitionOnUserGestures: true,
-                      child: Image.asset(
-                        'assets/images/rose-p.png',
-                        width: 250.0,
-                        height: 250.0,
-                        fit: BoxFit.contain,
+                child: Align(
+                  alignment: AlignmentDirectional(0.00, 0.00),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Hero(
+                          tag: 'signup',
+                          transitionOnUserGestures: true,
+                          child: Image.asset(
+                            'assets/images/rose-p.png',
+                            width: 250.0,
+                            height: 250.0,
+                            fit: BoxFit.contain,
+                          ),
+                        ).animateOnPageLoad(
+                            animationsMap['imageOnPageLoadAnimation']!),
                       ),
-                    ).animateOnPageLoad(
-                        animationsMap['imageOnPageLoadAnimation']!),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                      child: Text(
-                        'Ласкаво просимо у',
-                        style: FlutterFlowTheme.of(context)
-                            .displaySmall
-                            .override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                        child: Text(
+                          'Ласкаво просимо у',
+                          style: FlutterFlowTheme.of(context)
+                              .displaySmall
+                              .override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 28.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 120.0),
-                      child: Text(
-                        'Віконця краси',
-                        style: FlutterFlowTheme.of(context)
-                            .headlineSmall
-                            .override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.w800,
-                            ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 12.0, 0.0, 60.0),
+                        child: Text(
+                          'Віконця краси',
+                          style: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.w800,
+                              ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

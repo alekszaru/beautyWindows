@@ -114,13 +114,7 @@ class _EditWindowsWidgetState extends State<EditWindowsWidget> {
                             size: 30.0,
                           ),
                           onPressed: () async {
-                            if (valueOrDefault<bool>(
-                                    currentUserDocument?.isGuest, false) ==
-                                false) {
-                              context.safePop();
-                            } else {
-                              context.pushNamed('mainPageMaster');
-                            }
+                            context.pushNamed('mainPageMaster');
                           },
                         ),
                         title: Row(
@@ -344,8 +338,8 @@ class _EditWindowsWidgetState extends State<EditWindowsWidget> {
                                             ),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Text(
                                               dateTimeFormat(
                                                 'Hm',
@@ -428,43 +422,91 @@ class _EditWindowsWidgetState extends State<EditWindowsWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                await actions.getAppointmentsFromPrevDay(
-                                  _model.calendarSelectedDay!.start,
-                                );
-                                await Future.delayed(
-                                    const Duration(milliseconds: 1000));
-                                setState(() =>
-                                    _model.firestoreRequestCompleter = null);
-                                await _model.waitForFirestoreRequestCompleted();
-                              },
-                              text: 'Скопіюй розклад попереднього дня',
-                              options: FFButtonOptions(
-                                width: 300.0,
-                                height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFFE35456),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context).white,
-                                    ),
-                                elevation: 5.0,
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).tertiary,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
+                          FutureBuilder<int>(
+                            future: queryAppointmentsRecordCount(
+                              queryBuilder: (appointmentsRecord) =>
+                                  appointmentsRecord
+                                      .where('masterREF',
+                                          isEqualTo: currentUserReference)
+                                      .where('time_start',
+                                          isGreaterThan: functions
+                                              .getTimeStampRangeForDayBefore(
+                                                  _model.calendarSelectedDay)
+                                              ?.start)
+                                      .where('time_start',
+                                          isLessThan: functions
+                                              .getTimeStampRangeForDayBefore(
+                                                  _model.calendarSelectedDay)
+                                              ?.end),
                             ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              int containerCount = snapshot.data!;
+                              return Container(
+                                decoration: BoxDecoration(),
+                                child: Visibility(
+                                  visible: containerCount > 0,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 20.0, 0.0, 0.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        await actions
+                                            .getAppointmentsFromPrevDay(
+                                          _model.calendarSelectedDay!.start,
+                                        );
+                                        await Future.delayed(
+                                            const Duration(milliseconds: 1000));
+                                        setState(() => _model
+                                            .firestoreRequestCompleter = null);
+                                        await _model
+                                            .waitForFirestoreRequestCompleted();
+                                      },
+                                      text: 'Скопіюй розклад попереднього дня',
+                                      options: FFButtonOptions(
+                                        width: 300.0,
+                                        height: 50.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: Color(0xFFE35456),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Open Sans',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .white,
+                                            ),
+                                        elevation: 5.0,
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

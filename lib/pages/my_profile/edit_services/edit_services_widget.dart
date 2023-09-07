@@ -405,7 +405,7 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                         onPressed: () async {
                           context.pushNamed('editPortfolio');
                         },
-                        text: 'Перейти до оформлення портфоліо',
+                        text: '  Перейти до оформлення портфоліо  ',
                         options: FFButtonOptions(
                           height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(

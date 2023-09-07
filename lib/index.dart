@@ -7,7 +7,7 @@ export '/pages/my_profile/edit_my_place/edit_my_place_widget.dart'
     show EditMyPlaceWidget;
 export '/pages/my_profile/edit_categories/edit_categories_widget.dart'
     show EditCategoriesWidget;
-export '/pages/for_client/main_page_client/main_page_client_widget.dart'
+export '/pages/main_page_client/main_page_client_widget.dart'
     show MainPageClientWidget;
 export '/pages/my_profile/edit_services/edit_services_widget.dart'
     show EditServicesWidget;
@@ -24,7 +24,8 @@ export '/pages/for_master/edit_windows/edit_windows_widget.dart'
 export '/pages/clients_list/clients_list_widget.dart' show ClientsListWidget;
 export '/pages/for_master/client_page/client_page_widget.dart'
     show ClientPageWidget;
-export '/pages/master_page/master_page_widget.dart' show MasterPageWidget;
+export '/pages/for_client/master_page/master_page_widget.dart'
+    show MasterPageWidget;
 export '/pages/logining/confirm_phone/confirm_phone_widget.dart'
     show ConfirmPhoneWidget;
 export '/start/start_widget.dart' show StartWidget;
@@ -40,3 +41,4 @@ export '/pages/logining/login_phone/login_phone_widget.dart'
     show LoginPhoneWidget;
 export '/pages/logining/complete_profile_phone_auth/complete_profile_phone_auth_widget.dart'
     show CompleteProfilePhoneAuthWidget;
+export '/pages/for_client/profile/profile_widget.dart' show ProfileWidget;

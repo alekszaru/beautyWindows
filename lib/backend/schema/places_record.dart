@@ -16,11 +16,6 @@ class PlacesRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "archived" field.
-  bool? _archived;
-  bool get archived => _archived ?? false;
-  bool hasArchived() => _archived != null;
-
   // "default_address" field.
   bool? _defaultAddress;
   bool get defaultAddress => _defaultAddress ?? false;
@@ -57,7 +52,6 @@ class PlacesRecord extends FirestoreRecord {
   bool hasPhotos() => _photos != null;
 
   void _initializeFields() {
-    _archived = snapshotData['archived'] as bool?;
     _defaultAddress = snapshotData['default_address'] as bool?;
     _latLng = snapshotData['lat_lng'] as LatLng?;
     _name = snapshotData['name'] as String?;
@@ -101,7 +95,6 @@ class PlacesRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createPlacesRecordData({
-  bool? archived,
   bool? defaultAddress,
   LatLng? latLng,
   String? name,
@@ -111,7 +104,6 @@ Map<String, dynamic> createPlacesRecordData({
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'archived': archived,
       'default_address': defaultAddress,
       'lat_lng': latLng,
       'name': name,
@@ -130,8 +122,7 @@ class PlacesRecordDocumentEquality implements Equality<PlacesRecord> {
   @override
   bool equals(PlacesRecord? e1, PlacesRecord? e2) {
     const listEquality = ListEquality();
-    return e1?.archived == e2?.archived &&
-        e1?.defaultAddress == e2?.defaultAddress &&
+    return e1?.defaultAddress == e2?.defaultAddress &&
         e1?.latLng == e2?.latLng &&
         e1?.name == e2?.name &&
         e1?.address == e2?.address &&
@@ -142,7 +133,6 @@ class PlacesRecordDocumentEquality implements Equality<PlacesRecord> {
 
   @override
   int hash(PlacesRecord? e) => const ListEquality().hash([
-        e?.archived,
         e?.defaultAddress,
         e?.latLng,
         e?.name,

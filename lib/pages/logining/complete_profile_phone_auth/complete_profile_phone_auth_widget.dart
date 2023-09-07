@@ -542,6 +542,7 @@ class _CompleteProfilePhoneAuthWidgetState
                             cityName: _model.yourCitySelectedOption,
                             phoneAndName:
                                 '${_model.displayNameController.text} ${currentPhoneNumber.substring(3)}',
+                            isGuest: false,
                           ));
                           if (_model.isMasterValue == true) {
                             await FavoriteClientsRecord.collection

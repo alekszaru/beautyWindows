@@ -55,21 +55,12 @@ class _AddWindowWidgetState extends State<AddWindowWidget> {
       color: Colors.transparent,
       elevation: 4.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(50.0),
-          topRight: Radius.circular(50.0),
-        ),
+        borderRadius: BorderRadius.circular(0.0),
       ),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(50.0),
-            topRight: Radius.circular(50.0),
-          ),
+          color: FlutterFlowTheme.of(context).primaryBackground,
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),

@@ -83,7 +83,7 @@ dependencies:
       url: https://github.com/FlutterFlow/infinite_scroll_pagination.git
       ref: develop
   intl: 0.18.0
-  json_path: 0.4.1
+  json_path: 0.6.2
   mask_text_input_formatter: 2.4.0
   mime_type: 1.0.0
   octo_image: 1.0.2
@@ -114,7 +114,7 @@ dependencies:
   table_calendar: 3.0.9
   text_search: 0.0.2
   timeago: 3.2.2
-  universal_io: 2.2.0
+  universal_io: 2.2.2
   url_launcher: 6.1.10
   url_launcher_android: 6.0.27
   url_launcher_ios: 6.1.4

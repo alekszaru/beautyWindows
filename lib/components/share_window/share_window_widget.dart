@@ -83,7 +83,7 @@ class _ShareWindowWidgetState extends State<ShareWindowWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.9, 0.0),
+                  alignment: AlignmentDirectional(0.90, 0.00),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -100,7 +100,7 @@ class _ShareWindowWidgetState extends State<ShareWindowWidget> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.00, 0.00),
                   child: BarcodeWidget(
                     data: containerUsersRecord.uid,
                     barcode: Barcode.qrCode(),

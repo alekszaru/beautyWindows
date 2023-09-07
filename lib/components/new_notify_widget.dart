@@ -297,7 +297,8 @@ class _NewNotifyWidgetState extends State<NewNotifyWidget> {
                                   Flexible(
                                     flex: 2,
                                     child: Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(1.00, 0.00),
                                       child: Text(
                                         dateTimeFormat(
                                           'd/M H:mm',

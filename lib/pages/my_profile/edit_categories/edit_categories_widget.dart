@@ -337,30 +337,34 @@ class _EditCategoriesWidgetState extends State<EditCategoriesWidget> {
                       ),
                     ),
                   ),
-                  FFButtonWidget(
-                    onPressed: () async {
-                      context.pushNamed('editServices');
-                    },
-                    text: 'Перейти до редагування послуг',
-                    options: FFButtonOptions(
-                      width: 250.0,
-                      height: 50.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).info,
-                      textStyle:
-                          FlutterFlowTheme.of(context).labelLarge.override(
-                                fontFamily: 'Open Sans',
-                                color: FlutterFlowTheme.of(context).white,
-                              ),
-                      elevation: 5.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).tertiary,
-                        width: 2.0,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        context.pushNamed('editServices');
+                      },
+                      text: 'Перейти до редагування послуг',
+                      options: FFButtonOptions(
+                        width: 250.0,
+                        height: 50.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).info,
+                        textStyle:
+                            FlutterFlowTheme.of(context).labelLarge.override(
+                                  fontFamily: 'Open Sans',
+                                  color: FlutterFlowTheme.of(context).white,
+                                ),
+                        elevation: 5.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).tertiary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ],

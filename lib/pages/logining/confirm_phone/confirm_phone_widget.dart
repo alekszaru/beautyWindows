@@ -120,7 +120,7 @@ class _ConfirmPhoneWidgetState extends State<ConfirmPhoneWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: TextFormField(
                       controller: _model.codeController,
                       obscureText: false,

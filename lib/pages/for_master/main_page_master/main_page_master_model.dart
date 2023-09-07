@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/components/app_card/app_card_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/new_notify_widget.dart';
-import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -27,14 +26,12 @@ class MainPageMasterModel extends FlutterFlowModel {
   late FlutterFlowDynamicModels<AppCardModel> appCardModels;
   // Model for NavBar component.
   late NavBarModel navBarModel;
-  // Models for newNotify dynamic component.
-  late FlutterFlowDynamicModels<NewNotifyModel> newNotifyModels1;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, NotificationsRecord>?
-      listViewPagingController3;
-  Query? listViewPagingQuery3;
-  List<StreamSubscription?> listViewStreamSubscriptions3 = [];
+      listViewPagingController2;
+  Query? listViewPagingQuery2;
+  List<StreamSubscription?> listViewStreamSubscriptions2 = [];
 
   /// Initialization and disposal methods.
 
@@ -45,16 +42,14 @@ class MainPageMasterModel extends FlutterFlowModel {
     );
     appCardModels = FlutterFlowDynamicModels(() => AppCardModel());
     navBarModel = createModel(context, () => NavBarModel());
-    newNotifyModels1 = FlutterFlowDynamicModels(() => NewNotifyModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     appCardModels.dispose();
     navBarModel.dispose();
-    newNotifyModels1.dispose();
-    listViewStreamSubscriptions3.forEach((s) => s?.cancel());
-    listViewPagingController3?.dispose();
+    listViewStreamSubscriptions2.forEach((s) => s?.cancel());
+    listViewPagingController2?.dispose();
   }
 
   /// Action blocks are added here.
@@ -62,20 +57,20 @@ class MainPageMasterModel extends FlutterFlowModel {
   /// Additional helper methods are added here.
 
   PagingController<DocumentSnapshot?, NotificationsRecord>
-      setListViewController3(
+      setListViewController2(
     Query query, {
     DocumentReference<Object?>? parent,
   }) {
-    listViewPagingController3 ??= _createListViewController3(query, parent);
-    if (listViewPagingQuery3 != query) {
-      listViewPagingQuery3 = query;
-      listViewPagingController3?.refresh();
+    listViewPagingController2 ??= _createListViewController2(query, parent);
+    if (listViewPagingQuery2 != query) {
+      listViewPagingQuery2 = query;
+      listViewPagingController2?.refresh();
     }
-    return listViewPagingController3!;
+    return listViewPagingController2!;
   }
 
   PagingController<DocumentSnapshot?, NotificationsRecord>
-      _createListViewController3(
+      _createListViewController2(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
@@ -84,9 +79,9 @@ class MainPageMasterModel extends FlutterFlowModel {
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryNotificationsRecordPage(
-          queryBuilder: (_) => listViewPagingQuery3 ??= query,
+          queryBuilder: (_) => listViewPagingQuery2 ??= query,
           nextPageMarker: nextPageMarker,
-          streamSubscriptions: listViewStreamSubscriptions3,
+          streamSubscriptions: listViewStreamSubscriptions2,
           controller: controller,
           pageSize: 10,
           isStream: true,

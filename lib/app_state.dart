@@ -6,13 +6,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
-  static final FFAppState _instance = FFAppState._internal();
+  static FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
     return _instance;
   }
 
   FFAppState._internal();
+
+  static void reset() {
+    _instance = FFAppState._internal();
+  }
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
@@ -23,9 +27,6 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _currentPageIndex =
           prefs.getInt('ff_currentPageIndex') ?? _currentPageIndex;
-    });
-    _safeInit(() {
-      _authUser = prefs.getString('ff_authUser')?.ref ?? _authUser;
     });
   }
 
@@ -89,20 +90,15 @@ class FFAppState extends ChangeNotifier {
     _findCategories[_index] = updateFn(_findCategories[_index]);
   }
 
+  void insertAtIndexInFindCategories(int _index, String _value) {
+    _findCategories.insert(_index, _value);
+  }
+
   int _currentPageIndex = 0;
   int get currentPageIndex => _currentPageIndex;
   set currentPageIndex(int _value) {
     _currentPageIndex = _value;
     prefs.setInt('ff_currentPageIndex', _value);
-  }
-
-  DocumentReference? _authUser;
-  DocumentReference? get authUser => _authUser;
-  set authUser(DocumentReference? _value) {
-    _authUser = _value;
-    _value != null
-        ? prefs.setString('ff_authUser', _value.path)
-        : prefs.remove('ff_authUser');
   }
 
   final _clientsManager = StreamRequestManager<List<FavoriteClientsRecord>>();

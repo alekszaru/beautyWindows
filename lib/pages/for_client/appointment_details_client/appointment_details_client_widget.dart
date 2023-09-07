@@ -451,8 +451,9 @@ class _AppointmentDetailsClientWidgetState
                                                           return Theme(
                                                             data: ThemeData(
                                                               unselectedWidgetColor:
-                                                                  Color(
-                                                                      0xFF95A1AC),
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
                                                             ),
                                                             child:
                                                                 CheckboxListTile(
@@ -474,16 +475,7 @@ class _AppointmentDetailsClientWidgetState
                                                                 categoryItem,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .headlineSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                    ),
+                                                                    .labelLarge,
                                                               ),
                                                               tileColor: FlutterFlowTheme
                                                                       .of(context)
@@ -527,16 +519,7 @@ class _AppointmentDetailsClientWidgetState
                                                               categoryInListItem,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .headlineSmall
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Roboto',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                  ),
+                                                                  .labelLarge,
                                                             ),
                                                             tileColor: FlutterFlowTheme
                                                                     .of(context)

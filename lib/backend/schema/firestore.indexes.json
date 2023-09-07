@@ -51,6 +51,24 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "isActive",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "time_start",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "appointments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "masterREF",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "time_start",
           "order": "ASCENDING"
         }
@@ -121,24 +139,6 @@
         {
           "fieldPath": "time_start",
           "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "appointments",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "isActive",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "masterREF",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "time_start",
-          "order": "ASCENDING"
         }
       ]
     },

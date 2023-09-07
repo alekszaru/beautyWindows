@@ -12,10 +12,12 @@ class MarkerStruct extends FFFirebaseStruct {
     String? name,
     double? latitude,
     double? longitude,
+    LatLng? latLong,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _latitude = latitude,
         _longitude = longitude,
+        _latLong = latLong,
         super(firestoreUtilData);
 
   // "name" field.
@@ -38,10 +40,17 @@ class MarkerStruct extends FFFirebaseStruct {
   void incrementLongitude(double amount) => _longitude = longitude + amount;
   bool hasLongitude() => _longitude != null;
 
+  // "LatLong" field.
+  LatLng? _latLong;
+  LatLng? get latLong => _latLong;
+  set latLong(LatLng? val) => _latLong = val;
+  bool hasLatLong() => _latLong != null;
+
   static MarkerStruct fromMap(Map<String, dynamic> data) => MarkerStruct(
         name: data['name'] as String?,
         latitude: castToType<double>(data['latitude']),
         longitude: castToType<double>(data['longitude']),
+        latLong: data['LatLong'] as LatLng?,
       );
 
   static MarkerStruct? maybeFromMap(dynamic data) =>
@@ -51,6 +60,7 @@ class MarkerStruct extends FFFirebaseStruct {
         'name': _name,
         'latitude': _latitude,
         'longitude': _longitude,
+        'LatLong': _latLong,
       }.withoutNulls;
 
   @override
@@ -66,6 +76,10 @@ class MarkerStruct extends FFFirebaseStruct {
         'longitude': serializeParam(
           _longitude,
           ParamType.double,
+        ),
+        'LatLong': serializeParam(
+          _latLong,
+          ParamType.LatLng,
         ),
       }.withoutNulls;
 
@@ -86,6 +100,11 @@ class MarkerStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
+        latLong: deserializeParam(
+          data['LatLong'],
+          ParamType.LatLng,
+          false,
+        ),
       );
 
   @override
@@ -96,17 +115,20 @@ class MarkerStruct extends FFFirebaseStruct {
     return other is MarkerStruct &&
         name == other.name &&
         latitude == other.latitude &&
-        longitude == other.longitude;
+        longitude == other.longitude &&
+        latLong == other.latLong;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([name, latitude, longitude]);
+  int get hashCode =>
+      const ListEquality().hash([name, latitude, longitude, latLong]);
 }
 
 MarkerStruct createMarkerStruct({
   String? name,
   double? latitude,
   double? longitude,
+  LatLng? latLong,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -116,6 +138,7 @@ MarkerStruct createMarkerStruct({
       name: name,
       latitude: latitude,
       longitude: longitude,
+      latLong: latLong,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -149,14 +172,17 @@ void addMarkerStructData(
     firestoreData[fieldName] = FieldValue.delete();
     return;
   }
-  if (!forFieldValue && marker.firestoreUtilData.clearUnsetFields) {
+  final clearFields =
+      !forFieldValue && marker.firestoreUtilData.clearUnsetFields;
+  if (clearFields) {
     firestoreData[fieldName] = <String, dynamic>{};
   }
   final markerData = getMarkerFirestoreData(marker, forFieldValue);
   final nestedData = markerData.map((k, v) => MapEntry('$fieldName.$k', v));
 
-  final create = marker.firestoreUtilData.create;
-  firestoreData.addAll(create ? mergeNestedFields(nestedData) : nestedData);
+  final mergeFields = marker.firestoreUtilData.create || clearFields;
+  firestoreData
+      .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
 }
 
 Map<String, dynamic> getMarkerFirestoreData(

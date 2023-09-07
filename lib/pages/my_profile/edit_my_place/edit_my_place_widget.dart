@@ -121,7 +121,7 @@ class _EditMyPlaceWidgetState extends State<EditMyPlaceWidget> {
                           children: [
                             Expanded(
                               child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Text(
                                   'Редагуйте ваше місце роботи',
                                   textAlign: TextAlign.center,

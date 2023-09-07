@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/components/app_card/app_card_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/new_notify_widget.dart';
-import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -74,7 +73,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                   width: 100.0,
                   height: 100.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
                   child: SingleChildScrollView(
                     child: Column(
@@ -84,7 +83,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                           alignment: AlignmentDirectional(0.0, 0.95),
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Container(
                                 width: double.infinity,
                                 height: 300.0,
@@ -108,7 +107,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0x65A1EBF3),
+                                color: Color(0x9A1C1C1C),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -271,6 +270,9 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                 child: Material(
                                   color: Colors.transparent,
                                   elevation: 4.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                   child: Container(
                                     width:
                                         MediaQuery.sizeOf(context).width * 1.0,
@@ -285,6 +287,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                           offset: Offset(0.0, 1.0),
                                         )
                                       ],
+                                      borderRadius: BorderRadius.circular(10.0),
                                       shape: BoxShape.rectangle,
                                     ),
                                     child: InkWell(
@@ -312,7 +315,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                           Expanded(
                                             child: Align(
                                               alignment: AlignmentDirectional(
-                                                  0.9, 0.0),
+                                                  0.90, 0.00),
                                               child: Icon(
                                                 Icons.arrow_forward_ios,
                                                 color: Color(0xFF95A1AC),
@@ -348,6 +351,10 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                         child: Material(
                                           color: Colors.transparent,
                                           elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -365,236 +372,8 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                   offset: Offset(0.0, 1.0),
                                                 )
                                               ],
-                                              shape: BoxShape.rectangle,
-                                            ),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context
-                                                    .pushNamed('editWindows');
-                                              },
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(24.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      'Редагувати розклад',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.9, 0.0),
-                                                      child: Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color:
-                                                            Color(0xFF95A1AC),
-                                                        size: 18.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 4.0,
-                                          child: Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            height: 60.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .background,
-                                                  offset: Offset(0.0, 1.0),
-                                                )
-                                              ],
-                                              shape: BoxShape.rectangle,
-                                            ),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context
-                                                    .pushNamed('editServices');
-                                              },
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(24.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      'Редагувати сервіси',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.9, 0.0),
-                                                      child: Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color:
-                                                            Color(0xFF95A1AC),
-                                                        size: 18.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      if (valueOrDefault<bool>(
-                                          currentUserDocument?.isAdmin, false))
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 10.0),
-                                          child: Material(
-                                            color: Colors.transparent,
-                                            elevation: 4.0,
-                                            child: Container(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: 60.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .background,
-                                                    offset: Offset(0.0, 1.0),
-                                                  )
-                                                ],
-                                                shape: BoxShape.rectangle,
-                                              ),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                    'allUsers',
-                                                    extra: <String, dynamic>{
-                                                      kTransitionInfoKey:
-                                                          TransitionInfo(
-                                                        hasTransition: true,
-                                                        transitionType:
-                                                            PageTransitionType
-                                                                .fade,
-                                                        duration: Duration(
-                                                            milliseconds: 0),
-                                                      ),
-                                                    },
-                                                  );
-                                                },
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Усі юзери',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall,
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.9, 0.0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .arrow_forward_ios,
-                                                          color:
-                                                              Color(0xFF95A1AC),
-                                                          size: 18.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 4.0,
-                                          child: Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            height: 60.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .background,
-                                                  offset: Offset(0.0, 1.0),
-                                                )
-                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                               shape: BoxShape.rectangle,
                                             ),
                                             child: InkWell(
@@ -627,7 +406,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                     child: Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.9, 0.0),
+                                                              0.90, 0.00),
                                                       child: Icon(
                                                         Icons.arrow_forward_ios,
                                                         color:
@@ -648,6 +427,10 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                         child: Material(
                                           color: Colors.transparent,
                                           elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -665,6 +448,8 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                   offset: Offset(0.0, 1.0),
                                                 )
                                               ],
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                               shape: BoxShape.rectangle,
                                             ),
                                             child: InkWell(
@@ -675,7 +460,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                   Colors.transparent,
                                               onTap: () async {
                                                 context
-                                                    .pushNamed('editPortfolio');
+                                                    .pushNamed('editServices');
                                               },
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -686,7 +471,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                             .fromSTEB(24.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Text(
-                                                      'Редагувати портфоліо',
+                                                      'Редагувати сервіси',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -697,7 +482,7 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                     child: Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.9, 0.0),
+                                                              0.90, 0.00),
                                                       child: Icon(
                                                         Icons.arrow_forward_ios,
                                                         color:
@@ -718,6 +503,10 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                         child: Material(
                                           color: Colors.transparent,
                                           elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -735,6 +524,84 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                   offset: Offset(0.0, 1.0),
                                                 )
                                               ],
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              shape: BoxShape.rectangle,
+                                            ),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context
+                                                    .pushNamed('editWindows');
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Text(
+                                                      'Редагувати розклад',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.90, 0.00),
+                                                      child: Icon(
+                                                        Icons.arrow_forward_ios,
+                                                        color:
+                                                            Color(0xFF95A1AC),
+                                                        size: 18.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: 60.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .background,
+                                                  offset: Offset(0.0, 1.0),
+                                                )
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                               shape: BoxShape.rectangle,
                                             ),
                                             child: InkWell(
@@ -767,7 +634,83 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                                     child: Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.9, 0.0),
+                                                              0.90, 0.00),
+                                                      child: Icon(
+                                                        Icons.arrow_forward_ios,
+                                                        color:
+                                                            Color(0xFF95A1AC),
+                                                        size: 18.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 4.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: 60.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .background,
+                                                  offset: Offset(0.0, 1.0),
+                                                )
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              shape: BoxShape.rectangle,
+                                            ),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context
+                                                    .pushNamed('editPortfolio');
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Text(
+                                                      'Редагувати портфоліо',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.90, 0.00),
                                                       child: Icon(
                                                         Icons.arrow_forward_ios,
                                                         color:
@@ -890,398 +833,141 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: DefaultTabController(
-                                length: 2,
-                                initialIndex: 0,
-                                child: Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment(-1.0, 0),
-                                      child: FlutterFlowButtonTabBar(
-                                        useToggleButtonStyle: false,
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Plus Jakarta Sans',
-                                              color: Color(0xFF14181B),
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                        unselectedLabelStyle:
-                                            FlutterFlowTheme.of(context)
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
-                                                  color: Color(0xFF14181B),
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                        labelColor: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        unselectedLabelColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .accent2,
-                                        unselectedBackgroundColor:
-                                            Color(0xFF073E7A),
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                        borderWidth: 2.0,
-                                        borderRadius: 12.0,
-                                        elevation: 0.0,
-                                        labelPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                24.0, 0.0, 24.0, 0.0),
-                                        buttonMargin:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                16.0, 8.0, 0.0, 8.0),
-                                        tabs: [
-                                          Tab(
-                                            text: 'Нові',
-                                          ),
-                                          Tab(
-                                            text: 'Всі',
-                                          ),
-                                        ],
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(12.0),
+                                    bottomRight: Radius.circular(12.0),
+                                    topLeft: Radius.circular(0.0),
+                                    topRight: Radius.circular(0.0),
+                                  ),
+                                  child: Container(
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.75,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12.0),
+                                        bottomRight: Radius.circular(12.0),
+                                        topLeft: Radius.circular(0.0),
+                                        topRight: Radius.circular(0.0),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: TabBarView(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(12.0),
-                                              bottomRight:
-                                                  Radius.circular(12.0),
-                                              topLeft: Radius.circular(0.0),
-                                              topRight: Radius.circular(0.0),
-                                            ),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(12.0),
-                                                  bottomRight:
-                                                      Radius.circular(12.0),
-                                                  topLeft: Radius.circular(0.0),
-                                                  topRight:
-                                                      Radius.circular(0.0),
-                                                ),
-                                              ),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                child: StreamBuilder<
-                                                    List<NotificationsRecord>>(
-                                                  stream:
-                                                      queryNotificationsRecord(
-                                                    queryBuilder:
-                                                        (notificationsRecord) =>
-                                                            notificationsRecord
-                                                                .where(
-                                                                    'userRef',
-                                                                    isEqualTo:
-                                                                        currentUserReference)
-                                                                .where('isNew',
-                                                                    isEqualTo:
-                                                                        true),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    List<NotificationsRecord>
-                                                        listViewNotificationsRecordList =
-                                                        snapshot.data!;
-                                                    if (listViewNotificationsRecordList
-                                                        .isEmpty) {
-                                                      return Image.asset(
-                                                        'assets/images/no-notifications.png',
-                                                        fit: BoxFit.contain,
-                                                      );
-                                                    }
-                                                    return ListView.separated(
-                                                      padding: EdgeInsets.zero,
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount:
-                                                          listViewNotificationsRecordList
-                                                              .length,
-                                                      separatorBuilder:
-                                                          (_, __) => SizedBox(
-                                                              height: 10.0),
-                                                      itemBuilder: (context,
-                                                          listViewIndex) {
-                                                        final listViewNotificationsRecord =
-                                                            listViewNotificationsRecordList[
-                                                                listViewIndex];
-                                                        return Container(
-                                                          decoration:
-                                                              BoxDecoration(),
-                                                          child: InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              await listViewNotificationsRecord
-                                                                  .reference
-                                                                  .update(
-                                                                      createNotificationsRecordData(
-                                                                isNew: false,
-                                                              ));
-
-                                                              context.pushNamed(
-                                                                'appointmentDetailsMaster',
-                                                                queryParameters:
-                                                                    {
-                                                                  'appointmentRef':
-                                                                      serializeParam(
-                                                                    listViewNotificationsRecord
-                                                                        .appREF,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
-                                                            },
-                                                            child:
-                                                                wrapWithModel(
-                                                              model: _model
-                                                                  .newNotifyModels1
-                                                                  .getModel(
-                                                                listViewIndex
-                                                                    .toString(),
-                                                                listViewIndex,
-                                                              ),
-                                                              updateCallback:
-                                                                  () => setState(
-                                                                      () {}),
-                                                              child:
-                                                                  NewNotifyWidget(
-                                                                key: Key(
-                                                                  'Keypc4_${listViewIndex.toString()}',
-                                                                ),
-                                                                notifyRef:
-                                                                    listViewNotificationsRecord
-                                                                        .reference,
-                                                                userREF:
-                                                                    currentUserReference!,
-                                                                appREF:
-                                                                    listViewNotificationsRecord
-                                                                        .appREF!,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
+                                    child: Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, -1.00),
+                                      child: PagedListView<
+                                          DocumentSnapshot<Object?>?,
+                                          NotificationsRecord>.separated(
+                                        pagingController:
+                                            _model.setListViewController2(
+                                          NotificationsRecord.collection
+                                              .where('userRef',
+                                                  isEqualTo:
+                                                      currentUserReference)
+                                              .orderBy('time',
+                                                  descending: true),
+                                        ),
+                                        padding: EdgeInsets.zero,
+                                        reverse: false,
+                                        scrollDirection: Axis.vertical,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 10.0),
+                                        builderDelegate:
+                                            PagedChildBuilderDelegate<
+                                                NotificationsRecord>(
+                                          // Customize what your widget looks like when it's loading the first page.
+                                          firstPageProgressIndicatorBuilder:
+                                              (_) => Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(12.0),
-                                                  bottomRight:
-                                                      Radius.circular(12.0),
-                                                  topLeft: Radius.circular(0.0),
-                                                  topRight:
-                                                      Radius.circular(0.0),
-                                                ),
-                                                child: Container(
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.75,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      bottomLeft:
-                                                          Radius.circular(12.0),
-                                                      bottomRight:
-                                                          Radius.circular(12.0),
-                                                      topLeft:
-                                                          Radius.circular(0.0),
-                                                      topRight:
-                                                          Radius.circular(0.0),
-                                                    ),
-                                                  ),
-                                                  child: Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, -1.0),
-                                                    child: PagedListView<
-                                                        DocumentSnapshot<
-                                                            Object?>?,
-                                                        NotificationsRecord>.separated(
-                                                      pagingController: _model
-                                                          .setListViewController3(
-                                                        NotificationsRecord
-                                                            .collection
-                                                            .where('userRef',
-                                                                isEqualTo:
-                                                                    currentUserReference)
-                                                            .orderBy('time',
-                                                                descending:
-                                                                    true),
-                                                      ),
-                                                      padding: EdgeInsets.zero,
-                                                      reverse: false,
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      separatorBuilder:
-                                                          (_, __) => SizedBox(
-                                                              height: 10.0),
-                                                      builderDelegate:
-                                                          PagedChildBuilderDelegate<
-                                                              NotificationsRecord>(
-                                                        // Customize what your widget looks like when it's loading the first page.
-                                                        firstPageProgressIndicatorBuilder:
-                                                            (_) => Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        // Customize what your widget looks like when it's loading another page.
-                                                        newPageProgressIndicatorBuilder:
-                                                            (_) => Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        noItemsFoundIndicatorBuilder:
-                                                            (_) => Image.asset(
-                                                          'assets/images/no-notifications.png',
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                        itemBuilder: (context,
-                                                            _, listViewIndex) {
-                                                          final listViewNotificationsRecord =
-                                                              _model.listViewPagingController3!
-                                                                      .itemList![
-                                                                  listViewIndex];
-                                                          return InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              await listViewNotificationsRecord
-                                                                  .reference
-                                                                  .update(
-                                                                      createNotificationsRecordData(
-                                                                isNew: false,
-                                                              ));
-
-                                                              context.pushNamed(
-                                                                'appointmentDetailsMaster',
-                                                                queryParameters:
-                                                                    {
-                                                                  'appointmentRef':
-                                                                      serializeParam(
-                                                                    listViewNotificationsRecord
-                                                                        .appREF,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
-                                                            },
-                                                            child:
-                                                                NewNotifyWidget(
-                                                              key: Key(
-                                                                  'Keyvzw_${listViewIndex}_of_${_model.listViewPagingController3!.itemList!.length}'),
-                                                              notifyRef:
-                                                                  listViewNotificationsRecord
-                                                                      .reference,
-                                                              userREF:
-                                                                  currentUserReference!,
-                                                              appREF:
-                                                                  listViewNotificationsRecord
-                                                                      .appREF!,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
+                                          // Customize what your widget looks like when it's loading another page.
+                                          newPageProgressIndicatorBuilder:
+                                              (_) => Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ],
+                                          noItemsFoundIndicatorBuilder: (_) =>
+                                              Image.asset(
+                                            'assets/images/no-notifications.png',
+                                            fit: BoxFit.contain,
+                                          ),
+                                          itemBuilder:
+                                              (context, _, listViewIndex) {
+                                            final listViewNotificationsRecord =
+                                                _model
+                                                    .listViewPagingController2!
+                                                    .itemList![listViewIndex];
+                                            return InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                await listViewNotificationsRecord
+                                                    .reference
+                                                    .update(
+                                                        createNotificationsRecordData(
+                                                  isNew: false,
+                                                ));
+
+                                                context.pushNamed(
+                                                  'appointmentDetailsMaster',
+                                                  queryParameters: {
+                                                    'appointmentRef':
+                                                        serializeParam(
+                                                      listViewNotificationsRecord
+                                                          .appREF,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: NewNotifyWidget(
+                                                key: Key(
+                                                    'Keymn5_${listViewIndex}_of_${_model.listViewPagingController2!.itemList!.length}'),
+                                                notifyRef:
+                                                    listViewNotificationsRecord
+                                                        .reference,
+                                                userREF: currentUserReference!,
+                                                appREF:
+                                                    listViewNotificationsRecord
+                                                        .appREF!,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ],
                         ),
@@ -1325,13 +1011,6 @@ class _MainPageMasterWidgetState extends State<MainPageMasterWidget> {
                                 fit: BoxFit.contain,
                               ),
                             ),
-                          ),
-                        ),
-                        AuthUserStreamWidget(
-                          builder: (context) => Text(
-                            'Привіт, ${currentUserDisplayName}!',
-                            maxLines: 2,
-                            style: FlutterFlowTheme.of(context).titleMedium,
                           ),
                         ),
                         FutureBuilder<int>(

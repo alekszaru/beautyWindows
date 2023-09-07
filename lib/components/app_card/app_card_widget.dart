@@ -75,44 +75,62 @@ class _AppCardWidgetState extends State<AppCardWidget> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () async {
-            if (containerAppointmentsRecord.isActive == false) {
-              if (currentUserReference ==
-                  containerAppointmentsRecord.masterREF) {
-                context.pushNamed(
-                  'appointmentDetailsMaster',
-                  queryParameters: {
-                    'appointmentRef': serializeParam(
-                      widget.appREF,
-                      ParamType.DocumentReference,
-                    ),
-                  }.withoutNulls,
-                );
-              } else {
-                context.pushNamed(
-                  'appointmentDetailsClient',
-                  queryParameters: {
-                    'appointmentRef': serializeParam(
-                      widget.appREF,
-                      ParamType.DocumentReference,
-                    ),
-                  }.withoutNulls,
-                );
-              }
-            } else {
-              await showModalBottomSheet(
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                enableDrag: false,
+            if (containerAppointmentsRecord.timeStart! < getCurrentTimestamp) {
+              await showDialog(
                 context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: AddClientTowindowSheetWidget(
-                      appointmentREF: containerAppointmentsRecord.reference,
-                    ),
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    title: Text('Запис прострочено'),
+                    content: Text('Оберіть інший запис'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: Text('Ok'),
+                      ),
+                    ],
                   );
                 },
-              ).then((value) => setState(() {}));
+              );
+            } else {
+              if (containerAppointmentsRecord.isActive == false) {
+                if (currentUserReference ==
+                    containerAppointmentsRecord.masterREF) {
+                  context.pushNamed(
+                    'appointmentDetailsMaster',
+                    queryParameters: {
+                      'appointmentRef': serializeParam(
+                        widget.appREF,
+                        ParamType.DocumentReference,
+                      ),
+                    }.withoutNulls,
+                  );
+                } else {
+                  context.pushNamed(
+                    'appointmentDetailsClient',
+                    queryParameters: {
+                      'appointmentRef': serializeParam(
+                        widget.appREF,
+                        ParamType.DocumentReference,
+                      ),
+                    }.withoutNulls,
+                  );
+                }
+              } else {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: AddClientTowindowSheetWidget(
+                        appointmentREF: containerAppointmentsRecord.reference,
+                      ),
+                    );
+                  },
+                ).then((value) => setState(() {}));
+              }
             }
           },
           child: Material(
@@ -141,7 +159,18 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                 children: [
                   if (containerAppointmentsRecord.isActive == true)
                     Container(
-                      decoration: BoxDecoration(),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            FlutterFlowTheme.of(context).accent2,
+                            FlutterFlowTheme.of(context).primaryBackground
+                          ],
+                          stops: [0.7, 1.0],
+                          begin: AlignmentDirectional(1.0, 0.0),
+                          end: AlignmentDirectional(-1.0, 0),
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -153,13 +182,21 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Вільне віконце',
+                                  containerAppointmentsRecord.timeStart! <
+                                          getCurrentTimestamp
+                                      ? 'Прострочене віконце'
+                                      : 'Вільне віконце',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: containerAppointmentsRecord
+                                                    .timeStart! <
+                                                getCurrentTimestamp
+                                            ? FlutterFlowTheme.of(context)
+                                                .secondaryBackground
+                                            : FlutterFlowTheme.of(context)
+                                                .primaryText,
                                         fontSize: 25.0,
                                         fontWeight: FontWeight.w800,
                                       ),
@@ -181,8 +218,13 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color:
+                                        containerAppointmentsRecord.timeStart! <
+                                                getCurrentTimestamp
+                                            ? FlutterFlowTheme.of(context)
+                                                .secondaryBackground
+                                            : FlutterFlowTheme.of(context)
+                                                .primaryText,
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.w900,
                                   ),
@@ -224,175 +266,183 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                 final masterRowUsersRecord = snapshot.data!;
                                 return Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 10.0, 10.0, 10.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        child: Image.network(
-                                          'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/beauty-booking-wi5o7z/assets/i2rdl5yoqnls/woman.jpg',
-                                          width: 100.0,
-                                          height: 100.0,
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 0.0, 0.0),
-                                      child: Column(
+                                    Expanded(
+                                      flex: 6,
+                                      child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            decoration: BoxDecoration(),
-                                            child:
-                                                StreamBuilder<TempUsersRecord>(
-                                              stream:
-                                                  TempUsersRecord.getDocument(
-                                                      containerAppointmentsRecord
-                                                          .tempUserREF!),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 10.0, 10.0, 10.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              child: Image.network(
+                                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/beauty-booking-wi5o7z/assets/i2rdl5yoqnls/woman.jpg',
+                                                width: 100.0,
+                                                height: 100.0,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(),
+                                                child: StreamBuilder<
+                                                    TempUsersRecord>(
+                                                  stream: TempUsersRecord
+                                                      .getDocument(
+                                                          containerAppointmentsRecord
+                                                              .tempUserREF!),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                final rowTempUsersRecord =
-                                                    snapshot.data!;
-                                                return Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Column(
+                                                      );
+                                                    }
+                                                    final rowTempUsersRecord =
+                                                        snapshot.data!;
+                                                    return Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          valueOrDefault<
-                                                              String>(
-                                                            rowTempUsersRecord
-                                                                .displayName,
-                                                            'name',
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Roboto',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                        Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                rowTempUsersRecord
+                                                                    .displayName,
+                                                                'name',
                                                               ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0),
+                                                              child: Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  rowTempUsersRecord
+                                                                      .phoneNumber,
+                                                                  'phone',
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      fontSize:
+                                                                          12.0,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      10.0),
-                                                          child: Text(
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              if (containerAppointmentsRecord
+                                                      .categoriesNameList
+                                                      .length >
+                                                  0)
+                                                Container(
+                                                  decoration: BoxDecoration(),
+                                                  child: Builder(
+                                                    builder: (context) {
+                                                      final categoryInApp =
+                                                          containerAppointmentsRecord
+                                                              .categoriesNameList
+                                                              .map((e) => e)
+                                                              .toList();
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: List.generate(
+                                                            categoryInApp
+                                                                .length,
+                                                            (categoryInAppIndex) {
+                                                          final categoryInAppItem =
+                                                              categoryInApp[
+                                                                  categoryInAppIndex];
+                                                          return Text(
                                                             valueOrDefault<
                                                                 String>(
-                                                              rowTempUsersRecord
-                                                                  .phoneNumber,
-                                                              'phone',
+                                                              '${valueOrDefault<String>(
+                                                                categoryInAppItem,
+                                                                'category',
+                                                              )}',
+                                                              'category',
                                                             ),
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  fontSize:
-                                                                      12.0,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          if (containerAppointmentsRecord
-                                                  .categoriesNameList.length >
-                                              0)
-                                            Container(
-                                              decoration: BoxDecoration(),
-                                              child: Builder(
-                                                builder: (context) {
-                                                  final categoryInApp =
-                                                      containerAppointmentsRecord
-                                                          .categoriesNameList
-                                                          .map((e) => e)
-                                                          .toList();
-                                                  return Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: List.generate(
-                                                        categoryInApp.length,
-                                                        (categoryInAppIndex) {
-                                                      final categoryInAppItem =
-                                                          categoryInApp[
-                                                              categoryInAppIndex];
-                                                      return Text(
-                                                        valueOrDefault<String>(
-                                                          '${valueOrDefault<String>(
-                                                            categoryInAppItem,
-                                                            'category',
-                                                          )}',
-                                                          'category',
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
@@ -406,19 +456,22 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                                       FontWeight
                                                                           .w800,
                                                                 ),
+                                                          );
+                                                        }),
                                                       );
-                                                    }),
-                                                  );
-                                                },
-                                              ),
-                                            ),
+                                                    },
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ),
-                                    Expanded(
+                                    Flexible(
+                                      flex: 2,
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 0.0, 0.0),
+                                            10.0, 0.0, 10.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -442,6 +495,8 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                     FFLocalizations.of(context)
                                                         .languageCode,
                                               )}',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 3,
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
@@ -450,7 +505,7 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
-                                                    fontSize: 18.0,
+                                                    fontSize: 14.0,
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                             ),
@@ -520,105 +575,150 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                     return Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.start,
                                       children: [
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 10.0, 10.0, 10.0),
-                                            child: Hero(
-                                              tag: currentUserReference ==
-                                                      containerAppointmentsRecord
-                                                          .masterREF
-                                                  ? clientRowUsersRecord
-                                                      .photoUrl
-                                                  : masterRowUsersRecord
-                                                      .photoUrl,
-                                              transitionOnUserGestures: true,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                child: Image.network(
-                                                  currentUserReference ==
-                                                          containerAppointmentsRecord
-                                                              .masterREF
-                                                      ? clientRowUsersRecord
-                                                          .photoUrl
-                                                      : masterRowUsersRecord
-                                                          .photoUrl,
-                                                  width: 100.0,
-                                                  height: 100.0,
-                                                  fit: BoxFit.cover,
+                                        Expanded(
+                                          flex: 6,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.00, 0.00),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10.0, 10.0,
+                                                          10.0, 10.0),
+                                                  child: Hero(
+                                                    tag: currentUserReference ==
+                                                            containerAppointmentsRecord
+                                                                .masterREF
+                                                        ? clientRowUsersRecord
+                                                            .photoUrl
+                                                        : masterRowUsersRecord
+                                                            .photoUrl,
+                                                    transitionOnUserGestures:
+                                                        true,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                      child: Image.network(
+                                                        currentUserReference ==
+                                                                containerAppointmentsRecord
+                                                                    .masterREF
+                                                            ? clientRowUsersRecord
+                                                                .photoUrl
+                                                            : masterRowUsersRecord
+                                                                .photoUrl,
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              currentUserReference ==
-                                                                      containerAppointmentsRecord
-                                                                          .masterREF
-                                                                  ? clientRowUsersRecord
-                                                                      .displayName
-                                                                  : masterRowUsersRecord
-                                                                      .displayName,
-                                                              'user',
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                currentUserReference ==
+                                                                        containerAppointmentsRecord
+                                                                            .masterREF
+                                                                    ? clientRowUsersRecord
+                                                                        .displayName
+                                                                    : masterRowUsersRecord
+                                                                        .displayName,
+                                                                'user',
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                             ),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0),
+                                                              child: Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  currentUserReference ==
+                                                                          containerAppointmentsRecord
+                                                                              .masterREF
+                                                                      ? clientRowUsersRecord
+                                                                          .phoneNumber
+                                                                      : masterRowUsersRecord
+                                                                          .phoneNumber,
+                                                                  'user',
                                                                 ),
-                                                          ),
-                                                          Padding(
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      fontSize:
+                                                                          12.0,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      if (containerAppointmentsRecord
+                                                              .categoriesNameList
+                                                              .length >
+                                                          0)
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
@@ -626,106 +726,67 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                                         0.0,
                                                                         0.0,
                                                                         10.0),
-                                                            child: Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                currentUserReference ==
-                                                                        containerAppointmentsRecord
-                                                                            .masterREF
-                                                                    ? clientRowUsersRecord
-                                                                        .phoneNumber
-                                                                    : masterRowUsersRecord
-                                                                        .phoneNumber,
-                                                                'user',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Roboto',
-                                                                    fontSize:
-                                                                        12.0,
-                                                                  ),
+                                                            child: Builder(
+                                                              builder:
+                                                                  (context) {
+                                                                final categoriesInApp =
+                                                                    containerAppointmentsRecord
+                                                                        .categoriesNameList
+                                                                        .map((e) =>
+                                                                            e)
+                                                                        .toList();
+                                                                return Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: List.generate(
+                                                                      categoriesInApp
+                                                                          .length,
+                                                                      (categoriesInAppIndex) {
+                                                                    final categoriesInAppItem =
+                                                                        categoriesInApp[
+                                                                            categoriesInAppIndex];
+                                                                    return Text(
+                                                                      '${categoriesInAppItem} ',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Roboto',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w800,
+                                                                          ),
+                                                                    );
+                                                                  }),
+                                                                );
+                                                              },
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    if (containerAppointmentsRecord
-                                                            .categoriesNameList
-                                                            .length >
-                                                        0)
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      10.0),
-                                                          child: Builder(
-                                                            builder: (context) {
-                                                              final categoriesInApp =
-                                                                  containerAppointmentsRecord
-                                                                      .categoriesNameList
-                                                                      .map(
-                                                                          (e) =>
-                                                                              e)
-                                                                      .toList();
-                                                              return Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: List.generate(
-                                                                    categoriesInApp
-                                                                        .length,
-                                                                    (categoriesInAppIndex) {
-                                                                  final categoriesInAppItem =
-                                                                      categoriesInApp[
-                                                                          categoriesInAppIndex];
-                                                                  return Text(
-                                                                    '${categoriesInAppItem} ',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w800,
-                                                                        ),
-                                                                  );
-                                                                }),
-                                                              );
-                                                            },
-                                                          ),
                                                         ),
-                                                      ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Expanded(
+                                        Flexible(
+                                          flex: 2,
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
+                                                    10.0, 0.0, 10.0, 0.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -749,6 +810,8 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                             context)
                                                         .languageCode,
                                                   )}',
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 3,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -758,7 +821,7 @@ class _AppCardWidgetState extends State<AppCardWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryText,
-                                                        fontSize: 18.0,
+                                                        fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w900,
                                                       ),

@@ -48,7 +48,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
       width: double.infinity,
       height: 75.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Stack(
         alignment: AlignmentDirectional(0.0, 0.0),
